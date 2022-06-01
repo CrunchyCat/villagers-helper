@@ -1,8 +1,7 @@
 /**
  * index.tsx
  *
- * This is the entry file for the application, only setup and boilerplate
- * code.
+ * This is the entry file for the application, only setup and boilerplate code.
  */
 
 import 'react-app-polyfill/ie11'
@@ -11,11 +10,12 @@ import 'react-app-polyfill/stable'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import FontFaceObserver from 'fontfaceobserver'
+// import FontFaceObserver from 'fontfaceobserver' //TODO: Observe font loading (1/2)
 
 // Use consistent styling
 import 'sanitize.css/sanitize.css'
 
+// Import root app
 import { App } from 'app'
 
 import { HelmetProvider } from 'react-helmet-async'
@@ -29,14 +29,13 @@ import reportWebVitals from 'reportWebVitals'
 // Initialize languages
 import './locales/i18n'
 
-// Observe loading of Inter (to remove 'Inter', remove the <link> tag in
-// the index.html file and this observer)
-const openSansObserver = new FontFaceObserver('Inter', {})
+/* //TODO: Observe font loading (2/2)
+const openSansObserver = new FontFaceObserver('Inter', {}) // Observe loading of Inter
 
-// When Inter is loaded, add a font-family using Inter to the body
 openSansObserver.load().then(() => {
-  document.body.classList.add('fontLoaded')
+  document.body.classList.add('fontLoaded') // When Inter is loaded, add a font-family using Inter to the body
 })
+*/
 
 const store = configureAppStore()
 const MOUNT_NODE = document.getElementById('root') as HTMLElement

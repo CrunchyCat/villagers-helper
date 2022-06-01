@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 import { StyleConstants } from './StyleConstants'
-/* istanbul ignore next */
+
 export const GlobalStyle = createGlobalStyle`
   html,
   body {
@@ -15,10 +15,11 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${p => p.theme.background};
   }
 
-  body.fontLoaded {
-    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  #root {
+    min-height: 100%;
+    min-width: 100%;
   }
-  
+
   p,
   label {
     line-height: 1.5em;
@@ -34,3 +35,11 @@ export const GlobalStyle = createGlobalStyle`
     height: 1.5rem;
   }
 `
+
+/* //TODO: Add after body when there are fonts to load (Replace Inter with that Font)
+body.fontLoaded {
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+*/
+
+//NOTE: Apply serif fonts: "font-family: Georgia, Times, 'Times New Roman', serif;"
