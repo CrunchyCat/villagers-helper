@@ -5,6 +5,8 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import { GlobalStyle } from 'styles/global-styles'
 
 import { HomePage } from './pages/HomePage/Loadable'
+import { CardsPage } from './pages/CardsPage'
+import { SettingsPage } from './pages/SettingsPage'
 import { NotFoundPage } from './pages/NotFoundPage/Loadable'
 import { useTranslation } from 'react-i18next'
 
@@ -19,6 +21,8 @@ export function App() {
       ></Helmet>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/cards" component={CardsPage} />
+        <Route exact path="/settings" component={SettingsPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

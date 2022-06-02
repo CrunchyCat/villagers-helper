@@ -24,19 +24,29 @@ export const sizes = {
   xlarge: 1920
 }
 
-// Iterate through the sizes and create a media template
-export const media = (Object.keys(sizes) as Array<keyof typeof sizes>).reduce(
-  (acc, label) => {
-    acc[label] = (first: any, ...interpolations: any[]) => css`
-      @media (min-width: ${sizes[label]}px) {
-        ${css(first, ...interpolations)}
-      }
-    `
+// Minimum Window Width Media Query
+export const mediaMin = (
+  Object.keys(sizes) as Array<keyof typeof sizes>
+).reduce((acc, label) => {
+  acc[label] = (first: any, ...interpolations: any[]) => css`
+    @media (min-width: ${sizes[label]}px) {
+      ${css(first, ...interpolations)}
+    }
+  `
+  return acc
+}, {} as { [key in keyof typeof sizes]: MediaFunction })
 
-    return acc
-  },
-  {} as { [key in keyof typeof sizes]: MediaFunction }
-)
+// Maximum Window Width Media Query
+export const mediaMax = (
+  Object.keys(sizes) as Array<keyof typeof sizes>
+).reduce((acc, label) => {
+  acc[label] = (first: any, ...interpolations: any[]) => css`
+    @media (max-width: ${sizes[label]}px) {
+      ${css(first, ...interpolations)}
+    }
+  `
+  return acc
+}, {} as { [key in keyof typeof sizes]: MediaFunction })
 
 /*
  * @types/styled-component is not working properly as explained in the github issue referenced above.
@@ -55,7 +65,7 @@ type MediaFunction = <P extends object>(
 const SomeDiv = styled.div`
   display: flex;
   ....
-  ${media.medium`
+  ${mediaMin.medium`
     display: block
   `}
 `;
