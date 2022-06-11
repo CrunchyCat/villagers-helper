@@ -9,7 +9,5 @@ import { LoadingPage } from 'app/pages/LoadingPage'
 export const CardsPage = lazyLoad(
   () => import('./index'),
   module => module.CardsPage,
-  {
-    fallback: <LoadingPage />
-  }
+  { fallback: <LoadingPage /> }
 )

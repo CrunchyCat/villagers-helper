@@ -10,7 +10,7 @@ import { selectThemeKey } from 'styles/theme/slice/selectors'
 import { useTranslation } from 'react-i18next'
 import { messages } from './messages'
 
-export function ThemeSwitch() {
+export const ThemeSwitch = () => {
   const { t } = useTranslation()
   const theme = useSelector(selectThemeKey)
   const dispatch = useDispatch()

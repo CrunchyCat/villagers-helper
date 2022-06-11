@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { FormLabel } from 'app/components/FormLabel'
-import { Radio } from 'app/components/Radio'
 import styled from 'styled-components/macro'
 import { useTranslation } from 'react-i18next'
 import { messages } from './messages'
+import { FormLabel } from 'app/components/FormLabel'
+import { Radio } from 'app/components/Radio'
 
-export function LanguageSwitch() {
+export const LanguageSwitch = () => {
   const { t, i18n } = useTranslation()
   const handleLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const language = event.target.value

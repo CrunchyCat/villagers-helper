@@ -9,7 +9,5 @@ import { LoadingPage } from 'app/pages/LoadingPage'
 export const NotFoundPage = lazyLoad(
   () => import('./index'),
   module => module.NotFoundPage,
-  {
-    fallback: <LoadingPage />
-  }
+  { fallback: <LoadingPage /> }
 )

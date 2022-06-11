@@ -10,10 +10,8 @@ const LoadingWrapper = styled.div`
   justify-content: center;
 `
 
-export function LoadingPage() {
-  return (
-    <LoadingWrapper>
-      <LoadingIndicator />
-    </LoadingWrapper>
-  )
-}
+export const LoadingPage = () => (
+  <LoadingWrapper>
+    <LoadingIndicator />
+  </LoadingWrapper>
+)

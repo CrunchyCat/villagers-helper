@@ -9,7 +9,5 @@ import { LoadingPage } from 'app/pages/LoadingPage'
 export const SettingsPage = lazyLoad(
   () => import('./index'),
   module => module.SettingsPage,
-  {
-    fallback: <LoadingPage />
-  }
+  { fallback: <LoadingPage /> }
 )
