@@ -1,39 +1,30 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { ReactComponent as DocumentationIcon } from './assets/documentation-icon.svg'
-import { ReactComponent as GithubIcon } from './assets/github-icon.svg'
+import { Link as RouterLink } from 'react-router-dom'
 
-export function Nav() {
-  return (
-    <Wrapper>
-      <Item
-        href="https://cansahin.gitbook.io/react-boilerplate-cra-template/"
-        target="_blank"
-        title="Documentation Page"
-        rel="noopener noreferrer"
-      >
-        <DocumentationIcon />
-        Documentation
-      </Item>
-      <Item
-        href="https://github.com/react-boilerplate/react-boilerplate-cra-template"
-        target="_blank"
-        title="Github Page"
-        rel="noopener noreferrer"
-      >
-        <GithubIcon />
-        Github
-      </Item>
-    </Wrapper>
-  )
-}
+export const Nav = () => (
+  <Wrapper>
+    <Item to="/rules" title="game rules">
+      rules
+    </Item>
+    <Item to="/configurations" title="game configurations">
+      configurations
+    </Item>
+    <Item to="/cards" title="game cards">
+      cards
+    </Item>
+    <Item to="/settings" title="settings">
+      settings
+    </Item>
+  </Wrapper>
+)
 
 const Wrapper = styled.nav`
   display: flex;
   margin-right: -1rem;
 `
 
-const Item = styled.a`
+const Item = styled(RouterLink)`
   color: ${p => p.theme.primary};
   cursor: pointer;
   text-decoration: none;

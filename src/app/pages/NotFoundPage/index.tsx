@@ -1,36 +1,35 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { P } from './P'
-import { Link } from 'app/components/Link'
-import { NavBar } from 'app/components/NavBar'
-import { Helmet } from 'react-helmet-async'
 import { StyleConstants } from 'styles/StyleConstants'
+import { Helmet } from 'react-helmet-async'
+import { NavBar } from 'app/components/NavBar'
+import { P } from 'app/components/P'
+import { Link } from 'app/components/Link'
 
-export function NotFoundPage() {
-  return (
-    <>
-      <Helmet>
-        <title>404 Page Not Found</title>
-        <meta name="description" content="Page not found" />
-      </Helmet>
-      <NavBar />
-      <Wrapper>
-        <Title>
-          4
-          <span role="img" aria-label="Crying Face">
-            😢
-          </span>
-          4
-        </Title>
-        <P>Page not found.</P>
-        <Link to={process.env.PUBLIC_URL + '/'}>Return to Home Page</Link>
-      </Wrapper>
-    </>
-  )
-}
+export const NotFoundPage = () => (
+  <>
+    <Helmet>
+      <title>404</title>
+      <meta name="description" content="Page not found" />
+    </Helmet>
+    <NavBar />
+    <Wrapper>
+      <Title>
+        4
+        <span role="img" aria-label="Crying Face">
+          😢
+        </span>
+        4
+      </Title>
+      <P>Page not found.</P>
+      <Link to="/">Return to Home Page</Link>
+    </Wrapper>
+  </>
+)
 
+//TODO: Fix Scrolling with Toolbar hidden on iOS
 const Wrapper = styled.div`
-  height: calc(100vh - ${StyleConstants.NAV_BAR_HEIGHT});
+  height: calc(${window.innerHeight}px - ${StyleConstants.NAV_BAR_HEIGHT});
   display: flex;
   align-items: center;
   justify-content: center;
