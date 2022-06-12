@@ -14,14 +14,12 @@ interface Props extends InputProps {
 }
 
 export const Radio = memo(
-  ({ id, label, className, isSelected, ...restOf }: Props) => {
-    return (
-      <Wrapper className={className}>
-        <input type="radio" id={id} checked={isSelected} {...restOf} />
-        <label htmlFor={id}>{label}</label>
-      </Wrapper>
-    )
-  }
+  ({ id, label, className, isSelected, ...restOf }: Props) => (
+    <Wrapper className={className}>
+      <input type="radio" id={id} checked={isSelected} {...restOf} />
+      <label htmlFor={id}>{label}</label>
+    </Wrapper>
+  )
 )
 
 const Wrapper = styled.div`
