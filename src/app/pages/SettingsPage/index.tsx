@@ -19,12 +19,10 @@ export const SettingsPage = () => (
       <Title>settings</Title>
       <P>some settings</P>
       <SettingsWrapper>
-        <div>
-          <FormLabel>CONTENT</FormLabel>
-          <P>select what expansions to include</P>
-          <P>{window.innerHeight}</P>
-          {/* TODO: Allow card expansion selection & remove above */}
-        </div>
+        <FormLabel>CONTENT</FormLabel>
+        <P>select what expansions to include</P>
+        <P>{window.innerHeight}</P>
+        {/* TODO: Allow card expansion selection & remove above */}
         <LanguageSwitch />
         <ThemeSwitch />
       </SettingsWrapper>
