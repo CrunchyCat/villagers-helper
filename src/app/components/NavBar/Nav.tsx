@@ -7,7 +7,7 @@ export const Nav = () => (
     <Item to="/rules" title="game rules">
       rules
     </Item>
-    <Item to="/configurations" title="game configurations">
+    <Item to="/configs" title="game configurations">
       configurations
     </Item>
     <Item to="/cards" title="game cards">

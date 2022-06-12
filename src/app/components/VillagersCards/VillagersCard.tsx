@@ -30,7 +30,12 @@ export const VillagersCard = ({ img_front, img_back, name, color }: Props) => {
         }}
       />
       <InfoCard show={shouldFlip} color={color}>
-        <InfoText>{name}</InfoText>
+        <InfoText color={color}>{name}</InfoText>
+        <CardOptions>
+          <CardOption>←</CardOption>
+          <CardOption>i</CardOption>
+          <CardOption>X</CardOption>
+        </CardOptions>
       </InfoCard>
     </CardHolder>
   )
@@ -65,16 +70,42 @@ const InfoCard = styled.div<{ show: boolean; color: string }>`
   left: 11%;
   width: 82%;
   height: 82%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   visibility: ${p => (p.show ? 'visible' : 'hidden')};
-  background-color: ${p => p.color}D0;
   border-radius: 6.5%/4%;
   pointer-events: none;
 `
 
-const InfoText = styled.div`
+const InfoText = styled.div<{ color: string }>`
   font-size: 1.2rem;
   font-weight: bold;
-  color: ${p => p.theme.text};
   text-align: center;
+  color: ${p => p.theme.text};
+  background-color: ${p => p.theme.backgroundVariant};
+  opacity: 0.8;
+  border-radius: 1.5rem;
   margin: 0.5rem 0;
+`
+
+const CardOptions = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+`
+
+const CardOption = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  color: ${p => p.theme.text};
+  background-color: ${p => p.theme.backgroundVariant};
+  border: 0.2rem solid ${p => p.theme.text};
+  border-radius: 50%;
+  opacity: 0.8;
+  cursor: pointer;
+  font-weight: 900;
 `
