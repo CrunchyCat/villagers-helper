@@ -21,7 +21,7 @@ export const NotFoundPage = () => (
         </span>
         4
       </Title>
-      <P>Page not found.</P>
+      <P>page not found</P>
       <Link to="/">Return to Home Page</Link>
     </Wrapper>
   </>
@@ -30,18 +30,18 @@ export const NotFoundPage = () => (
 //TODO: Fix Scrolling with Toolbar hidden on iOS
 const Wrapper = styled.div`
   height: calc(${window.innerHeight}px - ${StyleConstants.NAV_BAR_HEIGHT});
+  min-height: 320px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  min-height: 320px;
 `
 
 const Title = styled.div`
   margin-top: -8vh;
+  font-size: 3.375rem;
   font-weight: bold;
   color: ${p => p.theme.text};
-  font-size: 3.375rem;
 
   span {
     font-size: 3.125rem;

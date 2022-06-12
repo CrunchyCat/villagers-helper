@@ -28,20 +28,21 @@ export const HomePage = () => (
   </>
 )
 
+//TODO: Remove justify-content, height, min-height from Wrapper (only for centering vertically)
 const Wrapper = styled.main`
   height: calc(${window.innerHeight}px - ${StyleConstants.NAV_BAR_HEIGHT});
+  min-height: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 320px;
 `
 
 const Title = styled.h1`
+  margin-top: -8vh;
   font-size: 2rem;
   font-weight: bold;
   color: ${p => p.theme.text};
-  margin: 1rem 0;
 `
 
 const Lead = styled.p`

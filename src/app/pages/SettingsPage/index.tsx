@@ -33,26 +33,21 @@ export const SettingsPage = () => (
 //TODO: Fix Scrolling with Toolbar hidden on iOS
 const Wrapper = styled.div`
   height: calc(${window.innerHeight}px - ${StyleConstants.NAV_BAR_HEIGHT});
-  display: flex;
-  align-items: center;
-  flex-direction: column;
   min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 const SettingsWrapper = styled.div`
   height: 100%;
   display: flex;
-  justify-content: space-evenly;
   flex-direction: column;
+  justify-content: space-evenly;
 `
 
 const Title = styled.div`
-  padding-top: 1vh;
+  font-size: 3.375rem;
   font-weight: bold;
   color: ${p => p.theme.text};
-  font-size: 3.375rem;
-
-  span {
-    font-size: 3.125rem;
-  }
 `

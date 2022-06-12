@@ -22,14 +22,12 @@ export const CardsPage = () => (
 //TODO: Fix Scrolling with Toolbar hidden on iOS
 const Wrapper = styled.div`
   display: flex;
-  align-items: center;
   flex-direction: column;
-  min-height: 320px;
+  align-items: center;
 `
 
 const Title = styled.div`
-  padding-top: 1vh;
+  font-size: 3.375rem;
   font-weight: bold;
   color: ${p => p.theme.text};
-  font-size: 3.375rem;
 `

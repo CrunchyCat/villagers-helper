@@ -49,7 +49,7 @@ const Card = styled.img<{ color: string; flip: boolean; flipRight: boolean }>`
   border-radius: 6.5%/4%;
   border: groove ${p => p.color};
   border-width: 0 1px 1px 0;
-  box-shadow: 0.075em 0.075em 0.15em ${p => p.color};
+  box-shadow: 0.075rem 0.075rem 0.15rem ${p => p.color};
   transform: ${p =>
     p.flip
       ? 'rotate3d(0, 0, 0, 0, 0);'
