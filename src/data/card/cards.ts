@@ -235,10 +235,8 @@ export type VillagersCardDetails = {
   img_back: string
 }
 
-export type VillagersSuit = typeof suits[0]
-
 export type CardSet = {
-  id: string
+  id: number
   name: string
   img: string
   color: string
