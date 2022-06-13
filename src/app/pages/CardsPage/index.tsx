@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import { Helmet } from 'react-helmet-async'
 import { NavBar } from 'app/components/NavBar'
 import { VillagersCards } from 'app/components/VillagersCards'
+import { CardSet, packs } from 'data/card/cards'
 
 export const CardsPage = () => (
   <>
@@ -14,7 +15,7 @@ export const CardsPage = () => (
     <Wrapper>
       <Title>cards</Title>
       {/* TODO: Put Filters and Search at Top */}
-      <VillagersCards />
+      <VillagersCards cardSets={loadCards()} />
     </Wrapper>
   </>
 )
@@ -31,3 +32,9 @@ const Title = styled.div`
   font-weight: bold;
   color: ${p => p.theme.text};
 `
+
+const loadCards = (): CardSet[] => {
+  console.log('CARD DATA', packs) //TODO: Remove this
+  //TODO: Return appropriate card sets
+  return packs
+}
