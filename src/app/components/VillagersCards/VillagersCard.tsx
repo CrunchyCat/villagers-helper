@@ -1,12 +1,20 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { VillagersCardDetails } from './slice/types'
+import { VillagersCardDetails } from 'data/card/cards'
 
 interface Props extends VillagersCardDetails {
   color: string
+  selectCard: (id: string) => void
 }
 
-export const VillagersCard = ({ img_front, img_back, name, color }: Props) => {
+export const VillagersCard = ({
+  id,
+  img_front,
+  img_back,
+  name,
+  color,
+  selectCard
+}: Props) => {
   const [shouldFlip, setShouldFlip] = React.useState(false)
   const [didFlip, setDidFlip] = React.useState(false)
 
@@ -32,8 +40,7 @@ export const VillagersCard = ({ img_front, img_back, name, color }: Props) => {
       <InfoCard show={shouldFlip} color={color}>
         <InfoText color={color}>{name}</InfoText>
         <CardOptions>
-          <CardOption>←</CardOption>
-          <CardOption>i</CardOption>
+          <CardOption onClick={() => selectCard(id || '')}>i</CardOption>
           <CardOption>X</CardOption>
         </CardOptions>
       </InfoCard>
@@ -73,9 +80,11 @@ const InfoCard = styled.div<{ show: boolean; color: string }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  visibility: ${p => (p.show ? 'visible' : 'hidden')};
-  border-radius: 6.5%/4%;
   pointer-events: none;
+  user-select: none;
+  visibility: ${p => (p.show ? 'visible' : 'hidden')};
+  opacity: ${p => (p.show ? 1 : 0)};
+  transition: visibility 0.6s, opacity 0.6s ease-out;
 `
 
 const InfoText = styled.div<{ color: string }>`
@@ -108,4 +117,5 @@ const CardOption = styled.div`
   opacity: 0.8;
   cursor: pointer;
   font-weight: 900;
+  pointer-events: all;
 `

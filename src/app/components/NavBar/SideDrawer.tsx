@@ -34,7 +34,7 @@ const Drawer = styled.nav<{ show: boolean }>`
   left: 0;
   width: 60%;
   max-width: 3000px;
-  z-index: 10;
+  z-index: 8;
   transform: ${p => (p.show ? 'translateX(0)' : 'translateX(-100%)')};
   transition: transform 0.2s ease-out;
 `

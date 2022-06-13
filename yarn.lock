@@ -2894,10 +2894,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:14.14.31":
-  version: 14.14.31
-  resolution: "@types/node@npm:14.14.31"
-  checksum: 5b9ab3660ee63abc57affc836c0d50b2941a862c5b6c241c02762d8e1ad610f6b0d350d7426218dc401b5abc7d6294ee1b475da7c331e486d59a5608d1a0b777
+"@types/node@npm:17.0.42":
+  version: 17.0.42
+  resolution: "@types/node@npm:17.0.42"
+  checksum: a200cd87e4f12d4d5682a893ad6e1140720c6c074a2cd075f254b3b8306d6174f5a3630e5d2347efb5e9b80d420404b5fafc8fe3c7d4c81998cd914c50b19f75
   languageName: node
   linkType: hard
 
@@ -16251,7 +16251,7 @@ __metadata:
     "@testing-library/react": 12.1.2
     "@types/fontfaceobserver": 2.1.0
     "@types/jest": 27.4.0
-    "@types/node": 14.14.31
+    "@types/node": 17.0.42
     "@types/react": 18.0.2
     "@types/react-dom": 18.0.0
     "@types/react-redux": 7.1.22

@@ -1,11 +1,11 @@
 import * as React from 'react'
 import styled, { keyframes } from 'styled-components/macro'
 
-interface SvgProps {
+interface Props {
   small?: boolean
 }
 
-export const LoadingIndicator = (props: SvgProps) => (
+export const LoadingIndicator = (props: Props) => (
   <Svg viewBox="-24 -24 48 48" small={props.small}>
     <Circle cx="0" cy="0" r="20" fill="none" strokeWidth="4" />
   </Svg>
@@ -34,7 +34,7 @@ const dash = keyframes`
   }
 `
 
-const Svg = styled.svg<SvgProps>`
+const Svg = styled.svg<Props>`
   animation: ${rotate} ${SPEED * 1.75}s linear infinite;
   height: ${p => (p.small ? '1.25rem' : '3rem')};
   width: ${p => (p.small ? '1.25rem' : '3rem')};
