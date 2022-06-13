@@ -26,15 +26,15 @@ export const SideDrawer = ({ show }: Props) => (
 )
 
 const Drawer = styled.nav<{ show: boolean }>`
-  height: 100%;
-  background-color: ${p => p.theme.backgroundVariant};
-  box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   left: 0;
+  height: 100%;
   width: 60%;
   max-width: 3000px;
   z-index: 8;
+  background-color: ${p => p.theme.backgroundVariant};
+  box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
   transform: ${p => (p.show ? 'translateX(0)' : 'translateX(-100%)')};
   transition: transform 0.2s ease-out;
 `

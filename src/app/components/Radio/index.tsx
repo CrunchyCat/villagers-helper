@@ -36,10 +36,10 @@ const Wrapper = styled.div`
       padding-left: 1.375rem;
       padding-top: 0.0625rem;
       position: relative;
-      cursor: pointer;
+      z-index: 1;
       font-size: 0.875rem;
       color: ${p => p.theme.text};
-      z-index: 1;
+      cursor: pointer;
 
       a {
         color: ${p => p.theme.text};

@@ -24,9 +24,9 @@ const Modal = styled.div<{ show: boolean }>`
   left: 2%;
   width: 96%;
   height: 75%;
+  z-index: 7;
   background-color: ${p => p.theme.backgroundVariant};
   border-radius: 1.5rem 1.5rem 0 0;
   transform: ${p => (p.show ? 'translateY(0)' : 'translateY(100%)')};
   transition: transform 0.2s ease-out;
-  z-index: 7;
 `
