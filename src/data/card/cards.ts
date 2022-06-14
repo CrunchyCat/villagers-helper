@@ -107,9 +107,8 @@ import suit_wool from '../assets/icons/suit_wool.png'
 import suit_leather from '../assets/icons/suit_leather.png'
 import suit_solitary from '../assets/icons/suit_solitary.png'
 import suit_special from '../assets/icons/suit_special.png'
-/* Game Icons */
-import icon_sign from '../assets/icons/icon_sign.png'
-/* Expansion Icons */
+/* Set/Expansion Icons */
+import exp_base from '../assets/icons/exp_base.png'
 import exp_4player from '../assets/icons/exp_4player.png'
 import exp_saints from '../assets/icons/exp_saints.png'
 import exp_scoundrels from '../assets/icons/exp_scoundrels.png'
@@ -265,7 +264,7 @@ export const suits: CardSet[] = [
 // prettier-ignore
 export const packs: CardSet[] = [
   { /* Base Game */
-    id: 0, name: 'Base', img: icon_sign, color: '#BC7B14',
+    id: 0, name: 'Base', img: exp_base, color: '#8FD959',
     cards: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 26, 27, 28, 29, 30,
       31, 32, 33, 36, 37, 38, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 60, 61, 62, 63].map(i => cards[i])
   },
