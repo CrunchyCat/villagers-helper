@@ -114,6 +114,7 @@ import exp_4player from '../assets/icons/exp_4player.png'
 import exp_saints from '../assets/icons/exp_saints.png'
 import exp_scoundrels from '../assets/icons/exp_scoundrels.png'
 import exp_profiteers from '../assets/icons/exp_profiteers.png'
+import exp_promo1 from '../assets/icons/exp_promo1.png'
 import exp_dicetower from '../assets/icons/exp_dicetower.png'
 
 export type VillagersCardDetails = {
@@ -253,11 +254,11 @@ export const suits: CardSet[] = [
   },
   { /* Solitary Villagers */
     id: 8, name: 'Solitary', img: suit_solitary, color: '#814B26',
-    cards: [46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57].map(i => cards[i])
+    cards: [46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59].map(i => cards[i])
   },
   { /* Special Villagers */
     id: 9, name: 'Special', img: suit_special, color: '#FE5240',
-    cards: [60, 61, 62, 63, 69, 70, 71, 72, 73, 74, 75, 76].map(i => cards[i])
+    cards: [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76].map(i => cards[i])
   }
 ]
 
@@ -265,8 +266,8 @@ export const suits: CardSet[] = [
 export const packs: CardSet[] = [
   { /* Base Game */
     id: 0, name: 'Base', img: icon_sign, color: '#BC7B14',
-    cards: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 26, 27, 28,
-    29, 30, 31, 32, 33, 36, 37, 38, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 59, 60, 61, 62, 63].map(i => cards[i])
+    cards: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 26, 27, 28, 29, 30,
+      31, 32, 33, 36, 37, 38, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 60, 61, 62, 63].map(i => cards[i])
   },
   { /* 4+ Players Expansion */
     id: 1, name: '4+ Players', img: exp_4player, color: '#FF6153',
@@ -282,10 +283,10 @@ export const packs: CardSet[] = [
   },
   { /* Profiteers Expansion */
     id: 4, name: 'Profiteers', img: exp_profiteers, color: '#999998',
-    cards: [34, 13, 57, 24, 76, 58,].map(i => cards[i])
+    cards: [34, 13, 56, 24, 76, 57].map(i => cards[i])
   },
   { /* Promo Pack #1 */
-    id: 5, name: 'Promo #1', img: icon_sign, color: '#BC7B14',
+    id: 5, name: 'Promo #1', img: exp_promo1, color: '#814B26',
     cards: [58, 59].map(i => cards[i])
   },
   { /* Dice Tower Promo Cards */

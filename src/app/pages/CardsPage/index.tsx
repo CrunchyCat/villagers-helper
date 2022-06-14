@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { Helmet } from 'react-helmet-async'
 import { NavBar } from 'app/components/NavBar'
 import { VillagersCards } from 'app/components/VillagersCards'
-import { CardSet, packs } from 'data/card/cards'
+import { CardSet, suits } from 'data/card/cards'
 
 export const CardsPage = () => (
   <>
@@ -34,7 +34,7 @@ const Title = styled.div`
 `
 
 const loadCards = (): CardSet[] => {
-  console.log('CARD DATA', packs) //TODO: Remove this
+  console.log('CARD DATA', suits) //TODO: Remove this
   //TODO: Return appropriate card sets
-  return packs
+  return suits
 }
