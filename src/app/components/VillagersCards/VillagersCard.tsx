@@ -8,7 +8,7 @@ interface Props {
   cardID: VillagerType
   card: VillagersCardDetails
   color: string
-  selectCard: (id: number, view: boolean) => void
+  selectCard: (card: VillagersCardDetails, view: boolean) => void
 }
 
 // Card Shown in Edit Mode
@@ -40,7 +40,7 @@ export const VillagersCard = ({
             src={didFlip ? card.img_back : card.img_front}
             alt={card.name}
             onClick={() => {
-              selectCard(cardID, false)
+              selectCard(card, false)
               setShouldFlip(x => !x)
               setTimeout(() => setDidFlip(x => !x), 120)
             }}
@@ -50,7 +50,7 @@ export const VillagersCard = ({
               <p>{card.name}</p>
               <strong>disabled</strong>
             </InfoText>
-            <CardOption onClick={() => selectCard(cardID, true)}>
+            <CardOption onClick={() => selectCard(card, true)}>
               &nbsp;info&nbsp;
               <IconInfo />
             </CardOption>
@@ -64,7 +64,7 @@ export const VillagersCard = ({
           alt={card.name}
           editMode={false}
           onClick={() => {
-            selectCard(cardID, true)
+            selectCard(card, true)
             if (shouldFlip) return
             setShouldFlip(true)
             setTimeout(() => setShouldFlip(false), 900)

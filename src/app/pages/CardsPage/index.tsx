@@ -25,6 +25,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 0.2rem 0 0.2rem;
 `
 
 const Title = styled.div`

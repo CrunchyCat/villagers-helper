@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { VillagersCard } from './VillagersCard'
 import { IconInfo } from 'app/Icons/IconInfo'
 import { CardModal } from '../CardModal/Index'
-import { CardSet, cards, suits } from 'data/card/cards'
+import { CardSet, cards, suits, VillagersCardDetails } from 'data/card/cards'
 
 interface Props {
   cardSets: CardSet[]
@@ -11,13 +11,15 @@ interface Props {
 }
 
 export const VillagersCards = ({ cardSets, editMode }: Props) => {
-  const [modalContent, setModalContent] = React.useState(-1)
+  const [modalContent, setModalContent] = React.useState(
+    undefined as VillagersCardDetails | undefined
+  )
 
   return (
     <>
       <CardModal
-        clickClose={() => setModalContent(-1)}
-        show={modalContent !== -1}
+        clickClose={() => setModalContent(undefined)}
+        card={modalContent}
       />
       {Object.entries(cardSets).map(([setID, set]) => (
         <SetWrapper color={set.color} key={setID}>
@@ -38,8 +40,8 @@ export const VillagersCards = ({ cardSets, editMode }: Props) => {
                 cardID={cardID}
                 card={cards[cardID]}
                 color={suits[cards[cardID].suit].color}
-                selectCard={(id, view) =>
-                  view ? setModalContent(id) : removeCard(id)
+                selectCard={(card, view) =>
+                  view ? setModalContent(card) : removeCard(card)
                 }
                 key={`${setID}${i}`}
               />
@@ -51,8 +53,8 @@ export const VillagersCards = ({ cardSets, editMode }: Props) => {
   )
 }
 
-const removeCard = (id: number) => {
-  console.log('TOGGLING CARD: ', cards[id]) //TODO: Make Cards Remove from view
+const removeCard = (card: VillagersCardDetails) => {
+  console.log('TOGGLING CARD: ', card) //TODO: Make Cards Remove from view, probably using index
 }
 
 const SetWrapper = styled.div<{ color: string }>`
@@ -60,7 +62,7 @@ const SetWrapper = styled.div<{ color: string }>`
   flex-direction: column;
   width: 100%;
   max-width: 78rem;
-  margin: 1rem 0.75rem;
+  margin: 1rem 0;
   background-color: ${p => p.theme.backgroundVariant};
   box-shadow: 0.05rem 0.05rem 0.1rem ${p => p.color};
   border-radius: 1.5rem;
