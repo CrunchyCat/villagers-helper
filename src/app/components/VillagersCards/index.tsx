@@ -3,23 +3,24 @@ import styled from 'styled-components/macro'
 import { VillagersCard } from './VillagersCard'
 import { IconInfo } from 'app/Icons/IconInfo'
 import { CardModal } from '../CardModal/Index'
-import { CardSet } from 'data/card/cards'
+import { cards, CardSet } from 'data/card/cards'
 
 interface Props {
   cardSets: CardSet[]
+  editMode: boolean
 }
 
-export const VillagersCards = ({ cardSets }: Props) => {
-  const [modalContent, setModalContent] = React.useState('')
+export const VillagersCards = ({ cardSets, editMode }: Props) => {
+  const [modalContent, setModalContent] = React.useState(-1)
 
   return (
     <>
       <CardModal
-        clickClose={() => setModalContent('')}
-        show={modalContent !== ''}
+        clickClose={() => setModalContent(-1)}
+        show={modalContent !== -1}
       />
-      {cardSets.map(set => (
-        <SetWrapper color={set.color} key={set.id}>
+      {Object.entries(cardSets).map(([setID, set]) => (
+        <SetWrapper color={set.color} key={setID}>
           <ColorStrip color={set.color}>
             <img src={set.img} alt={set.name} />
           </ColorStrip>
@@ -31,12 +32,16 @@ export const VillagersCards = ({ cardSets }: Props) => {
             </div>
           </SetTop>
           <CardsWrapper color={set.color}>
-            {set.cards.map((cardDetails, i) => (
+            {set.cards.map((cardID, i) => (
               <VillagersCard
-                {...cardDetails}
+                editMode={editMode}
+                cardID={cardID}
+                card={cards[cardID]}
                 color={set.color}
-                selectCard={id => setModalContent(id)}
-                key={`${set.id}${i}`}
+                selectCard={(id, view) =>
+                  view ? setModalContent(id) : removeCard(id)
+                }
+                key={`${setID}${i}`}
               />
             ))}
           </CardsWrapper>
@@ -44,6 +49,10 @@ export const VillagersCards = ({ cardSets }: Props) => {
       ))}
     </>
   )
+}
+
+const removeCard = (id: number) => {
+  console.log('TOGGLING CARD: ', cards[id]) //TODO: Make Cards Remove from view
 }
 
 const SetWrapper = styled.div<{ color: string }>`

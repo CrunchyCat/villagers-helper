@@ -15,7 +15,7 @@ export const CardsPage = () => (
     <Wrapper>
       <Title>cards</Title>
       {/* TODO: Put Filters and Search at Top */}
-      <VillagersCards cardSets={loadCards()} />
+      <VillagersCards cardSets={loadCards()} editMode={false} />
     </Wrapper>
   </>
 )

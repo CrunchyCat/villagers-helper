@@ -1,17 +1,21 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { VillagersCardDetails } from 'data/card/cards'
+import { VillagersCardDetails, VillagerType } from 'data/card/cards'
+import { IconInfo } from 'app/Icons/IconInfo'
 
-interface Props extends VillagersCardDetails {
+interface Props {
+  editMode: boolean
+  cardID: VillagerType
+  card: VillagersCardDetails
   color: string
-  selectCard: (id: string) => void
+  selectCard: (id: number, view: boolean) => void
 }
 
+// Card Shown in Edit Mode
 export const VillagersCard = ({
-  id,
-  img_front,
-  img_back,
-  name,
+  editMode,
+  cardID,
+  card,
   color,
   selectCard
 }: Props) => {
@@ -20,30 +24,53 @@ export const VillagersCard = ({
 
   return (
     <CardHolder>
-      <Card
-        color={color}
-        flip={!shouldFlip}
-        flipRight={
-          name.toLowerCase().charAt(0) === 'b' ||
-          name.toLowerCase().charAt(0) === 'c' ||
-          name.toLowerCase().charAt(0) === 'p' ||
-          name.toLowerCase().charAt(0) === 's' ||
-          name.toLowerCase().charAt(0) === 'w'
-        }
-        src={didFlip ? img_back : img_front}
-        alt={name}
-        onClick={() => {
-          setShouldFlip(x => !x)
-          setTimeout(() => setDidFlip(x => !x), 120)
-        }}
-      />
-      <InfoCard show={shouldFlip} color={color}>
-        <InfoText color={color}>{name}</InfoText>
-        <CardOptions>
-          <CardOption onClick={() => selectCard(id || '')}>i</CardOption>
-          <CardOption>X</CardOption>
-        </CardOptions>
-      </InfoCard>
+      {editMode ? (
+        <>
+          <Card
+            color={color}
+            flip={!shouldFlip}
+            flipRight={
+              card.name.toLowerCase().charAt(0) === 'b' ||
+              card.name.toLowerCase().charAt(0) === 'c' ||
+              card.name.toLowerCase().charAt(0) === 'p' ||
+              card.name.toLowerCase().charAt(0) === 's' ||
+              card.name.toLowerCase().charAt(0) === 'w'
+            }
+            editMode={true}
+            src={didFlip ? card.img_back : card.img_front}
+            alt={card.name}
+            onClick={() => {
+              selectCard(cardID, false)
+              setShouldFlip(x => !x)
+              setTimeout(() => setDidFlip(x => !x), 120)
+            }}
+          />
+          <InfoCard show={shouldFlip} color={color}>
+            <InfoText>
+              <p>{card.name}</p>
+              <strong>disabled</strong>
+            </InfoText>
+            <CardOption onClick={() => selectCard(cardID, true)}>
+              &nbsp;info&nbsp;
+              <IconInfo />
+            </CardOption>
+          </InfoCard>
+        </>
+      ) : (
+        <Card
+          color={color}
+          flip={!shouldFlip}
+          src={card.img_front}
+          alt={card.name}
+          editMode={false}
+          onClick={() => {
+            selectCard(cardID, true)
+            if (shouldFlip) return
+            setShouldFlip(true)
+            setTimeout(() => setShouldFlip(false), 900)
+          }}
+        />
+      )}
     </CardHolder>
   )
 }
@@ -54,7 +81,13 @@ const CardHolder = styled.div`
   max-width: 10rem;
 `
 
-const Card = styled.img<{ color: string; flip: boolean; flipRight: boolean }>`
+// prettier-ignore
+const Card = styled.img<{
+  color: string
+  flip: boolean
+  flipRight?: boolean
+  editMode: boolean
+}>`
   cursor: pointer;
   user-select: none;
   width: 100%;
@@ -62,13 +95,13 @@ const Card = styled.img<{ color: string; flip: boolean; flipRight: boolean }>`
   border: groove ${p => p.color};
   border-width: 0 1px 1px 0;
   box-shadow: 0.075rem 0.075rem 0.15rem ${p => p.color};
-  transform: ${p =>
-    p.flip
-      ? 'rotate3d(0, 0, 0, 0, 0);'
-      : `rotate3d(${
-          p.flipRight ? -0.05 : 0.05
-        }, 1, 0.08, -180deg) scale(-1, 1);`};
-  transition: transform 0.5s;
+  ${p => p.editMode ? `
+    transform: ${p.flip ? 'rotate3d(0,0,0,0,0);': `rotate3d(${p.flipRight ? -0.05 : 0.05}, 1,0.08,-180deg) scale(-1, 1);`};
+    transition: transform 0.5s;
+  `:`
+    transform: ${p.flip ? 'scale(1);' : `scale(1.17) translateY(-5vh);`};
+    transition: transform 0.7s;
+  `}
 `
 
 const InfoCard = styled.div<{ show: boolean; color: string }>`
@@ -87,35 +120,38 @@ const InfoCard = styled.div<{ show: boolean; color: string }>`
   transition: visibility 0.6s, opacity 0.6s ease-out;
 `
 
-const InfoText = styled.div<{ color: string }>`
-  font-size: 1.2rem;
-  font-weight: bold;
+const InfoText = styled.div`
   text-align: center;
   color: ${p => p.theme.text};
   background-color: ${p => p.theme.backgroundVariant};
   opacity: 0.8;
   border-radius: 1.5rem;
   margin: 0.5rem 0;
-`
+  padding: 0.25rem;
 
-const CardOptions = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  p {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
 `
 
 const CardOption = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 2rem;
-  height: 2rem;
+  align-self: center;
   color: ${p => p.theme.text};
   background-color: ${p => p.theme.backgroundVariant};
-  border: 0.2rem solid ${p => p.theme.text};
-  border-radius: 50%;
+  border-radius: 1rem 50% 50% 1rem;
   opacity: 0.8;
   cursor: pointer;
   font-weight: 900;
   pointer-events: all;
+
+  svg {
+    width: 2.2rem;
+    height: 2.2rem;
+    background-color: ${p => p.theme.backgroundVariant};
+    border-radius: 50%;
+  }
 `
