@@ -127,27 +127,11 @@ export enum VillagerType {
   Barbarian, Courier, Flaker, Noble, Schemer, Thief, Sheriff
 }
 
-export enum SuitType {
-  Grains = 0,
-  Wood = 1,
-  Hay = 2,
-  Ore = 3,
-  Grapes = 5,
-  Wool = 6,
-  Leather = 7,
-  Solitary = 8,
-  Special = 9
-}
+// prettier-ignore
+export enum SuitType { Grains, Wood, Hay, Ore, Grapes, Wool, Leather, Solitary, Special }
 
-export enum ExpType {
-  Base = 0,
-  FourPlayer = 1,
-  Promo1 = 2,
-  DiceTower = 3,
-  Profiteers = 4,
-  Saints = 5,
-  Scoundrels = 6
-}
+// prettier-ignore
+export enum ExpType { Base, FourPlayer, Promo1, DiceTower, Profiteers, Saints, Scoundrels }
 
 export type VillagersCardDetails = {
   name: string

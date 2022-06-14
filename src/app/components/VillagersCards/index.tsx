@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { VillagersCard } from './VillagersCard'
 import { IconInfo } from 'app/Icons/IconInfo'
 import { CardModal } from '../CardModal/Index'
-import { cards, CardSet } from 'data/card/cards'
+import { CardSet, cards, suits } from 'data/card/cards'
 
 interface Props {
   cardSets: CardSet[]
@@ -37,7 +37,7 @@ export const VillagersCards = ({ cardSets, editMode }: Props) => {
                 editMode={editMode}
                 cardID={cardID}
                 card={cards[cardID]}
-                color={set.color}
+                color={suits[cards[cardID].suit].color}
                 selectCard={(id, view) =>
                   view ? setModalContent(id) : removeCard(id)
                 }
