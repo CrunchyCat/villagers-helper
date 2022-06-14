@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { VillagersCard } from './VillagersCard'
 import { IconInfo } from 'app/Icons/IconInfo'
 import { CardModal } from '../CardModal/Index'
-import { CardSet, cards, suits, VillagersCardDetails } from 'data/card/cards'
+import { VillagerDetails, CardSet, cards, suits } from 'data/card/cards'
 
 interface Props {
   cardSets: CardSet[]
@@ -12,7 +12,7 @@ interface Props {
 
 export const VillagersCards = ({ cardSets, editMode }: Props) => {
   const [modalContent, setModalContent] = React.useState(
-    undefined as VillagersCardDetails | undefined
+    undefined as VillagerDetails | undefined
   )
 
   return (
@@ -53,7 +53,7 @@ export const VillagersCards = ({ cardSets, editMode }: Props) => {
   )
 }
 
-const removeCard = (card: VillagersCardDetails) => {
+const removeCard = (card: VillagerDetails) => {
   console.log('TOGGLING CARD: ', card) //TODO: Make Cards Remove from view, probably using index
 }
 

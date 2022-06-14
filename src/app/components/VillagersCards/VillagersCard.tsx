@@ -1,14 +1,14 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { VillagersCardDetails, VillagerType } from 'data/card/cards'
+import { Villager, VillagerDetails } from 'data/card/cards'
 import { IconInfo } from 'app/Icons/IconInfo'
 
 interface Props {
   editMode: boolean
-  cardID: VillagerType
-  card: VillagersCardDetails
+  cardID: Villager
+  card: VillagerDetails
   color: string
-  selectCard: (card: VillagersCardDetails, view: boolean) => void
+  selectCard: (card: VillagerDetails, view: boolean) => void
 }
 
 // Card Shown in Edit Mode
