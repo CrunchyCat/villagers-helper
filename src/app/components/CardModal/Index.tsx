@@ -1,30 +1,47 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { Backdrop } from '../Backdrop'
-import { cards, VillagersCardDetails } from 'data/card/cards'
+import { CardDetails } from 'data/card/cards'
+import { IconClose } from 'app/Icons/IconClose'
 
 interface Props {
   clickClose: () => void
-  card: VillagersCardDetails | undefined
+  content: CardDetails | undefined
 }
 
-export const CardModal = ({ clickClose, card }: Props) => (
+export const CardModal = ({ clickClose, content }: Props) => (
   <>
-    <Modal show={card !== undefined}>
-      <button style={{ margin: '1rem' }} type="button" onClick={clickClose}>
-        Close
-      </button>
-      <Title>{card?.name}</Title>
-      <div>
-        <Title>suit: {card?.suit}</Title>
-        <Title>pack: {card?.exp}</Title>
-        <Title>food: {card?.food}</Title>
-        <Title>builders: {card?.builders}</Title>
-        <Title>gold: {card?.gold}</Title>
-        <img src={card?.img_front} alt={card?.name} />
-      </div>
+    <Modal show={content !== undefined}>
+      <ColorStrip color={content?.color || '#FFFFFF'}>
+        {/*TODO: Put Suit img here */}
+        <img
+          src={content?.card.img_front}
+          alt={content?.card.name}
+          height="5%"
+        />
+      </ColorStrip>
+      <SetTop>
+        <h1>{content?.card?.name}</h1>
+        <div>
+          {content?.card?.suit}
+          <br />
+          {content?.card?.exp}
+          <br />
+          {content?.card?.food}
+          <br />
+          {content?.card?.builders}
+          <br />
+          {content?.card?.lock}
+          <br />
+          {content?.card?.gold}
+          {/* <IconInfo /> */}
+        </div>
+        <div onClick={clickClose}>
+          <IconClose width="2rem" height="2rem" />
+        </div>
+      </SetTop>
     </Modal>
-    <Backdrop show={card !== undefined} click={clickClose} />
+    <Backdrop show={content !== undefined} click={clickClose} />
   </>
 )
 
@@ -41,8 +58,49 @@ const Modal = styled.div<{ show: boolean }>`
   transition: transform 0.25s ease-out;
 `
 
-const Title = styled.div`
-  font-size: 3.375rem;
-  font-weight: bold;
-  color: ${p => p.theme.text};
+const ColorStrip = styled.div<{ color: string }>`
+  display: flex;
+  justify-content: center;
+  padding-top: 2.5rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+  background-color: ${p => p.color};
+  img {
+    position: absolute;
+    align-self: center;
+    width: 4rem;
+  }
+`
+
+const SetTop = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 1rem 1rem 0 1rem;
+  &::before,
+  h1,
+  div {
+    content: '';
+    flex-basis: 100%;
+  }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    white-space: nowrap;
+    color: ${p => p.theme.text};
+    margin: 1rem 0 0.5rem 0;
+  }
+  div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1rem;
+    color: ${p => p.theme.textSecondary};
+  }
+  svg {
+    margin-left: 0.7rem;
+    cursor: pointer;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 `
