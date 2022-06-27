@@ -1,24 +1,18 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { Villager, VillagerDetails } from 'data/card/cards'
+import { Villager, cards, suits } from 'data/card/cards'
 import { IconInfo } from 'app/Icons/IconInfo'
 
 interface Props {
-  editMode: boolean
   cardID: Villager
-  card: VillagerDetails
-  color: string
-  selectCard: (card: VillagerDetails, view: boolean) => void
+  editMode: boolean
+  selectCard: (cardID: Villager, view: boolean) => void
 }
 
-// Card Shown in Edit Mode
-export const VillagersCard = ({
-  editMode,
-  cardID,
-  card,
-  color,
-  selectCard
-}: Props) => {
+export const VillagersCard = ({ cardID, editMode, selectCard }: Props) => {
+  const card = cards[cardID]
+  const color = suits[card.suit].color
+
   const [shouldFlip, setShouldFlip] = React.useState(false)
   const [didFlip, setDidFlip] = React.useState(false)
 
@@ -27,6 +21,7 @@ export const VillagersCard = ({
       {editMode ? (
         <>
           <Card
+            editMode={true}
             color={color}
             flip={!shouldFlip}
             flipRight={
@@ -36,11 +31,10 @@ export const VillagersCard = ({
               card.name.toLowerCase().charAt(0) === 's' ||
               card.name.toLowerCase().charAt(0) === 'w'
             }
-            editMode={true}
             src={didFlip ? card.img_back : card.img_front}
             alt={card.name}
             onClick={() => {
-              selectCard(card, false)
+              selectCard(cardID, false)
               setShouldFlip(x => !x)
               setTimeout(() => setDidFlip(x => !x), 120)
             }}
@@ -50,7 +44,7 @@ export const VillagersCard = ({
               <p>{card.name}</p>
               <strong>disabled</strong>
             </InfoText>
-            <CardOption onClick={() => selectCard(card, true)}>
+            <CardOption onClick={() => selectCard(cardID, true)}>
               &nbsp;info&nbsp;
               <IconInfo />
             </CardOption>
@@ -58,13 +52,13 @@ export const VillagersCard = ({
         </>
       ) : (
         <Card
+          editMode={false}
           color={color}
           flip={!shouldFlip}
           src={card.img_front}
           alt={card.name}
-          editMode={false}
           onClick={() => {
-            selectCard(card, true)
+            selectCard(cardID, true)
             if (shouldFlip) return
             setShouldFlip(true)
             setTimeout(() => setShouldFlip(false), 900)
@@ -77,8 +71,6 @@ export const VillagersCard = ({
 
 const CardHolder = styled.div`
   position: relative;
-  width: 47.55%;
-  max-width: 10rem;
 `
 
 // prettier-ignore
@@ -88,20 +80,20 @@ const Card = styled.img<{
   flipRight?: boolean
   editMode: boolean
 }>`
-  cursor: pointer;
-  user-select: none;
-  width: 100%;
+  max-width: 10rem;
+  max-height: 42vh;
   border-radius: 6.5%/4%;
   border: groove ${p => p.color};
   border-width: 0 1px 1px 0;
   box-shadow: 0.075rem 0.075rem 0.15rem ${p => p.color};
+  user-select: none;
+  cursor: pointer;
   ${p => p.editMode ? `
     transform: ${p.flip ? 'rotate3d(0,0,0,0,0);': `rotate3d(${p.flipRight ? -0.05 : 0.05}, 1,0.08,-180deg) scale(-1, 1);`};
-    transition: transform 0.5s;
   `:`
-    transform: ${p.flip ? 'scale(1);' : `scale(1.17) translateY(-5vh);`};
-    transition: transform 0.7s;
+    transform: ${p.flip ? 'translateY(0);' : `scale(1.17) translateY(-5vh);`};
   `}
+  transition: transform 0.5s;
 `
 
 const InfoCard = styled.div<{ show: boolean; color: string }>`

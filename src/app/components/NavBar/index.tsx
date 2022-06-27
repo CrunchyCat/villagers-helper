@@ -39,7 +39,7 @@ const TopBar = styled.header`
   top: 0;
   height: ${StyleConstants.NAV_BAR_HEIGHT};
   width: 100%;
-  z-index: 2;
+  z-index: 5;
   display: flex;
   box-shadow: 0 1px 0 0 ${p => p.theme.borderLight};
   background-color: ${p => p.theme.background};

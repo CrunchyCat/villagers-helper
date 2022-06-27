@@ -3,22 +3,31 @@ import styled from 'styled-components/macro'
 import { Helmet } from 'react-helmet-async'
 import { NavBar } from 'app/components/NavBar'
 import { VillagersCards } from 'app/components/VillagersCards'
-import { CardSet, suits } from 'data/card/cards'
+import { suits, exps } from 'data/card/cards'
 
-export const CardsPage = () => (
-  <>
-    <Helmet>
-      <title>cards</title>
-      <meta name="description" content="cards" />
-    </Helmet>
-    <NavBar />
-    <Wrapper>
-      <Title>cards</Title>
-      {/* TODO: Put Filters and Search at Top */}
-      <VillagersCards cardSets={loadCards()} editMode={false} />
-    </Wrapper>
-  </>
-)
+export const CardsPage = () => {
+  const [group, setGroup] = React.useState(suits)
+
+  return (
+    <>
+      <Helmet>
+        <title>cards</title>
+        <meta name="description" content="cards" />
+      </Helmet>
+      <NavBar />
+      <Wrapper>
+        <Title>cards</Title>
+        <GroupBy
+          onClick={() => setGroup(prev => (prev === suits ? exps : suits))}
+        >
+          group by
+        </GroupBy>
+        {/* TODO: Put Filters and Search at Top */}
+        <VillagersCards cardSets={group} editMode={false} />
+      </Wrapper>
+    </>
+  )
+}
 
 //TODO: Fix Scrolling with Toolbar hidden on iOS
 const Wrapper = styled.div`
@@ -34,8 +43,11 @@ const Title = styled.div`
   color: ${p => p.theme.text};
 `
 
-const loadCards = (): CardSet[] => {
-  console.log('CARD DATA', suits) //TODO: Remove this
-  //TODO: Return appropriate card sets
-  return suits
-}
+const GroupBy = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${p => p.theme.text};
+  user-select: none;
+  cursor: pointer;
+`

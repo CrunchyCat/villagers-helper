@@ -1,49 +1,50 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { Backdrop } from '../Backdrop'
-import { CardDetails } from 'data/card/cards'
 import { IconClose } from 'app/Icons/IconClose'
+import { cards, suits, Villager } from 'data/card/cards'
 
 interface Props {
+  cardID: Villager
   clickClose: () => void
-  content: CardDetails | undefined
 }
 
-export const CardModal = ({ clickClose, content }: Props) => (
-  <>
-    <Modal show={content !== undefined}>
-      <ColorStrip color={content?.color || '#FFFFFF'}>
-        {/*TODO: Put Suit img here */}
-        <img
-          src={content?.card.img_front}
-          alt={content?.card.name}
-          height="5%"
-        />
-      </ColorStrip>
-      <SetTop>
-        <h1>{content?.card?.name}</h1>
-        <div>
-          {content?.card?.suit}
-          <br />
-          {content?.card?.exp}
-          <br />
-          {content?.card?.food}
-          <br />
-          {content?.card?.builders}
-          <br />
-          {content?.card?.lock}
-          <br />
-          {content?.card?.gold}
-          {/* <IconInfo /> */}
-        </div>
-        <div onClick={clickClose}>
-          <IconClose width="2rem" height="2rem" />
-        </div>
-      </SetTop>
-    </Modal>
-    <Backdrop show={content !== undefined} click={clickClose} />
-  </>
-)
+export const CardModal = ({ clickClose, cardID }: Props) => {
+  const card = cards[cardID]
+  const color = suits[card.suit].color
+
+  return (
+    <>
+      <Modal show={cardID !== Villager.Unknown}>
+        <ColorStrip color={color || '#FFFFFF'}>
+          {/*TODO: Put Suit img here */}
+          <img src={card.img_front} alt={card.name} height="5%" />
+        </ColorStrip>
+        <SetTop>
+          <h1>{card.name}</h1>
+          <div>
+            {card.suit}
+            <br />
+            {card.exp}
+            <br />
+            {card.food}
+            <br />
+            {card.builders}
+            <br />
+            {card.lock}
+            <br />
+            {card.gold}
+            {/* <IconInfo /> */}
+          </div>
+          <div onClick={clickClose}>
+            <IconClose width="2rem" height="2rem" />
+          </div>
+        </SetTop>
+      </Modal>
+      <Backdrop show={cardID !== Villager.Unknown} click={clickClose} />
+    </>
+  )
+}
 
 const Modal = styled.div<{ show: boolean }>`
   position: fixed;

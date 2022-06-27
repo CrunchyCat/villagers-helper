@@ -2,8 +2,8 @@ import * as React from 'react'
 import styled from 'styled-components/macro'
 import { VillagersCard } from './VillagersCard'
 import { IconInfo } from 'app/Icons/IconInfo'
-import { CardModal } from '../CardModal/Index'
-import { VillagerDetails, CardSet, cards, suits } from 'data/card/cards'
+import { CardModal } from '../CardModal'
+import { cards, CardSet, Villager } from 'data/card/cards'
 
 interface Props {
   cardSets: CardSet[]
@@ -11,50 +11,48 @@ interface Props {
 }
 
 export const VillagersCards = ({ cardSets, editMode }: Props) => {
-  const [modalContent, setModalContent] = React.useState(
-    undefined as VillagerDetails | undefined
-  )
+  const [viewCard, setViewCard] = React.useState(Villager.Unknown)
 
   return (
     <>
       <CardModal
-        clickClose={() => setModalContent(undefined)}
-        card={modalContent}
+        cardID={viewCard}
+        clickClose={() => setViewCard(Villager.Unknown)}
       />
-      {Object.entries(cardSets).map(([setID, set]) => (
-        <SetWrapper color={set.color} key={setID}>
-          <ColorStrip color={set.color}>
-            <img src={set.img} alt={set.name} />
-          </ColorStrip>
-          <SetTop>
-            <h1>{set.name}</h1>
-            <div>
-              {`(${set.cards.length}/${set.cards.length})`}
-              <IconInfo />
-            </div>
-          </SetTop>
-          <CardsWrapper color={set.color}>
-            {set.cards.map((cardID, i) => (
-              <VillagersCard
-                editMode={editMode}
-                cardID={cardID}
-                card={cards[cardID]}
-                color={suits[cards[cardID].suit].color}
-                selectCard={(card, view) =>
-                  view ? setModalContent(card) : removeCard(card)
-                }
-                key={`${setID}${i}`}
-              />
-            ))}
-          </CardsWrapper>
-        </SetWrapper>
-      ))}
+      {Object.entries(cardSets) // For Each Card Set
+        .filter(x => !x[1]?.hide) // Filter out Hidden Sets
+        .map(([setID, set]) => (
+          <SetWrapper color={set.color} key={setID}>
+            <ColorStrip color={set.color}>
+              <img src={set.img} alt={set.name} />
+            </ColorStrip>
+            <SetTop>
+              <h1>{set.name}</h1>
+              <div>
+                {`(${set.cards.length}/${set.cards.length})`}
+                <IconInfo />
+              </div>
+            </SetTop>
+            <CardsWrapper color={set.color}>
+              {set.cards.map((cardID, i) => (
+                <VillagersCard
+                  cardID={cardID}
+                  editMode={editMode}
+                  selectCard={(cardID, view) =>
+                    view ? setViewCard(cardID) : removeCard(cardID)
+                  }
+                  key={`${setID}${i}`}
+                />
+              ))}
+            </CardsWrapper>
+          </SetWrapper>
+        ))}
     </>
   )
 }
 
-const removeCard = (card: VillagerDetails) => {
-  console.log('TOGGLING CARD: ', card) //TODO: Make Cards Remove from view, probably using index
+const removeCard = (cardID: Villager) => {
+  console.log('TOGGLING CARD: ', cards[cardID]) //TODO: Make Cards Remove from view, probably using index
 }
 
 const SetWrapper = styled.div<{ color: string }>`
