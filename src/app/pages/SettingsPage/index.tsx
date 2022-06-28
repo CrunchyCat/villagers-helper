@@ -14,9 +14,8 @@ export const SettingsPage = () => (
       <title>settings</title>
       <meta name="description" content="settings" />
     </Helmet>
-    <NavBar />
+    <NavBar title="settings" />
     <Wrapper>
-      <Title>settings</Title>
       <P>some settings</P>
       <SettingsWrapper>
         <FormLabel>CONTENT</FormLabel>
@@ -44,10 +43,4 @@ const SettingsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-`
-
-const Title = styled.div`
-  font-size: 3.375rem;
-  font-weight: bold;
-  color: ${p => p.theme.text};
 `

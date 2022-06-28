@@ -7,10 +7,11 @@ import { cards, CardSet, Villager } from 'data/card/cards'
 
 interface Props {
   cardSets: CardSet[]
+  filter: string
   editMode: boolean
 }
 
-export const VillagersCards = ({ cardSets, editMode }: Props) => {
+export const VillagersCards = ({ cardSets, filter, editMode }: Props) => {
   const [viewCard, setViewCard] = React.useState(Villager.Unknown)
 
   return (
@@ -21,6 +22,9 @@ export const VillagersCards = ({ cardSets, editMode }: Props) => {
       />
       {Object.entries(cardSets) // For Each Card Set
         .filter(x => !x[1]?.hide) // Filter out Hidden Sets
+        .filter(x =>
+          x[1].cards.some(x => cards[x].name.toLowerCase().indexOf(filter) > -1)
+        ) // Filter out Sets with no matching cards
         .map(([setID, set]) => (
           <SetWrapper color={set.color} key={setID}>
             <ColorStrip color={set.color}>
@@ -34,16 +38,18 @@ export const VillagersCards = ({ cardSets, editMode }: Props) => {
               </div>
             </SetTop>
             <CardsWrapper color={set.color}>
-              {set.cards.map((cardID, i) => (
-                <VillagersCard
-                  cardID={cardID}
-                  editMode={editMode}
-                  selectCard={(cardID, view) =>
-                    view ? setViewCard(cardID) : removeCard(cardID)
-                  }
-                  key={`${setID}${i}`}
-                />
-              ))}
+              {set.cards
+                .filter(id => cards[id].name.toLowerCase().indexOf(filter) > -1)
+                .map((cardID, i) => (
+                  <VillagersCard
+                    cardID={cardID}
+                    editMode={editMode}
+                    selectCard={(cardID, view) =>
+                      view ? setViewCard(cardID) : removeCard(cardID)
+                    }
+                    key={`${setID}${i}`}
+                  />
+                ))}
             </CardsWrapper>
           </SetWrapper>
         ))}
@@ -56,11 +62,11 @@ const removeCard = (cardID: Villager) => {
 }
 
 const SetWrapper = styled.div<{ color: string }>`
-  display: flex;
-  flex-direction: column;
   width: 100%;
   max-width: 78rem;
   margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
   background-color: ${p => p.theme.backgroundVariant};
   box-shadow: 0.05rem 0.05rem 0.1rem ${p => p.color};
   border-radius: 1.5rem;
@@ -107,9 +113,9 @@ const SetTop = styled.div`
   }
   svg {
     margin-left: 0.7rem;
-    cursor: pointer;
     width: 1.5rem;
     height: 1.5rem;
+    cursor: pointer;
   }
 `
 

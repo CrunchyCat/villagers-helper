@@ -11,7 +11,7 @@ export const HomePage = () => (
       <title>villagers helper</title>
       <meta name="description" content="A helpful tool for villagers" />
     </Helmet>
-    <NavBar />
+    <NavBar title="" />
     <Wrapper>
       <Title>villagers helper</Title>
       <Lead>

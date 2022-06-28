@@ -41,7 +41,7 @@ export const mediaMax = (
   Object.keys(sizes) as Array<keyof typeof sizes>
 ).reduce((acc, label) => {
   acc[label] = (first: any, ...interpolations: any[]) => css`
-    @media (max-width: ${sizes[label]}px) {
+    @media (max-width: ${sizes[label] - 1}px) {
       ${css(first, ...interpolations)}
     }
   `

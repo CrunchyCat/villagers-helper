@@ -12,7 +12,7 @@ export const NotFoundPage = () => (
       <title>404</title>
       <meta name="description" content="Page not found" />
     </Helmet>
-    <NavBar />
+    <NavBar title="4😢4" />
     <Wrapper>
       <Title>
         4

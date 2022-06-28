@@ -29,9 +29,9 @@ const Drawer = styled.nav<{ show: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
   width: 60%;
   max-width: 3000px;
+  height: 100%;
   z-index: 8;
   background-color: ${p => p.theme.backgroundVariant};
   box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);

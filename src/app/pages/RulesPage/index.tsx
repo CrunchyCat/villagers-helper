@@ -9,10 +9,8 @@ export const RulesPage = () => (
       <title>rules</title>
       <meta name="description" content="rules" />
     </Helmet>
-    <NavBar />
-    <Wrapper>
-      <Title>rules</Title>
-    </Wrapper>
+    <NavBar title="rules" />
+    <Wrapper>nothing here yet {/* TODO: Add Rules */}</Wrapper>
   </>
 )
 
@@ -21,10 +19,4 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
-
-const Title = styled.div`
-  font-size: 3.375rem;
-  font-weight: bold;
-  color: ${p => p.theme.text};
 `

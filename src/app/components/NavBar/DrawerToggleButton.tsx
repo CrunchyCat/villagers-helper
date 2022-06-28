@@ -14,11 +14,11 @@ export const DrawerToggleButton = ({ click }: Props) => (
 )
 
 const DrawerButton = styled.button`
+  height: 35%;
+  width: 1.875rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 35%;
-  width: 30px;
   background: transparent;
   border: none;
   cursor: pointer;

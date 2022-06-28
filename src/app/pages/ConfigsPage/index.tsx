@@ -9,10 +9,8 @@ export const ConfigsPage = () => (
       <title>configurations</title>
       <meta name="description" content="configurations" />
     </Helmet>
-    <NavBar />
-    <Wrapper>
-      <Title>configurations</Title>
-    </Wrapper>
+    <NavBar title="configurations" />
+    <Wrapper>no configurations yet {/* TODO: Add Configurations */}</Wrapper>
   </>
 )
 
@@ -21,11 +19,4 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
-
-const Title = styled.div`
-  font-size: 3rem;
-  font-weight: bold;
-  letter-spacing: -0.1rem;
-  color: ${p => p.theme.text};
 `
