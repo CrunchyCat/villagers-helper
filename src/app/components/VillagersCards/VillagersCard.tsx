@@ -17,9 +17,9 @@ export const VillagersCard = ({ cardID, editMode, selectCard }: Props) => {
   const [didFlip, setDidFlip] = React.useState(false)
 
   return (
-    <CardHolder>
+    <>
       {editMode ? (
-        <>
+        <CardHolder>
           <Card
             editMode={true}
             color={color}
@@ -49,7 +49,7 @@ export const VillagersCard = ({ cardID, editMode, selectCard }: Props) => {
               <IconInfo />
             </CardOption>
           </InfoCard>
-        </>
+        </CardHolder>
       ) : (
         <Card
           editMode={false}
@@ -65,7 +65,7 @@ export const VillagersCard = ({ cardID, editMode, selectCard }: Props) => {
           }}
         />
       )}
-    </CardHolder>
+    </>
   )
 }
 
@@ -89,7 +89,7 @@ const Card = styled.img<{
   user-select: none;
   cursor: pointer;
   ${p => p.editMode ? `
-    transform: ${p.flip ? 'rotate3d(0,0,0,0,0);': `rotate3d(${p.flipRight ? -0.05 : 0.05}, 1,0.08,-180deg) scale(-1, 1);`};
+    transform: translateZ(-1000px) ${p.flip ? 'rotate3d(0,0,0,0,0);': `rotate3d(${p.flipRight ? -0.05 : 0.05},1,0.08,-180deg) scale(-1, 1);`};
   `:`
     transform: ${p.flip ? 'translateY(0);' : `scale(1.17) translateY(-5vh);`};
   `}
