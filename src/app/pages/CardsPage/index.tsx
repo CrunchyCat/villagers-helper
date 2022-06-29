@@ -6,8 +6,9 @@ import { VillagersCards } from 'app/components/VillagersCards'
 import { suits, exps } from 'data/card/cards'
 
 export const CardsPage = () => {
-  const [group, setGroup] = React.useState(suits)
   const [filter, setFilter] = React.useState('')
+  const [group, setGroup] = React.useState(suits)
+  const [isCompact, setCompact] = React.useState(false)
 
   return (
     <>
@@ -27,14 +28,15 @@ export const CardsPage = () => {
           >
             {group === suits ? 'suit' : 'pack'} {/* TODO: Swap out for Icon */}
           </ViewSwitch>
-          <ViewSwitch onClick={() => console.log('Set View')}>
+          <ViewSwitch onClick={() => setCompact(prev => !prev)}>
             view {/* TODO: Add Filter Options & Swap for Icon */}
           </ViewSwitch>
         </ViewBar>
         <VillagersCards
           cardSets={group}
           filter={filter.trim()}
-          editMode={true}
+          compact={isCompact}
+          editMode={false}
         />
       </Wrapper>
     </>
@@ -47,6 +49,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 0.2rem 0 0.2rem;
+  padding-bottom: 0.5rem;
 `
 
 const ViewBar = styled.div`
