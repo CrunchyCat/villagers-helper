@@ -1,8 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { VillagersCard } from './VillagersCard'
+import { cards, CardSet, Villager } from 'data/card/cards'
 import { IconInfo } from 'app/Icons/IconInfo'
-import { cards, CardSet, suits, Villager } from 'data/card/cards'
+import { IconCoin } from 'app/Icons/IconCoin'
+import icon_lock from 'data/assets/icons/icon_lock.png'
+import icon_food from 'data/assets/icons/icon_food.png'
+import icon_builder from 'data/assets/icons/icon_builder.png'
 
 interface Props {
   setID: string
@@ -36,10 +40,49 @@ export const VillagersSet = ({
                 return (
                   <tr onClick={() => setViewCard(cardID)} key={`${setID}${i}`}>
                     <td>{card.name}</td>
-                    <td>{card.lock ? 'locked' : ''}</td>
-                    <td>{card.food ? 'food' : ''}</td>
-                    <td>{card.builders ? 'builder' : ''}</td>
-                    <td>{card.gold ? `g x${card.gold}` : ''}</td>
+                    <td>
+                      {card.lock && (
+                        <IconText>
+                          <img
+                            src={icon_lock}
+                            alt={`unlocked by: ${card.lock}`}
+                          />
+                          {cards[card.lock].name}
+                        </IconText>
+                      )}
+                    </td>
+                    <td>
+                      <IconText>
+                        {[...Array(card.food).keys()].map(i => (
+                          <img
+                            src={icon_food}
+                            alt={`${card.food} food`}
+                            key={`F${cardID}${i}`}
+                          />
+                        ))}
+                      </IconText>
+                    </td>
+                    <td>
+                      <IconText>
+                        {[...Array(card.builders).keys()].map(i => (
+                          <img
+                            src={icon_builder}
+                            alt={`${card.builders} builder(s)`}
+                            key={`B${cardID}${i}`}
+                          />
+                        ))}
+                      </IconText>
+                    </td>
+                    <td>
+                      {card.gold > 0 && (
+                        <IconCoin
+                          type="gold"
+                          amount={card.gold}
+                          width="1.675rem"
+                          height="1.675rem"
+                        />
+                      )}
+                    </td>
                   </tr>
                 )
               })}
@@ -198,22 +241,37 @@ const CardsTable = styled.table<{ color: string }>`
         }
       }
       td {
-        width: 17.78%;
-        padding: 0.65rem 0 0.65rem;
-        font-size: 0.8rem;
+        width: 10%;
+        padding: 0.4rem 0 0.4rem;
         border-top: 1px solid ${p => p.color};
         color: ${p => p.theme.text};
         &:first-child {
-          font-size: 0.95rem;
           font-weight: bold;
-          padding-left: 0.75rem;
-          width: 28.88%;
+          padding-left: 0.5rem;
+          width: 39%;
+        }
+        &:nth-child(2) {
+          width: 31%;
         }
         &:last-child {
           text-align: right;
-          padding-right: 0.75rem;
+          padding-right: 0.5rem;
         }
       }
     }
+  }
+`
+
+const IconText = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  gap: 0.5rem;
+  color: ${p => p.theme.text};
+  img {
+    max-width: 1.675rem;
+    max-height: 1.675rem;
+    width: auto;
+    height: auto;
   }
 `
