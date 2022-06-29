@@ -35,10 +35,11 @@ const CoinInner = styled.div<{ width: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black;
   font-size: calc(${p => p.width} * 0.3);
   font-weight: bold;
-  border: 1px solid #a45c16;
   border-radius: 50%;
   user-select: none;
+
+  color: black;
+  border: 1px solid #a45c16;
 `
