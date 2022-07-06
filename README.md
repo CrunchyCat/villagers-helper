@@ -1,6 +1,6 @@
-<h2 style="font-size: 3.2rem; font-weight: bold; letter-spacing: -0.05rem">villagers helper</h2>
+# villagers helper
 <img width="914" alt="React Boilerplate Meets CRA" src="https://www.yucata.de/Games/Villagers/images/villagers_en.png" align="center">
-<p style="margin-top: 1rem">villagers helper is a companion web app for Villagers, the game by Haakon Gaarder.</p>
+villagers helper is a companion web app for Villagers, the game by Haakon Gaarder.
 
 ---
 
