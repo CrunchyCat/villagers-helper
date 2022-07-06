@@ -241,21 +241,22 @@ const CardsTable = styled.table<{ color: string }>`
         }
       }
       td {
-        width: 10%;
+        width: 13%;
         padding: 0.4rem 0 0.4rem;
         border-top: 1px solid ${p => p.color};
         color: ${p => p.theme.text};
         &:first-child {
           font-weight: bold;
           padding-left: 0.5rem;
-          width: 39%;
+          width: 33.4%;
         }
         &:nth-child(2) {
-          width: 31%;
+          width: 33.1%;
         }
         &:last-child {
-          text-align: right;
+          width: 10%;
           padding-right: 0.5rem;
+          text-align: right;
         }
       }
     }
@@ -266,7 +267,7 @@ const IconText = styled.div`
   display: flex;
   align-items: center;
   font-size: 0.9rem;
-  gap: 0.5rem;
+  gap: 0.25rem;
   color: ${p => p.theme.text};
   img {
     max-width: 1.675rem;

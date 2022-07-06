@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Switch, Route, BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { GlobalStyle } from 'styles/global-styles'
 import { useTranslation } from 'react-i18next'
 import { HomePage } from './pages/HomePage/Loadable'
@@ -19,14 +19,14 @@ export const App = () => {
         defaultTitle="villagers helper"
         htmlAttributes={{ lang: i18n.language }}
       ></Helmet>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/rules" component={RulesPage} />
-        <Route exact path="/configs" component={ConfigsPage} />
-        <Route exact path="/cards" component={CardsPage} />
-        <Route exact path="/settings" component={SettingsPage} />
-        <Route component={NotFoundPage} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/rules" element={<RulesPage />} />
+        <Route path="/configs" element={<ConfigsPage />} />
+        <Route path="/cards" element={<CardsPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route element={<NotFoundPage />} />
+      </Routes>
       <GlobalStyle />
     </BrowserRouter>
   )
