@@ -266,7 +266,7 @@ export const cards: VillagerDetails[] = [
   { name: 'Spinner', suit: Suit.Wool, exp: Exp.FourPlayer, imgFront: spinner, imgBack: back_wool,
     gold: getGold(Gold.Gold, 4) },
   { name: 'Weaver', suit: Suit.Wool, exp: Exp.FourPlayer, imgFront: weaver, imgBack: back_wool,
-    lock: Villager.Weaver, gold: getGold(Gold.Gold, 12) },
+    lock: Villager.Carpenter, gold: getGold(Gold.Gold, 12) },
   { name: 'Tailor', suit: Suit.Wool, exp: Exp.FourPlayer, imgFront: tailor, imgBack: back_wool,
     gold: getGold(Gold.Gold, 24) },
   /* Leather Villagers */
