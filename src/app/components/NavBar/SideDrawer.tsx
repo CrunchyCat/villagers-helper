@@ -30,7 +30,7 @@ const Drawer = styled.nav<{ show: boolean }>`
   top: 0;
   left: 0;
   width: 60%;
-  max-width: 3000px;
+  max-width: 20rem;
   height: 100%;
   z-index: 8;
   background-color: ${p => p.theme.backgroundVariant};

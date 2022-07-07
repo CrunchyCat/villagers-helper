@@ -90,7 +90,7 @@ const Modal = styled.div<{ show: boolean }>`
     background-color: ${p => p.theme.backgroundVariant};
     border-radius: 1.5rem 1.5rem 0 0;
     transform: ${p => (p.show ? 'translateY(0)' : 'translateY(120%)')};
-    transition: transform 0.25s ease-out;
+    transition: transform 0.2s ease-out;
   `}
 
   ${mediaMin.small`
