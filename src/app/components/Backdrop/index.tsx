@@ -20,5 +20,5 @@ const Tint = styled.div<{ show: boolean }>`
   visibility: ${p => (p.show ? 'visible' : 'hidden')};
   opacity: ${p => (p.show ? 1 : 0)};
   background-color: rgba(0, 0, 0, 0.3);
-  transition: visibility 0.4s, opacity 0.4s linear;
+  transition: visibility 0.3s, opacity 0.3s linear;
 `

@@ -17,12 +17,17 @@ export const VillagersCards = ({
   editMode
 }: Props) => {
   const [viewCard, setViewCard] = React.useState(Villager.Unknown)
+  const [showModal, setShowModal] = React.useState(false)
 
   return (
     <>
       <CardModal
+        show={showModal}
         cardID={viewCard}
-        clickClose={() => setViewCard(Villager.Unknown)}
+        clickClose={() => {
+          setShowModal(false)
+          document.body.style.overflow = 'unset'
+        }}
       />
       {Object.entries(cardSets) // For Each Card Set
         .filter(x => !x[1]?.hide) // Filter out Hidden Sets
@@ -36,7 +41,11 @@ export const VillagersCards = ({
             filter={filter}
             compact={compact}
             editMode={editMode}
-            setViewCard={setViewCard}
+            setViewCard={cardID => {
+              setViewCard(cardID)
+              setShowModal(true)
+              document.body.style.overflow = 'hidden'
+            }}
             key={setID}
           />
         ))}

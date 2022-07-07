@@ -1,62 +1,111 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
+import { mediaMax, mediaMin } from 'styles/media'
 import { Backdrop } from '../Backdrop'
 import { IconClose } from 'app/Icons/IconClose'
-import { cards, suits, Villager } from 'data/card/cards'
+import { cards, exps, suits, Villager } from 'data/card/cards'
+import { IconCoin } from 'app/Icons/IconCoin'
+import icon_lock from 'data/assets/icons/icon_lock.png'
+import icon_food from 'data/assets/icons/icon_food.png'
+import icon_builder from 'data/assets/icons/icon_builder.png'
 
 interface Props {
+  show: boolean
   cardID: Villager
   clickClose: () => void
 }
 
-export const CardModal = ({ clickClose, cardID }: Props) => {
+export const CardModal = ({ show, cardID, clickClose }: Props) => {
   const card = cards[cardID]
   const suit = suits[card.suit]
 
   return (
     <>
-      <Modal show={cardID !== Villager.Unknown}>
+      <Modal show={show}>
         <ColorStrip color={suit.color || '#FFFFFF'}>
           <img src={suit.img} alt={suit.name} />
         </ColorStrip>
-        <SetTop>
+        <TitleBar>
           <h1>{card.name}</h1>
-          <div>
-            {card.suit}
-            <br />
-            {card.exp}
-            <br />
-            {card.food}
-            <br />
-            {card.builders}
-            <br />
-            {card.lock}
-            <br />
-            {card.gold?.amt}
-            {/* <IconInfo /> */}
-          </div>
-          <div onClick={clickClose}>
-            <IconClose width="2rem" height="2rem" />
-          </div>
+          <span>
+            <div onClick={clickClose}>
+              <IconClose />
+            </div>
+          </span>
+        </TitleBar>
+        <SetTop>
+          {card.lock && (
+            <IconText>
+              <img src={icon_lock} alt={`unlocked by: ${card.lock}`} />
+              {cards[card.lock].name}
+            </IconText>
+          )}
+          {!!card.food && (
+            <IconText>
+              food:
+              {[...Array(card.food).keys()].map(i => (
+                <img
+                  src={icon_food}
+                  alt={`${card.food} food`}
+                  key={`F${cardID}${i}`}
+                />
+              ))}
+            </IconText>
+          )}
+          <IconText>
+            {!!card.builders && (
+              <IconText>
+                builders:
+                {[...Array(card.builders).keys()].map(i => (
+                  <img
+                    src={icon_builder}
+                    alt={`${card.builders} builder(s)`}
+                    key={`B${cardID}${i}`}
+                  />
+                ))}
+              </IconText>
+            )}
+          </IconText>
+          {card.gold && (
+            <IconCoin gold={card.gold} width="1.825rem" height="1.825rem" />
+          )}
+          <br />
+          expansion: {exps[card.exp].name}
         </SetTop>
       </Modal>
-      <Backdrop show={cardID !== Villager.Unknown} click={clickClose} />
+      <Backdrop show={show} click={clickClose} />
       {/*TODO: Remove this and use only one root level backdrop */}
     </>
   )
 }
 
 const Modal = styled.div<{ show: boolean }>`
-  position: fixed;
-  top: 23%;
-  left: 2%;
-  width: 96%;
-  height: 77%;
   z-index: 7;
-  background-color: ${p => p.theme.backgroundVariant};
-  border-radius: 1.5rem 1.5rem 0 0;
-  transform: ${p => (p.show ? 'translateY(0)' : 'translateY(120%)')};
-  transition: transform 0.25s ease-out;
+  position: fixed;
+
+  ${mediaMax.small`
+    top: 28%;
+    width: 96%;
+    height: 72%;
+    background-color: ${p => p.theme.backgroundVariant};
+    border-radius: 1.5rem 1.5rem 0 0;
+    transform: ${p => (p.show ? 'translateY(0)' : 'translateY(120%)')};
+    transition: transform 0.25s ease-out;
+  `}
+
+  ${mediaMin.small`
+    top: 10%;
+    width: 80%;
+    height: 80%;
+    max-width: 50rem;
+    max-height: 50rem;
+    background-color: ${p => p.theme.backgroundVariant};
+    border-radius: 1.5rem;
+    transform: ${p => (p.show ? 'translateY(0)' : 'translateY(30%)')};
+    opacity: ${p => (p.show ? '1' : '0')};
+    visibility: ${p => (p.show ? 'visible' : 'hidden')};
+    transition: transform 0.25s, opacity 0.15s, visibility 0.15s ease-out;
+  `}
 `
 
 const ColorStrip = styled.div<{ color: string }>`
@@ -72,36 +121,57 @@ const ColorStrip = styled.div<{ color: string }>`
   }
 `
 
-const SetTop = styled.div`
+const TitleBar = styled.div`
+  height: 5rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
-  margin: 1rem 1rem 0 1rem;
+  padding: 2rem 1rem 0 1rem;
+  color: ${p => p.theme.text};
   &::before,
   h1,
-  div {
+  span {
     content: '';
-    flex-basis: 100%;
+    flex: 1;
   }
   h1 {
-    font-size: 2.5rem;
+    text-align: center;
+    font-size: 2.25rem;
     font-weight: bold;
     white-space: nowrap;
-    color: ${p => p.theme.text};
-    margin: 1rem 0 0.5rem 0;
   }
-  div {
+  span {
+    height: 100%;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
-    font-size: 1rem;
-    color: ${p => p.theme.textSecondary};
+  }
+  div {
+    height: 100%;
+    cursor: pointer;
   }
   svg {
-    margin-left: 0.7rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    cursor: pointer;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+`
+
+const SetTop = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: ${p => p.theme.text};
+`
+
+const IconText = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: ${p => p.theme.text};
+  img {
+    max-width: 1.825rem;
+    max-height: 1.825rem;
+    width: auto;
+    height: auto;
   }
 `

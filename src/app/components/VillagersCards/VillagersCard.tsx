@@ -61,7 +61,7 @@ export const VillagersCard = ({ cardID, editMode, selectCard }: Props) => {
             selectCard(cardID, true)
             if (shouldFlip) return
             setShouldFlip(true)
-            setTimeout(() => setShouldFlip(false), 900)
+            setTimeout(() => setShouldFlip(false), 350)
           }}
         />
       )}

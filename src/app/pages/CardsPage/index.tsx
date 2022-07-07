@@ -6,6 +6,7 @@ import { VillagersCards } from 'app/components/VillagersCards'
 import { suits, exps } from 'data/card/cards'
 
 export const CardsPage = () => {
+  const [isViewBarHidden, setViewBarHidden] = React.useState(false)
   const [filter, setFilter] = React.useState('')
   const [group, setGroup] = React.useState(suits)
   const [isCompact, setCompact] = React.useState(false)
@@ -16,9 +17,9 @@ export const CardsPage = () => {
         <title>cards</title>
         <meta name="description" content="cards" />
       </Helmet>
-      <NavBar title="cards" />
+      <NavBar title="cards" btnSearch={() => setViewBarHidden(prev => !prev)} />
       <Wrapper>
-        <ViewBar>
+        <ViewBar isHidden={isViewBarHidden}>
           <ViewSwitch onClick={() => console.log('Set Filters')}>
             filt {/* TODO: Add Filter Options & Swap for Icon */}
           </ViewSwitch>
@@ -52,10 +53,11 @@ const Wrapper = styled.div`
   padding-bottom: 0.5rem;
 `
 
-const ViewBar = styled.div`
+const ViewBar = styled.div<{ isHidden: boolean }>`
   position: sticky;
   top: 3.25rem;
   width: 100%;
+  height: ${p => (p.isHidden ? '0' : '3.5rem')};
   max-width: 78rem;
   display: flex;
   align-items: center;
@@ -64,19 +66,38 @@ const ViewBar = styled.div`
   z-index: 4;
   gap: 1.5%;
   padding: 1rem 0.2rem 0 0.2rem;
+  transform: ${p => (p.isHidden ? 'translateY(-7rem)' : 'translateX(0)')};
+  opacity: ${p => (p.isHidden ? '0' : '1')};
+  transition: height 0.4s, transform 0.5s, opacity 0.8s ease-out;
 `
 
+//TODO: Implement search icon using a component (making it clean to add hover/focus styling)
 const SearchBar = styled.input`
   width: 52%;
   max-width: 22rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
   color: ${p => p.theme.text};
   background-color: ${p => p.theme.backgroundVariant};
   border: 0.1rem solid ${p => p.theme.textSecondary};
   border-radius: 1.5rem;
+  background: transparent
+    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='${p =>
+      p.theme
+        .textSecondary}' width='20px' height='20px' viewBox='0 0 487.95 487.95'><path d='M481.8,453l-140-140.1c27.6-33.1,44.2-75.4,44.2-121.6C386,85.9,299.5,0.2,193.1,0.2S0,86,0,191.4s86.5,191.1,192.9,191.1
+        c45.2,0,86.8-15.5,119.8-41.4l140.5,140.5c8.2,8.2,20.4,8.2,28.6,0C490,473.4,490,461.2,481.8,453z M41,191.4
+        c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z'></path></svg>")
+    no-repeat 0.75rem center;
   &:focus {
     outline: none;
     border-color: ${p => p.theme.primary};
+  }
+  @supports (backdrop-filter: blur(2px)) {
+    backdrop-filter: blur(2px);
+    background-color: ${p =>
+      p.theme.backgroundVariant.replace(
+        /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
+        'rgba$1,0.85)'
+      )};
   }
 `
 
@@ -97,4 +118,13 @@ const ViewSwitch = styled.div`
   }
   border-radius: 1.5rem;
   padding: 0.4rem;
+
+  @supports (backdrop-filter: blur(2px)) {
+    backdrop-filter: blur(2px);
+    background-color: ${p =>
+      p.theme.backgroundVariant.replace(
+        /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
+        'rgba$1,0.85)'
+      )};
+  }
 `
