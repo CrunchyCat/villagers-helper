@@ -11,14 +11,13 @@ interface Props {
 
 export const CardModal = ({ clickClose, cardID }: Props) => {
   const card = cards[cardID]
-  const color = suits[card.suit].color
+  const suit = suits[card.suit]
 
   return (
     <>
       <Modal show={cardID !== Villager.Unknown}>
-        <ColorStrip color={color || '#FFFFFF'}>
-          {/*TODO: Put Suit img here */}
-          <img src={card.img_front} alt={card.name} height="5%" />
+        <ColorStrip color={suit.color || '#FFFFFF'}>
+          <img src={suit.img} alt={suit.name} />
         </ColorStrip>
         <SetTop>
           <h1>{card.name}</h1>
@@ -33,7 +32,7 @@ export const CardModal = ({ clickClose, cardID }: Props) => {
             <br />
             {card.lock}
             <br />
-            {card.gold}
+            {card.gold?.amt}
             {/* <IconInfo /> */}
           </div>
           <div onClick={clickClose}>
@@ -42,6 +41,7 @@ export const CardModal = ({ clickClose, cardID }: Props) => {
         </SetTop>
       </Modal>
       <Backdrop show={cardID !== Villager.Unknown} click={clickClose} />
+      {/*TODO: Remove this and use only one root level backdrop */}
     </>
   )
 }

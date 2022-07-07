@@ -117,6 +117,8 @@ import exp_profiteers from '../assets/icons/exp_profiteers.png'
 import exp_promo1 from '../assets/icons/exp_promo1.png'
 import exp_dicetower from '../assets/icons/exp_dicetower.png'
 
+export enum Gold { Gold, Silver, Bronze }
+
 export enum Villager {
   Unknown, Founders, Brewer, Poulterer, Swineherd, Truffler, Lumberjack, Carpenter, Cooper, Shipwright, Wheeler,
   Cartwright, WoodCarver, LogRafter, Healey, Arkwright, Hayer, Thatcher, BedBuilder, Grazier, MilkMaid, Fromager,
@@ -134,12 +136,16 @@ export type VillagerDetails = {
   name: string
   suit: Suit
   exp: Exp
-  img_front: string
-  img_back: string
-  food: number
-  builders: number
-  lock: Villager | null
-  gold: number
+  imgFront: string
+  imgBack: string
+  food?: number
+  builders?: number
+  lock?: Villager | null
+  gold?: {
+    type: Gold
+    amt: number
+    condition: string
+  }
 }
 
 export type CardSet = {
@@ -150,173 +156,171 @@ export type CardSet = {
   hide?: boolean
 }
 
+/* Private Functions for Calculating Card Info */
+
+enum Condition { Any, Each, All }
+
+/**
+ * Creates a Conditional Gold Object
+ * @param type - Type of gold (gold, silver, or bronze)
+ * @param amt - Amount of gold rewarded for the condition
+ * @param quantifier - 0: Any, 1: Each, 2: All
+ * @param condition - Thing being counted (ie. Hay Symbols)
+ * @param size - Size of the condition set (ie. Every *1* Hay Symbol)
+ * @returns Conditional Gold Object
+ */
+ const getGold = (type: Gold, amt: number, quantifier?: Condition, condition?: string, size?: number) => {
+  if (type === Gold.Gold)
+    return {type: type, amt: amt, condition: 'at each market phase'}
+  if (quantifier === 1) {
+    const strCondition = size ? `for every ${size} ${condition}s` : `for each ${condition}`
+    return { type: type, amt: amt, condition: strCondition }
+  }
+  const strCondition = `sum of ${quantifier === 0 ? '1' : 'all'} ${condition}`
+  return { type: type, amt: amt, condition: strCondition }
+}
+
+/* End of Private Functions */
+
 export const cards: VillagerDetails[] = [
   /* Unknown Villager */
-  { name: 'Unknown', suit: Suit.Unknown, exp: Exp.None, img_front: back_unknown, img_back: back_unknown,
-    food: 0, builders: 0, lock: null, gold: 0 },
+  { name: 'Unknown', suit: Suit.Unknown, exp: Exp.None, imgFront: back_unknown, imgBack: back_unknown },
   /* Grains Villagers */
-  { name: 'Founders', suit: Suit.Grains, exp: Exp.Base, img_front: founders, img_back: back_founders,
-    food: 1, builders: 0, lock: null, gold: 2 },
-  { name: 'Brewer', suit: Suit.Grains, exp: Exp.Base, img_front: brewer, img_back: back_grains,
-    food: 1, builders: 1, lock: Villager.Cooper, gold: 0 },
-  { name: 'Poulterer', suit: Suit.Grains, exp: Exp.Base, img_front: poulterer, img_back: back_grains,
-    food: 1, builders: 0, lock: Villager.Carpenter, gold: 3 },
-  { name: 'Swineherd', suit: Suit.Grains, exp: Exp.Base, img_front: swineherd, img_back: back_grains,
-    food: 1, builders: 0, lock: null, gold: 2 },
-  { name: 'Truffler', suit: Suit.Grains, exp: Exp.Base, img_front: truffler, img_back: back_grains,
-    food: 1, builders: 0, lock: Villager.Hunter, gold: 8 },
+  { name: 'Founders', suit: Suit.Grains, exp: Exp.Base, imgFront: founders, imgBack: back_founders,
+    food: 1, gold: getGold(Gold.Gold, 2) },
+  { name: 'Brewer', suit: Suit.Grains, exp: Exp.Base, imgFront: brewer, imgBack: back_grains,
+    food: 1, builders: 1, lock: Villager.Cooper },
+  { name: 'Poulterer', suit: Suit.Grains, exp: Exp.Base, imgFront: poulterer, imgBack: back_grains,
+    food: 1, lock: Villager.Carpenter, gold: getGold(Gold.Gold, 3) },
+  { name: 'Swineherd', suit: Suit.Grains, exp: Exp.Base, imgFront: swineherd, imgBack: back_grains,
+    food: 1, gold: getGold(Gold.Gold, 2) },
+  { name: 'Truffler', suit: Suit.Grains, exp: Exp.Base, imgFront: truffler, imgBack: back_grains,
+    food: 1, lock: Villager.Hunter, gold: getGold(Gold.Gold, 8) },
   /* Wood Villagers */
-  { name: 'Lumberjack', suit: Suit.Wood, exp: Exp.Base, img_front: lumberjack, img_back: back_lumberjack,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Carpenter', suit: Suit.Wood, exp: Exp.Base, img_front: carpenter, img_back: back_wood,
-    food: 0, builders: 1, lock: null, gold: 0 },
-  { name: 'Cooper', suit: Suit.Wood, exp: Exp.Base, img_front: cooper, img_back: back_wood,
-    food: 0, builders: 0, lock: Villager.Blacksmith, gold: 4 },
-  { name: 'Shipwright', suit: Suit.Wood, exp: Exp.Base, img_front: shipwright, img_back: back_wood,
-    food: 0, builders: 1, lock: null, gold: 2 },
-  { name: 'Wheeler', suit: Suit.Wood, exp: Exp.Base, img_front: wheeler, img_back: back_wood,
-    food: 0, builders: 0, lock: null, gold: 3 },
-  { name: 'Cartwright', suit: Suit.Wood, exp: Exp.Base, img_front: cartwright, img_back: back_wood,
-    food: 0, builders: 0, lock: null, gold: 9 },
-  { name: 'Wood Carver', suit: Suit.Wood, exp: Exp.Base, img_front: wood_carver, img_back: back_wood,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Log Rafter', suit: Suit.Wood, exp: Exp.Base, img_front: log_rafter, img_back: back_wood,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Healey', suit: Suit.Wood, exp: Exp.DiceTower, img_front: healey, img_back: back_wood,
-    food: 0, builders: 1, lock: Villager.Vasel, gold: 3 },
-  { name: 'Arkwright', suit: Suit.Wood, exp: Exp.Profiteers, img_front: arkwright, img_back: back_wood,
-    food: 0, builders: 0, lock: null, gold: 0 },
+  { name: 'Lumberjack', suit: Suit.Wood, exp: Exp.Base, imgFront: lumberjack, imgBack: back_lumberjack },
+  { name: 'Carpenter', suit: Suit.Wood, exp: Exp.Base, imgFront: carpenter, imgBack: back_wood, builders: 1},
+  { name: 'Cooper', suit: Suit.Wood, exp: Exp.Base, imgFront: cooper, imgBack: back_wood,
+    lock: Villager.Blacksmith, gold: getGold(Gold.Gold, 4) },
+  { name: 'Shipwright', suit: Suit.Wood, exp: Exp.Base, imgFront: shipwright, imgBack: back_wood,
+    builders: 1, gold: getGold(Gold.Gold, 2) },
+  { name: 'Wheeler', suit: Suit.Wood, exp: Exp.Base, imgFront: wheeler, imgBack: back_wood,
+    gold: getGold(Gold.Gold, 3) },
+  { name: 'Cartwright', suit: Suit.Wood, exp: Exp.Base, imgFront: cartwright, imgBack: back_wood,
+    gold: getGold(Gold.Gold, 9) },
+  { name: 'Wood Carver', suit: Suit.Wood, exp: Exp.Base, imgFront: wood_carver, imgBack: back_wood,
+    gold: getGold(Gold.Silver, 1, Condition.All, "wood villagers' gold") },
+  { name: 'Log Rafter', suit: Suit.Wood, exp: Exp.Base, imgFront: log_rafter, imgBack: back_wood,
+    gold: getGold(Gold.Silver, 1, Condition.Each, "wood symbol") },
+  { name: 'Healey', suit: Suit.Wood, exp: Exp.DiceTower, imgFront: healey, imgBack: back_wood,
+    builders: 1, lock: Villager.Vasel, gold: getGold(Gold.Gold, 3) },
+  { name: 'Arkwright', suit: Suit.Wood, exp: Exp.Profiteers, imgFront: arkwright, imgBack: back_wood,
+    gold: getGold(Gold.Bronze, 2, Condition.Each, "wood symbol") },
   /* Hay Villagers */
-  { name: 'Hayer', suit: Suit.Hay, exp: Exp.Base, img_front: hayer, img_back: back_hayer,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Thatcher', suit: Suit.Hay, exp: Exp.Base, img_front: thatcher, img_back: back_hay,
-    food: 0, builders: 1, lock: null, gold: 2 },
-  { name: 'Bed Builder', suit: Suit.Hay, exp: Exp.Base, img_front: bed_builder, img_back: back_hay,
-    food: 0, builders: 0, lock: Villager.Carpenter, gold: 4 },
-  { name: 'Grazier', suit: Suit.Hay, exp: Exp.Base, img_front: grazier, img_back: back_hay,
-    food: 1, builders: 0, lock: null, gold: 0 },
-  { name: 'Milk Maid', suit: Suit.Hay, exp: Exp.Base, img_front: milk_maid, img_back: back_hay,
-    food: 2, builders: 0, lock: Villager.Cooper, gold: 0 },
-  { name: 'Fromager', suit: Suit.Hay, exp: Exp.Base, img_front: fromager, img_back: back_hay,
-    food: 1, builders: 0, lock: null, gold: 15 },
-  { name: 'Peddler', suit: Suit.Hay, exp: Exp.Base, img_front: peddler, img_back: back_hay,
-    food: 0, builders: 0, lock: Villager.Cartwright, gold: 0 },
-  { name: 'Horse Trader', suit: Suit.Hay, exp: Exp.Base, img_front: horse_trader, img_back: back_hay,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Ore Muler', suit: Suit.Hay, exp: Exp.Base, img_front: ore_muler, img_back: back_hay,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Vasel', suit: Suit.Hay, exp: Exp.DiceTower, img_front: vasel, img_back: back_hay,
-    food: 0, builders: 0, lock: null, gold: 3 },
-  { name: 'Carter', suit: Suit.Hay, exp: Exp.Profiteers, img_front: carter, img_back: back_hay,
-    food: 0, builders: 0, lock: null, gold: 0 },
+  { name: 'Hayer', suit: Suit.Hay, exp: Exp.Base, imgFront: hayer, imgBack: back_hayer },
+  { name: 'Thatcher', suit: Suit.Hay, exp: Exp.Base, imgFront: thatcher, imgBack: back_hay,
+    builders: 1, gold: getGold(Gold.Gold, 2) },
+  { name: 'Bed Builder', suit: Suit.Hay, exp: Exp.Base, imgFront: bed_builder, imgBack: back_hay,
+    lock: Villager.Carpenter, gold: getGold(Gold.Gold, 4) },
+  { name: 'Grazier', suit: Suit.Hay, exp: Exp.Base, imgFront: grazier, imgBack: back_hay, food: 1},
+  { name: 'Milk Maid', suit: Suit.Hay, exp: Exp.Base, imgFront: milk_maid, imgBack: back_hay,
+    food: 2, lock: Villager.Cooper },
+  { name: 'Fromager', suit: Suit.Hay, exp: Exp.Base, imgFront: fromager, imgBack: back_hay,
+    food: 1, gold: getGold(Gold.Gold, 15) },
+  { name: 'Peddler', suit: Suit.Hay, exp: Exp.Base, imgFront: peddler, imgBack: back_hay,
+    lock: Villager.Cartwright, gold: getGold(Gold.Silver, 3, Condition.Each, 'gold symbol', 2) },
+  { name: 'Horse Trader', suit: Suit.Hay, exp: Exp.Base, imgFront: horse_trader, imgBack: back_hay,
+    gold: getGold(Gold.Silver, 3, Condition.Each, 'hay symbol', 2) },
+  { name: 'Ore Muler', suit: Suit.Hay, exp: Exp.Base, imgFront: ore_muler, imgBack: back_hay,
+    gold: getGold(Gold.Silver, 3, Condition.Each, 'ore symbol', 2) },
+  { name: 'Vasel', suit: Suit.Hay, exp: Exp.DiceTower, imgFront: vasel, imgBack: back_hay,
+    gold: getGold(Gold.Gold, 3) },
+  { name: 'Carter', suit: Suit.Hay, exp: Exp.Profiteers, imgFront: carter, imgBack: back_hay,
+    gold: getGold(Gold.Bronze, 1, Condition.Each, 'production chain with 3+ villagers') },
   /* Ore Villagers */
-  { name: 'Miner', suit: Suit.Ore, exp: Exp.Base, img_front: miner, img_back: back_miner,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Blacksmith', suit: Suit.Ore, exp: Exp.Base, img_front: blacksmith, img_back: back_ore,
-    food: 0, builders: 0, lock: null, gold: 2 },
-  { name: 'Glass Blower', suit: Suit.Ore, exp: Exp.Base, img_front: glass_blower, img_back: back_ore,
-    food: 0, builders: 0, lock: Villager.Blacksmith, gold: 4 },
-  { name: 'Mason', suit: Suit.Ore, exp: Exp.Base, img_front: mason, img_back: back_ore,
-    food: 0, builders: 1, lock: null, gold: 2 },
-  { name: 'Seeker',  suit: Suit.Ore, exp: Exp.Base, img_front: seeker, img_back: back_ore,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Spelunker', suit: Suit.Ore, exp: Exp.Base, img_front: spelunker, img_back: back_ore,
-    food: 0, builders: 0, lock: Villager.Chandler, gold: 10 },
-  { name: 'Jeweler', suit: Suit.Ore, exp: Exp.Base, img_front: jeweler, img_back: back_ore,
-    food: 0, builders: 0, lock: Villager.Blacksmith, gold: 20 },
-  { name: 'Locksmith', suit: Suit.Ore, exp: Exp.Base, img_front: locksmith, img_back: back_ore,
-    food: 0, builders: 0, lock: Villager.Blacksmith, gold: 0 },
-  { name: 'Garcia', suit: Suit.Ore, exp: Exp.DiceTower, img_front: garcia, img_back: back_ore,
-    food: 1, builders: 0, lock: Villager.Vasel, gold: 3 },
-  { name: 'Alchemist', suit: Suit.Ore, exp: Exp.Profiteers, img_front: alchemist, img_back: back_ore,
-    food: 0, builders: 0, lock: null, gold: 0 },
+  { name: 'Miner', suit: Suit.Ore, exp: Exp.Base, imgFront: miner, imgBack: back_miner },
+  { name: 'Blacksmith', suit: Suit.Ore, exp: Exp.Base, imgFront: blacksmith, imgBack: back_ore,
+    gold: getGold(Gold.Gold, 2) },
+  { name: 'Glass Blower', suit: Suit.Ore, exp: Exp.Base, imgFront: glass_blower, imgBack: back_ore,
+    lock: Villager.Blacksmith, gold: getGold(Gold.Gold, 4) },
+  { name: 'Mason', suit: Suit.Ore, exp: Exp.Base, imgFront: mason, imgBack: back_ore,
+    builders: 1, gold: getGold(Gold.Gold, 2) },
+  { name: 'Seeker',  suit: Suit.Ore, exp: Exp.Base, imgFront: seeker, imgBack: back_ore },
+  { name: 'Spelunker', suit: Suit.Ore, exp: Exp.Base, imgFront: spelunker, imgBack: back_ore,
+    lock: Villager.Chandler, gold: getGold(Gold.Gold, 10) },
+  { name: 'Jeweler', suit: Suit.Ore, exp: Exp.Base, imgFront: jeweler, imgBack: back_ore,
+    lock: Villager.Blacksmith, gold: getGold(Gold.Gold, 20) },
+  { name: 'Locksmith', suit: Suit.Ore, exp: Exp.Base, imgFront: locksmith, imgBack: back_ore,
+    lock: Villager.Blacksmith },
+  { name: 'Garcia', suit: Suit.Ore, exp: Exp.DiceTower, imgFront: garcia, imgBack: back_ore,
+    food: 1, lock: Villager.Vasel, gold: getGold(Gold.Gold, 3) },
+  { name: 'Alchemist', suit: Suit.Ore, exp: Exp.Profiteers, imgFront: alchemist, imgBack: back_ore,
+    gold: getGold(Gold.Bronze, 0.5, Condition.Any, "villager's silver, rounding down") },
   /* Grapes Villagers */
-  { name: 'Graper', suit: Suit.Grapes, exp: Exp.Base, img_front: graper, img_back: back_grapes,
-    food: 1, builders: 0, lock: null, gold: 0 },
-  { name: 'Vintner', suit: Suit.Grapes, exp: Exp.Base, img_front: vintner, img_back: back_grapes,
-    food: 0, builders: 0, lock: Villager.Cooper, gold: 5 },
-  { name: 'Wine Trader', suit: Suit.Grapes, exp: Exp.Base, img_front: wine_trader, img_back: back_grapes,
-    food: 0, builders: 0, lock: Villager.GlassBlower, gold: 14 },
+  { name: 'Graper', suit: Suit.Grapes, exp: Exp.Base, imgFront: graper, imgBack: back_grapes, food: 1},
+  { name: 'Vintner', suit: Suit.Grapes, exp: Exp.Base, imgFront: vintner, imgBack: back_grapes,
+    lock: Villager.Cooper, gold: getGold(Gold.Gold, 5) },
+  { name: 'Wine Trader', suit: Suit.Grapes, exp: Exp.Base, imgFront: wine_trader, imgBack: back_grapes,
+    lock: Villager.GlassBlower, gold: getGold(Gold.Gold, 14) },
   /* Wool Villagers */
-  { name: 'Shepherd', suit: Suit.Wool, exp: Exp.FourPlayer, img_front: shepherd, img_back: back_wool,
-    food: 1, builders: 0, lock: null, gold: 0 },
-  { name: 'Spinner', suit: Suit.Wool, exp: Exp.FourPlayer, img_front: spinner, img_back: back_wool,
-    food: 0, builders: 0, lock: null, gold: 4 },
-  { name: 'Weaver', suit: Suit.Wool, exp: Exp.FourPlayer, img_front: weaver, img_back: back_wool,
-    food: 0, builders: 0, lock: Villager.Weaver, gold: 12 },
-  { name: 'Tailor', suit: Suit.Wool, exp: Exp.FourPlayer, img_front: tailor, img_back: back_wool,
-    food: 0, builders: 0, lock: null, gold: 24 },
+  { name: 'Shepherd', suit: Suit.Wool, exp: Exp.FourPlayer, imgFront: shepherd, imgBack: back_wool, food: 1},
+  { name: 'Spinner', suit: Suit.Wool, exp: Exp.FourPlayer, imgFront: spinner, imgBack: back_wool,
+    gold: getGold(Gold.Gold, 4) },
+  { name: 'Weaver', suit: Suit.Wool, exp: Exp.FourPlayer, imgFront: weaver, imgBack: back_wool,
+    lock: Villager.Weaver, gold: getGold(Gold.Gold, 12) },
+  { name: 'Tailor', suit: Suit.Wool, exp: Exp.FourPlayer, imgFront: tailor, imgBack: back_wool,
+    gold: getGold(Gold.Gold, 24) },
   /* Leather Villagers */
-  { name: 'Tanner', suit: Suit.Leather, exp: Exp.FourPlayer, img_front: tanner, img_back: back_leather,
-    food: 0, builders: 0, lock: null, gold: 2 },
-  { name: 'Saddler', suit: Suit.Leather, exp: Exp.FourPlayer, img_front: saddler, img_back: back_leather,
-    food: 0, builders: 0, lock: null, gold: 5 },
-  { name: 'Cobbler', suit: Suit.Leather, exp: Exp.FourPlayer, img_front: cobbler, img_back: back_leather,
-  food: 0, builders: 0, lock: Villager.Blacksmith, gold: 6 },
+  { name: 'Tanner', suit: Suit.Leather, exp: Exp.FourPlayer, imgFront: tanner, imgBack: back_leather,
+    gold: getGold(Gold.Gold, 2) },
+  { name: 'Saddler', suit: Suit.Leather, exp: Exp.FourPlayer, imgFront: saddler, imgBack: back_leather,
+    gold: getGold(Gold.Gold, 5) },
+  { name: 'Cobbler', suit: Suit.Leather, exp: Exp.FourPlayer, imgFront: cobbler, imgBack: back_leather,
+    lock: Villager.Blacksmith, gold: getGold(Gold.Gold, 6) },
   /* Solitary Villagers */
-  { name: 'Harvester', suit: Suit.Solitary, exp: Exp.Base, img_front: harvester, img_back: back_solitary,
-    food: 1, builders: 0, lock: null, gold: 0 },
-  { name: 'Hunter', suit: Suit.Solitary, exp: Exp.Base, img_front: hunter, img_back: back_solitary,
-    food: 1, builders: 0, lock: null, gold: 0 },
-  { name: 'Chandler', suit: Suit.Solitary, exp: Exp.Base, img_front: chandler, img_back: back_solitary,
-    food: 0, builders: 0, lock: null, gold: 3 },
-  { name: 'Wattler', suit: Suit.Solitary, exp: Exp.Base, img_front: wattler, img_back: back_solitary,
-    food: 0, builders: 1, lock: null, gold: 0 },
-  { name: 'Fisher', suit: Suit.Solitary, exp: Exp.Base, img_front: fisher, img_back: back_solitary,
-    food: 1, builders: 0, lock: Villager.Shipwright, gold: 3 },
-  { name: 'Beekeeper', suit: Suit.Solitary, exp: Exp.Base, img_front: beekeeper, img_back: back_solitary,
-    food: 0, builders: 0, lock: Villager.Carpenter, gold: 4 },
-  { name: 'Grocer', suit: Suit.Solitary, exp: Exp.Base, img_front: grocer, img_back: back_solitary,
-    food: 0, builders: 0, lock: Villager.Harvester, gold: 0 },
-  { name: 'Freemason', suit: Suit.Solitary, exp: Exp.Base, img_front: freemason, img_back: back_solitary,
-    food: 0, builders: 0, lock: Villager.Brewer, gold: 0 },
-  { name: 'Priest', suit: Suit.Solitary, exp: Exp.Base, img_front: priest, img_back: back_solitary,
-    food: 0, builders: 0, lock: Villager.Chandler, gold: 0 },
-  { name: 'Agent', suit: Suit.Solitary, exp: Exp.Base, img_front: agent, img_back: back_solitary,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Plower', suit: Suit.Solitary, exp: Exp.Promo1, img_front: plower, img_back: back_solitary,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Scribe', suit: Suit.Solitary, exp: Exp.Promo1, img_front: scribe, img_back: back_solitary,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Wholesaler', suit: Suit.Solitary, exp: Exp.Profiteers, img_front: wholesaler, img_back: back_solitary,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Captain', suit: Suit.Solitary, exp: Exp.Profiteers, img_front: captain, img_back: back_solitary,
-    food: 0, builders: 0, lock: null, gold: 0 },
+  { name: 'Harvester', suit: Suit.Solitary, exp: Exp.Base, imgFront: harvester, imgBack: back_solitary, food: 1},
+  { name: 'Hunter', suit: Suit.Solitary, exp: Exp.Base, imgFront: hunter, imgBack: back_solitary, food: 1},
+  { name: 'Chandler', suit: Suit.Solitary, exp: Exp.Base, imgFront: chandler, imgBack: back_solitary,
+    gold: getGold(Gold.Gold, 3) },
+  { name: 'Wattler', suit: Suit.Solitary, exp: Exp.Base, imgFront: wattler, imgBack: back_solitary, builders: 1},
+  { name: 'Fisher', suit: Suit.Solitary, exp: Exp.Base, imgFront: fisher, imgBack: back_solitary,
+    food: 1, lock: Villager.Shipwright, gold: getGold(Gold.Gold, 3) },
+  { name: 'Beekeeper', suit: Suit.Solitary, exp: Exp.Base, imgFront: beekeeper, imgBack: back_solitary,
+    lock: Villager.Carpenter, gold: getGold(Gold.Gold, 4) },
+  { name: 'Grocer', suit: Suit.Solitary, exp: Exp.Base, imgFront: grocer, imgBack: back_solitary,
+    lock: Villager.Harvester, gold: getGold(Gold.Silver, 3, Condition.Each, "food") },
+  { name: 'Freemason', suit: Suit.Solitary, exp: Exp.Base, imgFront: freemason, imgBack: back_solitary,
+    lock: Villager.Brewer, gold: getGold(Gold.Silver, 3, Condition.Each, "builder") },
+  { name: 'Priest', suit: Suit.Solitary, exp: Exp.Base, imgFront: priest, imgBack: back_solitary,
+    lock: Villager.Chandler, gold: getGold(Gold.Silver, 3, Condition.Each, "solitary symbol", 2) },
+  { name: 'Agent', suit: Suit.Solitary, exp: Exp.Base, imgFront: agent, imgBack: back_solitary,
+    gold: getGold(Gold.Silver, 1, Condition.Any, "villager's coins sitting on top of the card") },
+  { name: 'Plower', suit: Suit.Solitary, exp: Exp.Promo1, imgFront: plower, imgBack: back_solitary,
+    gold: getGold(Gold.Silver, 2, Condition.Each, "grain symbol") },
+  { name: 'Scribe', suit: Suit.Solitary, exp: Exp.Promo1, imgFront: scribe, imgBack: back_solitary,
+    gold: getGold(Gold.Silver, 1, Condition.Each, "card in hand") },
+  { name: 'Wholesaler', suit: Suit.Solitary, exp: Exp.Profiteers, imgFront: wholesaler, imgBack: back_solitary,
+    gold: getGold(Gold.Silver, 3, Condition.Each, "set of 1 ore symbol, 1 hay symbol, & 1 wood symbol") },
+  { name: 'Captain', suit: Suit.Solitary, exp: Exp.Profiteers, imgFront: captain, imgBack: back_solitary,
+    gold: getGold(Gold.Bronze, 1, Condition.Each, "gold symbol") },
   /* Special Villagers */
-  { name: 'Monk', suit: Suit.Special, exp: Exp.Base, img_front: monk, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Apprentice', suit: Suit.Special, exp: Exp.Base, img_front: apprentice, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Tinner', suit: Suit.Special, exp: Exp.Base, img_front: tinner, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Smuggler', suit: Suit.Special, exp: Exp.Base, img_front: smuggler, img_back: back_special,
-    food: 0, builders: 0, lock: Villager.Shipwright, gold: 0 },
-  { name: 'Freelancer', suit: Suit.Special, exp: Exp.Profiteers, img_front: freelancer, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Benefactor', suit: Suit.Special, exp: Exp.Saints, img_front: benefactor, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Nun', suit: Suit.Special, exp: Exp.Saints, img_front: nun, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Pigeoneer', suit: Suit.Special, exp: Exp.Saints, img_front: pigeoneer, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Prophet', suit: Suit.Special, exp: Exp.Saints, img_front: prophet, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Recruiter', suit: Suit.Special, exp: Exp.Saints, img_front: recruiter, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Barbarian', suit: Suit.Special, exp: Exp.Scoundrels, img_front: barbarian, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Courier', suit: Suit.Special, exp: Exp.Scoundrels, img_front: courier, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Flaker', suit: Suit.Special, exp: Exp.Scoundrels, img_front: flaker, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Noble', suit: Suit.Special, exp: Exp.Scoundrels, img_front: noble, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Schemer', suit: Suit.Special, exp: Exp.Scoundrels, img_front: schemer, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Thief', suit: Suit.Special, exp: Exp.Scoundrels, img_front: thief, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 },
-  { name: 'Sheriff', suit: Suit.Special, exp: Exp.Scoundrels, img_front: sheriff, img_back: back_special,
-    food: 0, builders: 0, lock: null, gold: 0 }
+  { name: 'Monk', suit: Suit.Special, exp: Exp.Base, imgFront: monk, imgBack: back_special },
+  { name: 'Apprentice', suit: Suit.Special, exp: Exp.Base, imgFront: apprentice, imgBack: back_special },
+  { name: 'Tinner', suit: Suit.Special, exp: Exp.Base, imgFront: tinner, imgBack: back_special },
+  { name: 'Smuggler', suit: Suit.Special, exp: Exp.Base, imgFront: smuggler, imgBack: back_special,
+    lock: Villager.Shipwright },
+  { name: 'Freelancer', suit: Suit.Special, exp: Exp.Profiteers, imgFront: freelancer, imgBack: back_special },
+  { name: 'Benefactor', suit: Suit.Special, exp: Exp.Saints, imgFront: benefactor, imgBack: back_special },
+  { name: 'Nun', suit: Suit.Special, exp: Exp.Saints, imgFront: nun, imgBack: back_special },
+  { name: 'Pigeoneer', suit: Suit.Special, exp: Exp.Saints, imgFront: pigeoneer, imgBack: back_special },
+  { name: 'Prophet', suit: Suit.Special, exp: Exp.Saints, imgFront: prophet, imgBack: back_special },
+  { name: 'Recruiter', suit: Suit.Special, exp: Exp.Saints, imgFront: recruiter, imgBack: back_special },
+  { name: 'Barbarian', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: barbarian, imgBack: back_special },
+  { name: 'Courier', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: courier, imgBack: back_special },
+  { name: 'Flaker', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: flaker, imgBack: back_special },
+  { name: 'Noble', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: noble, imgBack: back_special },
+  { name: 'Schemer', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: schemer, imgBack: back_special },
+  { name: 'Thief', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: thief, imgBack: back_special },
+  { name: 'Sheriff', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: sheriff, imgBack: back_special }
 ]
 
 export const suits: CardSet[] = [
@@ -368,7 +372,7 @@ export const exps: CardSet[] = [
     cards: [Villager.Unknown], hide: true
   },
   { /* Base Game */
-    name: 'Base', img: exp_base, color: '#8FD959',
+    name: 'Base', img: exp_base, color: '#83D67F',
     cards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 16, 17, 18, 19, 20, 21, 22, 23, 24, 27, 28, 29, 30,
       31, 32, 33, 34, 37, 38, 39, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 61, 62, 63, 64]
   },

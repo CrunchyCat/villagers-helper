@@ -52,34 +52,37 @@ export const VillagersSet = ({
                       )}
                     </td>
                     <td>
-                      <IconText>
-                        {[...Array(card.food).keys()].map(i => (
-                          <img
-                            src={icon_food}
-                            alt={`${card.food} food`}
-                            key={`F${cardID}${i}`}
-                          />
-                        ))}
-                      </IconText>
+                      {!!card.food && (
+                        <IconText>
+                          {[...Array(card.food).keys()].map(i => (
+                            <img
+                              src={icon_food}
+                              alt={`${card.food} food`}
+                              key={`F${cardID}${i}`}
+                            />
+                          ))}
+                        </IconText>
+                      )}
                     </td>
                     <td>
-                      <IconText>
-                        {[...Array(card.builders).keys()].map(i => (
-                          <img
-                            src={icon_builder}
-                            alt={`${card.builders} builder(s)`}
-                            key={`B${cardID}${i}`}
-                          />
-                        ))}
-                      </IconText>
+                      {!!card.builders && (
+                        <IconText>
+                          {[...Array(card.builders).keys()].map(i => (
+                            <img
+                              src={icon_builder}
+                              alt={`${card.builders} builder(s)`}
+                              key={`B${cardID}${i}`}
+                            />
+                          ))}
+                        </IconText>
+                      )}
                     </td>
                     <td>
-                      {card.gold > 0 && (
+                      {card.gold && (
                         <IconCoin
-                          type="gold"
-                          amount={card.gold}
-                          width="1.675rem"
-                          height="1.675rem"
+                          gold={card.gold}
+                          width="1.825rem"
+                          height="1.825rem"
                         />
                       )}
                     </td>
@@ -242,7 +245,7 @@ const CardsTable = styled.table<{ color: string }>`
       }
       td {
         width: 13%;
-        padding: 0.4rem 0 0.4rem;
+        padding: 0.25rem 0 0.25rem;
         border-top: 1px solid ${p => p.color};
         color: ${p => p.theme.text};
         &:first-child {
@@ -266,12 +269,12 @@ const CardsTable = styled.table<{ color: string }>`
 const IconText = styled.div`
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
   gap: 0.25rem;
+  font-size: 0.9rem;
   color: ${p => p.theme.text};
   img {
-    max-width: 1.675rem;
-    max-height: 1.675rem;
+    max-width: 1.825rem;
+    max-height: 1.825rem;
     width: auto;
     height: auto;
   }

@@ -31,7 +31,7 @@ export const VillagersCard = ({ cardID, editMode, selectCard }: Props) => {
               card.name.toLowerCase().charAt(0) === 's' ||
               card.name.toLowerCase().charAt(0) === 'w'
             }
-            src={didFlip ? card.img_back : card.img_front}
+            src={didFlip ? card.imgBack : card.imgFront}
             alt={card.name}
             onClick={() => {
               selectCard(cardID, false)
@@ -55,7 +55,7 @@ export const VillagersCard = ({ cardID, editMode, selectCard }: Props) => {
           editMode={false}
           color={color}
           flip={!shouldFlip}
-          src={card.img_front}
+          src={card.imgFront}
           alt={card.name}
           onClick={() => {
             selectCard(cardID, true)
