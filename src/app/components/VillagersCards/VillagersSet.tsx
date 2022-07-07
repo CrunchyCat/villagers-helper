@@ -199,7 +199,7 @@ const CardsWrapper = styled.div<{ color: string }>`
 const SetWrapperCompact = styled.div<{ color: string }>`
   width: 100%;
   max-width: 78rem;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
   display: flex;
   flex-direction: column;
   background-color: ${p => p.theme.backgroundVariant};
