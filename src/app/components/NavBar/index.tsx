@@ -96,7 +96,7 @@ const NavLeft = styled.div`
   align-items: center;
 `
 
-//TODO: Implement search icon using a component (making it clean to add hover/focus styling)
+//TODO: Implement search icon using a component (+add hover/focus styling)
 const NavRight = styled.nav`
   flex: 1;
   div {
@@ -129,6 +129,7 @@ const HomeLink = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-content: end;
+  text-decoration: none;
   img {
     max-height: calc(${StyleConstants.NAV_BAR_HEIGHT} - 1rem);
   }

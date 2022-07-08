@@ -4,11 +4,11 @@ import { Gold } from 'data/card/cards'
 
 interface Props {
   gold: { type: Gold; amt: number; condition: string }
-  width?: string
-  height?: string
+  width: string
+  height: string
 }
 
-export const IconCoin = ({ gold, width = '', height = '' }: Props) => (
+export const IconCoin = ({ gold, width, height }: Props) => (
   <Coin width={width} height={height} type={gold.type} title={gold.condition}>
     <div>{gold.amt === 0.5 ? '1/2' : gold.amt}</div>
   </Coin>
