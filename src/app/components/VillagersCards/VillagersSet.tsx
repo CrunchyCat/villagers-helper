@@ -1,13 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { VillagersCard } from './VillagersCard'
-import { cards, CardSet, Villager } from 'data/card/cards'
+import { Villager, CardSet, cards, View } from 'data/card/cards'
 import { IconInfo } from 'app/Icons/IconInfo'
 import { IconCoin } from 'app/Icons/IconCoin'
 import icon_lock from 'data/assets/icons/icon_lock.png'
 import icon_food from 'data/assets/icons/icon_food.png'
 import icon_builder from 'data/assets/icons/icon_builder.png'
-import { View } from 'data/card/view'
 
 interface Props {
   setID: string

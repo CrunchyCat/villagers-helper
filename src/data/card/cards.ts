@@ -109,6 +109,7 @@ import suit_leather from '../assets/icons/suit_leather.png'
 import suit_solitary from '../assets/icons/suit_solitary.png'
 import suit_special from '../assets/icons/suit_special.png'
 /* Set/Expansion Icons */
+import exp_all from '../assets/icons/exp_all.png'
 import exp_base from '../assets/icons/exp_base.png'
 import exp_4player from '../assets/icons/exp_4player.png'
 import exp_saints from '../assets/icons/exp_saints.png'
@@ -119,6 +120,16 @@ import exp_dicetower from '../assets/icons/exp_dicetower.png'
 
 export enum Gold { Gold, Silver, Bronze }
 
+export enum View { Normal, Wide, Compact }
+export const views = ['normal', 'wide', 'compact']
+export const VIEWS_LENGTH = 3
+
+export enum All { Unknown, All }
+export enum Suit { Unknown, Grains, Wood, Hay, Ore, Grapes, Wool, Leather, Solitary, Special }
+export enum Exp { None, Base, FourPlayer, Promo1, DiceTower, Profiteers, Saints, Scoundrels }
+export enum Group { All, Suit, Exp }
+export const GROUPS_LENGTH = 3
+
 export enum Villager {
   Unknown, Founders, Brewer, Poulterer, Swineherd, Truffler, Lumberjack, Carpenter, Cooper, Shipwright, Wheeler,
   Cartwright, WoodCarver, LogRafter, Healey, Arkwright, Hayer, Thatcher, BedBuilder, Grazier, MilkMaid, Fromager,
@@ -128,9 +139,6 @@ export enum Villager {
   Wholesaler, Captain, Monk, Apprentice, Tinner, Smuggler, Freelancer, Benefactor, Nun, Pigeoneer, Prophet, Recruiter,
   Barbarian, Courier, Flaker, Noble, Schemer, Thief, Sheriff
 }
-
-export enum Suit { Unknown, Grains, Wood, Hay, Ore, Grapes, Wool, Leather, Solitary, Special }
-export enum Exp { None, Base, FourPlayer, Promo1, DiceTower, Profiteers, Saints, Scoundrels }
 
 export type VillagerDetails = {
   name: string
@@ -323,81 +331,114 @@ export const cards: VillagerDetails[] = [
   { name: 'Sheriff', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: sheriff, imgBack: back_special }
 ]
 
-export const suits: CardSet[] = [
-  { /* Unknown Villager */
-    name: 'Unknown', img: back_unknown, color: '#92D1BB',
-    cards: [Villager.Unknown], hide: true
+export const groups: { name: string, sets: CardSet[] }[] = [
+  {
+    name: 'all',
+    sets: [
+      { /* Unknown Villager */
+        name: 'Unknown', img: back_unknown, color: '#92D1BB',
+        cards: [Villager.Unknown], hide: true
+      },
+      { /* All Villagers */
+        name: 'All', img: exp_all, color: '#CC6A00',
+        cards: [Villager.Founders, Villager.Brewer, Villager.Poulterer, Villager.Swineherd, Villager.Truffler,
+          Villager.Lumberjack, Villager.Carpenter, Villager.Cooper, Villager.Shipwright, Villager.Wheeler,
+          Villager.Cartwright, Villager.WoodCarver, Villager.LogRafter, Villager.Healey, Villager.Arkwright,
+          Villager.Hayer, Villager.Thatcher, Villager.BedBuilder, Villager.Grazier, Villager.MilkMaid, Villager.Fromager,
+          Villager.Peddler, Villager.HorseTrader, Villager.OreMuler, Villager.Vasel, Villager.Carter, Villager.Miner,
+          Villager.Blacksmith, Villager.GlassBlower, Villager.Mason, Villager.Seeker, Villager.Spelunker,
+          Villager.Jeweler, Villager.Locksmith, Villager.Garcia, Villager.Alchemist, Villager.Graper, Villager.Vintner,
+          Villager.WineTrader, Villager.Shepherd, Villager.Spinner, Villager.Weaver, Villager.Tailor, Villager.Tanner,
+          Villager.Saddler, Villager.Cobbler, Villager.Harvester, Villager.Hunter, Villager.Chandler, Villager.Wattler,
+          Villager.Fisher, Villager.Beekeeper, Villager.Grocer, Villager.Freemason, Villager.Priest, Villager.Agent,
+          Villager.Plower, Villager.Scribe,Villager.Wholesaler, Villager.Captain, Villager.Monk, Villager.Apprentice,
+          Villager.Tinner, Villager.Smuggler, Villager.Freelancer, Villager.Benefactor, Villager.Nun, Villager.Pigeoneer,
+          Villager.Prophet, Villager.Recruiter, Villager.Barbarian, Villager.Courier, Villager.Flaker, Villager.Noble,
+          Villager.Schemer, Villager.Thief, Villager.Sheriff]
+      }
+    ]
   },
-  { /* Grains Villagers */
-    name: 'Grains', img: suit_grains, color: '#92D1BB',
-    cards: [Villager.Founders, Villager.Brewer, Villager.Poulterer, Villager.Swineherd, Villager.Truffler]
+  {
+    name: 'suit',
+    sets: [
+      { /* Unknown Villager */
+        name: 'Unknown', img: back_unknown, color: '#92D1BB',
+        cards: [Villager.Unknown], hide: true
+      },
+      { /* Grains Villagers */
+        name: 'Grains', img: suit_grains, color: '#92D1BB',
+        cards: [Villager.Founders, Villager.Brewer, Villager.Poulterer, Villager.Swineherd, Villager.Truffler]
+      },
+      { /* Wood Villagers */
+        name: 'Wood', img: suit_wood, color: '#9DC274',
+        cards: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+      },
+      { /* Hay Villagers */
+        name: 'Hay', img: suit_hay, color: '#7F499F',
+        cards: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+      },
+      { /* Ore Villagers */
+        name: 'Ore', img: suit_ore, color: '#0D0709',
+        cards: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
+      },
+      { /* Grapes Villagers */
+        name: 'Grapes', img: suit_grapes, color: '#F15FA7',
+        cards: [Villager.Graper, Villager.Vintner, Villager.WineTrader]
+      },
+      { /* Wool Villagers */
+        name: 'Wool', img: suit_wool, color: '#41B4D3',
+        cards: [Villager.Shepherd, Villager.Spinner, Villager.Weaver, Villager.Tailor]
+      },
+      { /* Leather Villagers */
+        name: 'Leather', img: suit_leather, color: '#FFC748',
+        cards: [Villager.Tanner, Villager.Saddler, Villager.Cobbler]
+      },
+      { /* Solitary Villagers */
+        name: 'Solitary', img: suit_solitary, color: '#814B26',
+        cards: [47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60]
+      },
+      { /* Special Villagers */
+        name: 'Special', img: suit_special, color: '#FE5240',
+        cards: [61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77]
+      }
+    ]
   },
-  { /* Wood Villagers */
-    name: 'Wood', img: suit_wood, color: '#9DC274',
-    cards: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-  },
-  { /* Hay Villagers */
-    name: 'Hay', img: suit_hay, color: '#7F499F',
-    cards: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
-  },
-  { /* Ore Villagers */
-    name: 'Ore', img: suit_ore, color: '#0D0709',
-    cards: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
-  },
-  { /* Grapes Villagers */
-    name: 'Grapes', img: suit_grapes, color: '#F15FA7',
-    cards: [Villager.Graper, Villager.Vintner, Villager.WineTrader]
-  },
-  { /* Wool Villagers */
-    name: 'Wool', img: suit_wool, color: '#41B4D3',
-    cards: [Villager.Shepherd, Villager.Spinner, Villager.Weaver, Villager.Tailor]
-  },
-  { /* Leather Villagers */
-    name: 'Leather', img: suit_leather, color: '#FFC748',
-    cards: [Villager.Tanner, Villager.Saddler, Villager.Cobbler]
-  },
-  { /* Solitary Villagers */
-    name: 'Solitary', img: suit_solitary, color: '#814B26',
-    cards: [47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60]
-  },
-  { /* Special Villagers */
-    name: 'Special', img: suit_special, color: '#FE5240',
-    cards: [61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77]
-  }
-]
-
-export const exps: CardSet[] = [
-  { /* None/Unknown */
-    name: 'None', img: exp_base, color: '#8FD959',
-    cards: [Villager.Unknown], hide: true
-  },
-  { /* Base Game */
-    name: 'Base', img: exp_base, color: '#83D67F',
-    cards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 16, 17, 18, 19, 20, 21, 22, 23, 24, 27, 28, 29, 30,
-      31, 32, 33, 34, 37, 38, 39, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 61, 62, 63, 64]
-  },
-  { /* 4+ Players Expansion */
-    name: '4+ Players', img: exp_4player, color: '#FF6153',
-    cards: [40, 41, 42, 43, 44, 45, 46]
-  },
-  { /* Promo Pack #1 */
-    name: 'Promo #1', img: exp_promo1, color: '#814B26',
-    cards: [Villager.Plower, Villager.Scribe]
-  },
-  { /* Dice Tower Promo Cards */
-    name: 'Dice Tower', img: exp_dicetower, color: '#B71427',
-    cards: [Villager.Vasel, Villager.Garcia, Villager.Healey]
-  },
-  { /* Profiteers Expansion */
-    name: 'Profiteers', img: exp_profiteers, color: '#999998',
-    cards: [59, 65, 15,  26, 36, 60]
-  },
-  { /* Saints Expansion */
-    name: 'Saints', img: exp_saints, color: '#E94FAC',
-    cards: [Villager.Benefactor, Villager.Nun, Villager.Pigeoneer, Villager.Prophet, Villager.Recruiter]
-  },
-  { /* Scoundrels Expansion */
-    name: 'Scoundrels', img: exp_scoundrels, color: '#2E629F',
-    cards: [71, 72, 73, 74, 75, 76, 77]
+  {
+    name: 'expansions',
+    sets: [
+      { /* None/Unknown */
+        name: 'None', img: exp_base, color: '#8FD959',
+        cards: [Villager.Unknown], hide: true
+      },
+      { /* Base Game */
+        name: 'Base', img: exp_base, color: '#83D67F',
+        cards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 16, 17, 18, 19, 20, 21, 22, 23, 24, 27, 28, 29, 30,
+          31, 32, 33, 34, 37, 38, 39, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 61, 62, 63, 64]
+      },
+      { /* 4+ Players Expansion */
+        name: '4+ Players', img: exp_4player, color: '#FF6153',
+        cards: [40, 41, 42, 43, 44, 45, 46]
+      },
+      { /* Promo Pack #1 */
+        name: 'Promo #1', img: exp_promo1, color: '#814B26',
+        cards: [Villager.Plower, Villager.Scribe]
+      },
+      { /* Dice Tower Promo Cards */
+        name: 'Dice Tower', img: exp_dicetower, color: '#B71427',
+        cards: [Villager.Vasel, Villager.Garcia, Villager.Healey]
+      },
+      { /* Profiteers Expansion */
+        name: 'Profiteers', img: exp_profiteers, color: '#999998',
+        cards: [59, 65, 15,  26, 36, 60]
+      },
+      { /* Saints Expansion */
+        name: 'Saints', img: exp_saints, color: '#E94FAC',
+        cards: [Villager.Benefactor, Villager.Nun, Villager.Pigeoneer, Villager.Prophet, Villager.Recruiter]
+      },
+      { /* Scoundrels Expansion */
+        name: 'Scoundrels', img: exp_scoundrels, color: '#2E629F',
+        cards: [71, 72, 73, 74, 75, 76, 77]
+      }
+    ]
   }
 ]

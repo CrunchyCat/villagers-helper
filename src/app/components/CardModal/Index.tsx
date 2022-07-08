@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { mediaMax, mediaMin } from 'styles/media'
 import { Backdrop } from '../Backdrop'
 import { IconClose } from 'app/Icons/IconClose'
-import { cards, exps, suits, Villager } from 'data/card/cards'
+import { Villager, cards, Group, groups } from 'data/card/cards'
 import { IconCoin } from 'app/Icons/IconCoin'
 import icon_lock from 'data/assets/icons/icon_lock.png'
 import icon_food from 'data/assets/icons/icon_food.png'
@@ -17,7 +17,7 @@ interface Props {
 
 export const CardModal = ({ show, cardID, clickClose }: Props) => {
   const card = cards[cardID]
-  const suit = suits[card.suit]
+  const suit = groups[Group.Suit].sets[card.suit]
 
   return (
     <>
@@ -70,7 +70,7 @@ export const CardModal = ({ show, cardID, clickClose }: Props) => {
             <IconCoin gold={card.gold} width="1.825rem" height="1.825rem" />
           )}
           <br />
-          expansion: {exps[card.exp].name}
+          expansion: {groups[Group.Exp].sets[card.exp].name}
         </SetTop>
       </Modal>
       <Backdrop show={show} click={clickClose} />

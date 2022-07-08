@@ -3,14 +3,20 @@ import styled from 'styled-components/macro'
 import { Helmet } from 'react-helmet-async'
 import { NavBar } from 'app/components/NavBar'
 import { VillagersCards } from 'app/components/VillagersCards'
-import { suits, exps } from 'data/card/cards'
-import { View, VIEWS_LENGTH } from 'data/card/view'
+import {
+  Group,
+  GROUPS_LENGTH,
+  groups,
+  View,
+  VIEWS_LENGTH,
+  views
+} from 'data/card/cards'
 import { ButtonToggleView } from 'app/components/ButtonToggleView'
 
 export const CardsPage = () => {
   const [isViewBarHidden, setViewBarHidden] = React.useState(false)
   const [filter, setFilter] = React.useState('')
-  const [group, setGroup] = React.useState(suits)
+  const [group, setGroup] = React.useState(Group.Suit)
   const [view, setView] = React.useState(View.Normal)
 
   return (
@@ -22,23 +28,23 @@ export const CardsPage = () => {
       <NavBar title="cards" btnSearch={() => setViewBarHidden(prev => !prev)} />
       <Wrapper>
         <ViewBar isHidden={isViewBarHidden}>
-          <ViewSwitch onClick={() => console.log('Set Filters')}>
+          <ViewSwitch title="filter" onClick={() => console.log('Set Filters')}>
             filt {/* TODO: Add Filter Options & Swap for Icon */}
           </ViewSwitch>
           <SearchBar onChange={e => setFilter(e.target.value.toLowerCase())} />
           <ViewSwitch
-            onClick={() => setGroup(prev => (prev === suits ? exps : suits))}
-          >
-            {group === suits ? 'suit' : 'pack'} {/* TODO: Swap out for Icon */}
-          </ViewSwitch>
+            onClick={() => setGroup(prev => (prev + 1) % GROUPS_LENGTH)}
+            title={`group by: ${groups[group].name}`}
+          ></ViewSwitch>
           <ViewSwitch
             onClick={() => setView(prev => (prev + 1) % VIEWS_LENGTH)}
+            title={`${views[view]} view`}
           >
             <ButtonToggleView view={view} width="1.5rem" height="1.5rem" />
           </ViewSwitch>
         </ViewBar>
         <VillagersCards
-          cardSets={group}
+          group={group}
           filter={filter.trim()}
           view={view}
           editMode={false}

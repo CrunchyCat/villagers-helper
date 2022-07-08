@@ -1,8 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { Villager, cards, suits } from 'data/card/cards'
+import { Villager, cards, Group, groups, View } from 'data/card/cards'
 import { IconInfo } from 'app/Icons/IconInfo'
-import { View } from 'data/card/view'
 
 interface Props {
   cardID: Villager
@@ -18,7 +17,7 @@ export const VillagersCard = ({
   selectCard
 }: Props) => {
   const card = cards[cardID]
-  const color = suits[card.suit].color
+  const color = groups[Group.Suit].sets[card.suit].color
 
   const [shouldFlip, setShouldFlip] = React.useState(false)
   const [didFlip, setDidFlip] = React.useState(false)
