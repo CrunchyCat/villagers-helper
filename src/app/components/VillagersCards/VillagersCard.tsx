@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { Villager, cards, Group, groups, View } from 'data/card/cards'
 import { IconInfo } from 'app/Icons/IconInfo'
+import { Villager, cards, Group, groups, View } from 'data/card/cards'
 
 interface Props {
   cardID: Villager

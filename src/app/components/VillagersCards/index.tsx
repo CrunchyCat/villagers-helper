@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { CardModal } from '../CardModal'
-import { Villager, cards, Group, groups, View } from 'data/card/cards'
 import { VillagersSet } from './VillagersSet'
+import { Villager, cards, Group, groups, View } from 'data/card/cards'
 
 interface Props {
   group: Group

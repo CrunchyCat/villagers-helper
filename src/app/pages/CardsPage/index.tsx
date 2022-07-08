@@ -3,6 +3,9 @@ import styled from 'styled-components/macro'
 import { Helmet } from 'react-helmet-async'
 import { NavBar } from 'app/components/NavBar'
 import { VillagersCards } from 'app/components/VillagersCards'
+import { IconToggleGroup } from 'app/components/IconToggleGroup'
+import { IconToggleView } from 'app/components/IconToggleView'
+import { IconFilter } from 'app/Icons/IconFilter'
 import {
   Group,
   GROUPS_LENGTH,
@@ -11,7 +14,6 @@ import {
   VIEWS_LENGTH,
   views
 } from 'data/card/cards'
-import { ButtonToggleView } from 'app/components/ButtonToggleView'
 
 export const CardsPage = () => {
   const [isViewBarHidden, setViewBarHidden] = React.useState(false)
@@ -28,19 +30,24 @@ export const CardsPage = () => {
       <NavBar title="cards" btnSearch={() => setViewBarHidden(prev => !prev)} />
       <Wrapper>
         <ViewBar isHidden={isViewBarHidden}>
-          <ViewSwitch title="filter" onClick={() => console.log('Set Filters')}>
-            filt {/* TODO: Add Filter Options & Swap for Icon */}
+          <ViewSwitch
+            title="filter"
+            onClick={() => console.log('set filters') /*TODO: filters */}
+          >
+            <IconFilter width="1.5rem" height="1.5rem" />
           </ViewSwitch>
           <SearchBar onChange={e => setFilter(e.target.value.toLowerCase())} />
           <ViewSwitch
             onClick={() => setGroup(prev => (prev + 1) % GROUPS_LENGTH)}
             title={`group by: ${groups[group].name}`}
-          ></ViewSwitch>
+          >
+            <IconToggleGroup group={group} width="1.5rem" height="1.5rem" />
+          </ViewSwitch>
           <ViewSwitch
             onClick={() => setView(prev => (prev + 1) % VIEWS_LENGTH)}
             title={`${views[view]} view`}
           >
-            <ButtonToggleView view={view} width="1.5rem" height="1.5rem" />
+            <IconToggleView view={view} width="1.5rem" height="1.5rem" />
           </ViewSwitch>
         </ViewBar>
         <VillagersCards
@@ -96,7 +103,7 @@ const SearchBar = styled.input`
       p.theme
         .textSecondary}' width='20px' height='20px' viewBox='0 0 487.95 487.95'><path d='M481.8,453l-140-140.1c27.6-33.1,44.2-75.4,44.2-121.6C386,85.9,299.5,0.2,193.1,0.2S0,86,0,191.4s86.5,191.1,192.9,191.1
         c45.2,0,86.8-15.5,119.8-41.4l140.5,140.5c8.2,8.2,20.4,8.2,28.6,0C490,473.4,490,461.2,481.8,453z M41,191.4
-        c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z'></path></svg>")
+        c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z'/></svg>")
     no-repeat 0.75rem center;
 
   @media (pointer: fine) {

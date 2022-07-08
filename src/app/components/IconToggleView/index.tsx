@@ -33,7 +33,7 @@ const SvgWide = ({ width, height }: SvgProps) => (
   </svg>
 )
 
-export const ButtonToggleView = ({ view, width, height }: Props) => (
+export const IconToggleView = ({ view, width, height }: Props) => (
   <>
     {view === View.Compact && <SvgCompact width={width} height={height} />}
     {view === View.Normal && <SvgNormal width={width} height={height} />}
