@@ -93,15 +93,15 @@ const SearchBar = styled.input`
         c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z'></path></svg>")
     no-repeat 0.75rem center;
 
-  &:focus {
-    outline: none;
-    border-color: ${p => p.theme.primary};
-  }
-
   @media (pointer: fine) {
     &:hover {
       border-color: ${p => p.theme.text};
     }
+  }
+
+  &:focus {
+    outline: none;
+    border-color: ${p => p.theme.primary};
   }
 
   @supports (backdrop-filter: blur(2px)) {

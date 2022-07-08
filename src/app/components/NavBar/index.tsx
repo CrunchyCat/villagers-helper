@@ -38,10 +38,10 @@ export const NavBar = ({ title, btnSearch }: Props) => {
           </HomeLink>
           <Title>{title}</Title>
           <NavLinks>
-            <NavLink to="/rules" title="game rules" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>rules</NavLink>
-            <NavLink to="/configs" title="game configurations" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>configurations</NavLink>
-            <NavLink to="/cards" title="game cards" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>cards</NavLink>
-            <NavLink to="/settings" title="settings" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>settings</NavLink>
+            <NavLink to="/rules"className={({ isActive }) => (isActive ? 'active' : 'inactive')}  title="game rules">rules</NavLink>
+            <NavLink to="/configs" className={({ isActive }) => (isActive ? 'active' : 'inactive')} title="game configurations">configurations</NavLink>
+            <NavLink to="/cards" className={({ isActive }) => (isActive ? 'active' : 'inactive')} title="game cards">cards</NavLink>
+            <NavLink to="/settings" className={({ isActive }) => (isActive ? 'active' : 'inactive')} title="settings">settings</NavLink>
           </NavLinks>
         </WrapperDesktop>
       </TopBar>
