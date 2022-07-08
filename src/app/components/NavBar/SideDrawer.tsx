@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { Link } from 'app/components/Link'
+import { NavLink } from 'react-router-dom'
 
 interface Props {
   show: boolean
@@ -10,16 +10,36 @@ export const SideDrawer = ({ show }: Props) => (
   <Drawer show={show}>
     <DrawerList>
       <DrawerListItem>
-        <Link to="/rules">rules</Link>
+        <NavLink
+          className={({ isActive }) => (isActive ? 'active' : 'inactive')}
+          to="/rules"
+        >
+          rules
+        </NavLink>
       </DrawerListItem>
       <DrawerListItem>
-        <Link to="/configs">configurations</Link>
+        <NavLink
+          className={({ isActive }) => (isActive ? 'active' : 'inactive')}
+          to="/configs"
+        >
+          configurations
+        </NavLink>
       </DrawerListItem>
       <DrawerListItem>
-        <Link to="/cards">cards</Link>
+        <NavLink
+          className={({ isActive }) => (isActive ? 'active' : 'inactive')}
+          to="/cards"
+        >
+          cards
+        </NavLink>
       </DrawerListItem>
       <DrawerListItem>
-        <Link to="/settings">settings</Link>
+        <NavLink
+          className={({ isActive }) => (isActive ? 'active' : 'inactive')}
+          to="/settings"
+        >
+          settings
+        </NavLink>
       </DrawerListItem>
     </DrawerList>
   </Drawer>
@@ -49,4 +69,26 @@ const DrawerList = styled.ul`
 const DrawerListItem = styled.li`
   margin: 0.5rem;
   font-size: 1.5rem;
+
+  .active {
+    margin-left: 0.6rem;
+    color: ${p => p.theme.textSecondary};
+    text-decoration: none;
+    cursor: default;
+  }
+
+  .inactive {
+    color: ${p => p.theme.primary};
+    text-decoration: none;
+
+    &:hover {
+      margin-left: 0.6rem;
+      opacity: 0.8;
+      transition: margin-left 0.1s ease-in-out;
+    }
+
+    &:active {
+      opacity: 0.4;
+    }
+  }
 `

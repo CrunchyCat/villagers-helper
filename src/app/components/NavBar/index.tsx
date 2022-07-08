@@ -1,11 +1,11 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
+import { NavLink } from 'react-router-dom'
 import { StyleConstants } from 'styles/StyleConstants'
+import { mediaMin, mediaMax } from 'styles/media'
 import { SideDrawer } from './SideDrawer'
 import { Backdrop } from 'app/components/Backdrop'
 import { DrawerToggleButton } from './DrawerToggleButton'
-import { mediaMin, mediaMax } from 'styles/media'
-import { Link } from 'app/components/Link'
 import logo from './assets/logo.png'
 
 interface Props {
@@ -38,10 +38,10 @@ export const NavBar = ({ title, btnSearch }: Props) => {
           </HomeLink>
           <Title>{title}</Title>
           <NavLinks>
-            <Link to="/rules" title="game rules">rules</Link>
-            <Link to="/configs" title="game configurations">configurations</Link>
-            <Link to="/cards" title="game cards">cards</Link>
-            <Link to="/settings" title="settings">settings</Link>
+            <NavLink to="/rules" title="game rules" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>rules</NavLink>
+            <NavLink to="/configs" title="game configurations" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>configurations</NavLink>
+            <NavLink to="/cards" title="game cards" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>cards</NavLink>
+            <NavLink to="/settings" title="settings" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>settings</NavLink>
           </NavLinks>
         </WrapperDesktop>
       </TopBar>
@@ -124,7 +124,7 @@ const WrapperDesktop = styled.div`
   `}
 `
 
-const HomeLink = styled(Link)`
+const HomeLink = styled(NavLink)`
   flex: 1;
   display: flex;
   align-items: center;
@@ -148,8 +148,27 @@ const HomeLink = styled(Link)`
 const NavLinks = styled.nav`
   flex: 1;
   display: flex;
-  ${Link} {
+
+  .active {
     padding: 0.25rem 1rem;
     font-size: 0.875rem;
+    color: ${p => p.theme.textSecondary};
+    cursor: default;
+    text-decoration: none;
+  }
+
+  .inactive {
+    padding: 0.25rem 1rem;
+    font-size: 0.875rem;
+    color: ${p => p.theme.primary};
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 0.4;
+    }
   }
 `
