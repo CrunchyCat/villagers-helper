@@ -14,7 +14,7 @@ export const DrawerToggleButton = ({ click }: Props) => (
 )
 
 const DrawerButton = styled.button`
-  height: 35%;
+  height: 1.4rem;
   width: 1.875rem;
   display: flex;
   flex-direction: column;

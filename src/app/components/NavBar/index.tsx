@@ -25,6 +25,7 @@ export const NavBar = ({ title, btnSearch }: Props) => {
           <NavLeft>
             <DrawerToggleButton click={() => setDrawerIsOpen(x => !x)} />
           </NavLeft>
+
           <Title>{title}</Title>
           <NavRight>{btnSearch && <div onClick={btnSearch} />}</NavRight>
         </WrapperMobile>
@@ -69,9 +70,10 @@ const TopBar = styled.header`
 `
 
 const Title = styled.div`
-  flex-basis: 33.33%;
+  flex: 1;
   display: flex;
   justify-content: center;
+  align-self: center;
   font-size: 1.634rem;
   font-weight: bold;
   color: ${p => p.theme.text};
@@ -81,8 +83,6 @@ const WrapperMobile = styled.div`
   width: 100%;
   margin: 0 1rem 0 1rem;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
 
   ${mediaMin.medium`
     display: none !important
@@ -90,19 +90,17 @@ const WrapperMobile = styled.div`
 `
 
 const NavLeft = styled.div`
-  flex-basis: 33.33%;
+  flex: 1;
+  margin-right: auto;
   display: flex;
   align-items: center;
-  justify-content: start;
-  height: 100%;
 `
 
 //TODO: Implement search icon using a component (making it clean to add hover/focus styling)
 const NavRight = styled.nav`
-  flex-basis: 33.33%;
-  display: flex;
-  justify-content: flex-end;
+  flex: 1;
   div {
+    margin-left: auto;
     width: 24px;
     height: ${StyleConstants.NAV_BAR_HEIGHT};
     background: transparent
@@ -120,7 +118,6 @@ const WrapperDesktop = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 
   ${mediaMax.medium`
     display: none !important
@@ -128,7 +125,7 @@ const WrapperDesktop = styled.div`
 `
 
 const HomeLink = styled(Link)`
-  flex-basis: 33.33%;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: end;
@@ -138,24 +135,21 @@ const HomeLink = styled(Link)`
   span {
     font-size: 0.875rem;
     color: ${p => p.theme.textSecondary};
-    font-weight: normal;
     strong {
       font-size: 1.25rem;
       color: ${p => p.theme.text};
       font-weight: bold;
-      margin: 0 1rem 0 1rem;
+      margin: 0 1rem;
     }
   }
 `
 
 // TODO: Add icons with .icon { margin-right: 0.25rem; }
 const NavLinks = styled.nav`
-  flex-basis: 33.33%;
+  flex: 1;
   display: flex;
   ${Link} {
     padding: 0.25rem 1rem;
-    display: flex;
-    align-items: center;
     font-size: 0.875rem;
   }
 `

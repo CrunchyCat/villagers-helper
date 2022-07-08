@@ -10,7 +10,7 @@ export const ConfigsPage = () => (
       <meta name="description" content="configurations" />
     </Helmet>
     <NavBar title="configurations" />
-    <Wrapper>no configurations yet {/* TODO: Add Configurations */}</Wrapper>
+    <Wrapper>{/* TODO: Add Configurations */}</Wrapper>
   </>
 )
 

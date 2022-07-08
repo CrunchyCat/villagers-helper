@@ -10,7 +10,7 @@ export const RulesPage = () => (
       <meta name="description" content="rules" />
     </Helmet>
     <NavBar title="rules" />
-    <Wrapper>nothing here yet {/* TODO: Add Rules */}</Wrapper>
+    <Wrapper>{/* TODO: Add Rules */}</Wrapper>
   </>
 )
 

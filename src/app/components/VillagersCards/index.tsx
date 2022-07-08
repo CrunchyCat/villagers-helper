@@ -2,20 +2,16 @@ import * as React from 'react'
 import { CardModal } from '../CardModal'
 import { cards, CardSet, Villager } from 'data/card/cards'
 import { VillagersSet } from './VillagersSet'
+import { View } from 'data/card/view'
 
 interface Props {
   cardSets: CardSet[]
   filter: string
-  compact: boolean
+  view: View
   editMode: boolean
 }
 
-export const VillagersCards = ({
-  cardSets,
-  filter,
-  compact,
-  editMode
-}: Props) => {
+export const VillagersCards = ({ cardSets, filter, view, editMode }: Props) => {
   const [viewCard, setViewCard] = React.useState(Villager.Unknown)
   const [showModal, setShowModal] = React.useState(false)
 
@@ -26,7 +22,7 @@ export const VillagersCards = ({
         cardID={viewCard}
         clickClose={() => {
           setShowModal(false)
-          document.body.style.overflow = 'unset'
+          // document.body.style.overflow = 'unset' //TODO: Fix scrolling on body during modal
         }}
       />
       {Object.entries(cardSets) // For Each Card Set
@@ -39,12 +35,12 @@ export const VillagersCards = ({
             setID={setID}
             set={set}
             filter={filter}
-            compact={compact}
+            view={view}
             editMode={editMode}
             setViewCard={cardID => {
               setViewCard(cardID)
               setShowModal(true)
-              document.body.style.overflow = 'hidden'
+              // document.body.style.overflow = 'hidden' //TODO: Fix scrolling on body during modal
             }}
             key={setID}
           />

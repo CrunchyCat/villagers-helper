@@ -21,11 +21,11 @@ export const App = () => {
       ></Helmet>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/rules" element={<RulesPage />} />
-        <Route path="/configs" element={<ConfigsPage />} />
-        <Route path="/cards" element={<CardsPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route element={<NotFoundPage />} />
+        <Route path="rules" element={<RulesPage />} />
+        <Route path="configs" element={<ConfigsPage />} />
+        <Route path="cards" element={<CardsPage />} />
+        <Route path="settings" element={<SettingsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <GlobalStyle />
     </BrowserRouter>

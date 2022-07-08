@@ -2,14 +2,21 @@ import * as React from 'react'
 import styled from 'styled-components/macro'
 import { Villager, cards, suits } from 'data/card/cards'
 import { IconInfo } from 'app/Icons/IconInfo'
+import { View } from 'data/card/view'
 
 interface Props {
   cardID: Villager
+  view: View
   editMode: boolean
-  selectCard: (cardID: Villager, view: boolean) => void
+  selectCard: (cardID: Villager, show: boolean) => void
 }
 
-export const VillagersCard = ({ cardID, editMode, selectCard }: Props) => {
+export const VillagersCard = ({
+  cardID,
+  view,
+  editMode,
+  selectCard
+}: Props) => {
   const card = cards[cardID]
   const color = suits[card.suit].color
 
@@ -22,6 +29,7 @@ export const VillagersCard = ({ cardID, editMode, selectCard }: Props) => {
         <CardHolder>
           <Card
             editMode={true}
+            view={view}
             color={color}
             flip={!shouldFlip}
             flipRight={
@@ -53,6 +61,7 @@ export const VillagersCard = ({ cardID, editMode, selectCard }: Props) => {
       ) : (
         <Card
           editMode={false}
+          view={view}
           color={color}
           flip={!shouldFlip}
           src={card.imgFront}
@@ -75,12 +84,13 @@ const CardHolder = styled.div`
 
 // prettier-ignore
 const Card = styled.img<{
+  editMode: boolean
+  view: View
   color: string
   flip: boolean
   flipRight?: boolean
-  editMode: boolean
 }>`
-  max-width: 10rem;
+  max-width: ${p => p.view === View.Normal ? '11rem' : '7.447rem'};
   max-height: 42vh;
   border-radius: 6.5%/4%;
   border: groove ${p => p.color};
@@ -93,7 +103,7 @@ const Card = styled.img<{
   `:`
     transform: ${p.flip ? 'translateY(0);' : `scale(1.17) translateY(-5vh);`};
   `}
-  transition: transform 0.5s;
+  transition: max-width 0.35s, transform 0.5s;
 `
 
 const InfoCard = styled.div<{ show: boolean; color: string }>`
@@ -109,17 +119,17 @@ const InfoCard = styled.div<{ show: boolean; color: string }>`
   user-select: none;
   visibility: ${p => (p.show ? 'visible' : 'hidden')};
   opacity: ${p => (p.show ? 1 : 0)};
-  transition: visibility 0.6s, opacity 0.6s ease-out;
+  transition: all 0.6s ease-out;
 `
 
 const InfoText = styled.div`
+  margin-top: 0.5rem;
+  padding: 0.2rem;
   text-align: center;
+  opacity: 0.8;
   color: ${p => p.theme.text};
   background-color: ${p => p.theme.backgroundVariant};
-  opacity: 0.8;
   border-radius: 1.5rem;
-  margin: 0.5rem 0;
-  padding: 0.25rem;
 
   p {
     margin: 0;
@@ -129,15 +139,15 @@ const InfoText = styled.div`
 `
 
 const CardOption = styled.div`
+  align-self: center;
   display: flex;
   align-items: center;
-  align-self: center;
+  opacity: 0.8;
+  font-weight: 900;
   color: ${p => p.theme.text};
   background-color: ${p => p.theme.backgroundVariant};
   border-radius: 1rem 50% 50% 1rem;
-  opacity: 0.8;
   cursor: pointer;
-  font-weight: 900;
   pointer-events: all;
 
   svg {

@@ -4,12 +4,14 @@ import { Helmet } from 'react-helmet-async'
 import { NavBar } from 'app/components/NavBar'
 import { VillagersCards } from 'app/components/VillagersCards'
 import { suits, exps } from 'data/card/cards'
+import { View, VIEWS_LENGTH } from 'data/card/view'
+import { ButtonToggleView } from 'app/components/ButtonToggleView'
 
 export const CardsPage = () => {
   const [isViewBarHidden, setViewBarHidden] = React.useState(false)
   const [filter, setFilter] = React.useState('')
   const [group, setGroup] = React.useState(suits)
-  const [isCompact, setCompact] = React.useState(false)
+  const [view, setView] = React.useState(View.Normal)
 
   return (
     <>
@@ -29,14 +31,16 @@ export const CardsPage = () => {
           >
             {group === suits ? 'suit' : 'pack'} {/* TODO: Swap out for Icon */}
           </ViewSwitch>
-          <ViewSwitch onClick={() => setCompact(prev => !prev)}>
-            view {/* TODO: Add Filter Options & Swap for Icon */}
+          <ViewSwitch
+            onClick={() => setView(prev => (prev + 1) % VIEWS_LENGTH)}
+          >
+            <ButtonToggleView view={view} width="1.5rem" height="1.5rem" />
           </ViewSwitch>
         </ViewBar>
         <VillagersCards
           cardSets={group}
           filter={filter.trim()}
-          compact={isCompact}
+          view={view}
           editMode={false}
         />
       </Wrapper>
@@ -49,32 +53,33 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 0.2rem 0 0.2rem;
-  padding-bottom: 0.5rem;
+  padding 0 0.2rem 0.5rem 0.2rem;
 `
 
 const ViewBar = styled.div<{ isHidden: boolean }>`
   position: sticky;
-  top: 3.25rem;
+  top: 3rem;
   width: 100%;
   height: ${p => (p.isHidden ? '0' : '3.5rem')};
   max-width: 78rem;
+  padding-top: ${p => (p.isHidden ? '0' : '1rem')};
   display: flex;
-  align-items: center;
   flex-direction: row;
+  align-items: center;
   justify-content: flex-end;
   z-index: 4;
   gap: 1.5%;
-  padding: 1rem 0.2rem 0 0.2rem;
-  transform: ${p => (p.isHidden ? 'translateY(-7rem)' : 'translateX(0)')};
   opacity: ${p => (p.isHidden ? '0' : '1')};
-  transition: height 0.4s, transform 0.5s, opacity 0.8s ease-out;
+  transform: ${p => (p.isHidden ? 'translateY(-7rem)' : 'translateX(0)')};
+  transition: height 0.4s, padding-top 0.1s, opacity 0.8s,
+    transform 0.5s ease-out;
 `
 
 //TODO: Implement search icon using a component (making it clean to add hover/focus styling)
 const SearchBar = styled.input`
   width: 52%;
   max-width: 22rem;
+  height: 100%;
   padding: 0.5rem 1rem 0.5rem 2.5rem;
   color: ${p => p.theme.text};
   background-color: ${p => p.theme.backgroundVariant};
@@ -87,10 +92,18 @@ const SearchBar = styled.input`
         c45.2,0,86.8-15.5,119.8-41.4l140.5,140.5c8.2,8.2,20.4,8.2,28.6,0C490,473.4,490,461.2,481.8,453z M41,191.4
         c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z'></path></svg>")
     no-repeat 0.75rem center;
+
   &:focus {
     outline: none;
     border-color: ${p => p.theme.primary};
   }
+
+  @media (pointer: fine) {
+    &:hover {
+      border-color: ${p => p.theme.text};
+    }
+  }
+
   @supports (backdrop-filter: blur(2px)) {
     backdrop-filter: blur(2px);
     background-color: ${p =>
@@ -104,20 +117,27 @@ const SearchBar = styled.input`
 const ViewSwitch = styled.div`
   width: 15.5%;
   max-width: 4rem;
+  height: 100%;
+  padding: 0.4rem;
   display: flex;
   justify-content: center;
   align-items: center;
   color: ${p => p.theme.text};
   background-color: ${p => p.theme.backgroundVariant};
   border: 0.1rem solid ${p => p.theme.textSecondary};
+  border-radius: 1.5rem;
   user-select: none;
   cursor: pointer;
+
   &:active {
-    outline: none;
     border-color: ${p => p.theme.primary};
   }
-  border-radius: 1.5rem;
-  padding: 0.4rem;
+
+  @media (pointer: fine) {
+    &:hover {
+      border-color: ${p => p.theme.text};
+    }
+  }
 
   @supports (backdrop-filter: blur(2px)) {
     backdrop-filter: blur(2px);

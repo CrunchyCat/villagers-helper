@@ -124,8 +124,6 @@ const ColorStrip = styled.div<{ color: string }>`
 const TitleBar = styled.div`
   height: 5rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 2rem 1.25rem 0 1.25rem;
   color: ${p => p.theme.text};
   &::before,
@@ -135,6 +133,7 @@ const TitleBar = styled.div`
     flex: 1;
   }
   h1 {
+    align-self: center;
     text-align: center;
     font-size: 2.25rem;
     font-weight: bold;
@@ -158,7 +157,6 @@ const TitleBar = styled.div`
 const SetTop = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   color: ${p => p.theme.text};
 `
