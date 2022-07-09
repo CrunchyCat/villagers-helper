@@ -82,6 +82,7 @@ export const CardModal = ({ show, cardID, clickClose }: Props) => {
 const Modal = styled.div<{ show: boolean }>`
   z-index: 7;
   position: fixed;
+  visibility: ${({ show }) => (show ? 'visible' : 'hidden')};
 
   ${mediaMax.small`
     top: 28%;
@@ -90,7 +91,7 @@ const Modal = styled.div<{ show: boolean }>`
     background-color: ${p => p.theme.backgroundVariant};
     border-radius: 1.5rem 1.5rem 0 0;
     transform: ${p => (p.show ? 'translateY(0)' : 'translateY(120%)')};
-    transition: transform 0.2s ease-out;
+    transition: visibility 0.2s, transform 0.2s ease-out;
   `}
 
   ${mediaMin.small`
@@ -104,7 +105,7 @@ const Modal = styled.div<{ show: boolean }>`
     transform: ${p => (p.show ? 'translateY(0)' : 'translateY(30%)')};
     opacity: ${p => (p.show ? '1' : '0')};
     visibility: ${p => (p.show ? 'visible' : 'hidden')};
-    transition: transform 0.25s, opacity 0.15s, visibility 0.15s ease-out;
+    transition: visibility 0.25s, transform 0.25s, opacity 0.15s, visibility 0.15s ease-out;
   `}
 `
 
