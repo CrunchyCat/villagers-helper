@@ -179,6 +179,7 @@ const SetTop = styled.div<{ wide: boolean }>`
   }
 
   svg {
+    stroke: ${p => p.theme.textSecondary};
     margin-left: 0.7rem;
     width: 1.5rem;
     height: 1.5rem;

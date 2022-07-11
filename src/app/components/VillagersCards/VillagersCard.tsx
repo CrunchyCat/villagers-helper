@@ -152,6 +152,7 @@ const CardOption = styled.div`
   svg {
     width: 2.2rem;
     height: 2.2rem;
+    stroke: ${p => p.theme.text};
     background-color: ${p => p.theme.backgroundVariant};
     border-radius: 50%;
   }
