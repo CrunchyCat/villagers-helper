@@ -12,7 +12,7 @@ export const IconToggleGroup = ({ group, width, height }: Props) => (
     {group === Group.All && <circle cx="32" cy="32" r="30" />}
     {group === Group.Suit && (
       <>
-        <circle cx="32" cy="32" r="30" stroke-width="4" fill="none" />
+        <circle cx="32" cy="32" r="30" strokeWidth="4" fill="none" />
         <circle cx="25" cy="25" r="5" />
         <circle cx="41" cy="23" r="5" />
         <circle cx="23" cy="41" r="5" />
@@ -21,7 +21,7 @@ export const IconToggleGroup = ({ group, width, height }: Props) => (
     )}
     {group === Group.Exp && (
       <>
-        <circle cx="32" cy="32" r="27" stroke-width="10" fill="none" />
+        <circle cx="32" cy="32" r="27" strokeWidth="10" fill="none" />
         <circle cx="26" cy="26" r="7" />
         <circle cx="40" cy="24" r="3" />
         <circle cx="24" cy="40" r="3" />
