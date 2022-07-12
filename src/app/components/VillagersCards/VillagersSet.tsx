@@ -57,7 +57,7 @@ export const VillagersSet = ({
                         {[...Array(card.food).keys()].map(i => (
                           <img
                             src={icon_food}
-                            alt={`${card.food} food`}
+                            alt={`${card.food} Food`}
                             key={`F${cardID}${i}`}
                           />
                         ))}
@@ -70,7 +70,7 @@ export const VillagersSet = ({
                         {[...Array(card.builders).keys()].map(i => (
                           <img
                             src={icon_builder}
-                            alt={`${card.builders} builder(s)`}
+                            alt={`${card.builders} Builder(s)`}
                             key={`B${cardID}${i}`}
                           />
                         ))}
