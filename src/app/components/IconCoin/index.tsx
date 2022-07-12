@@ -9,7 +9,12 @@ interface Props {
 }
 
 export const IconCoin = ({ gold, width, height }: Props) => (
-  <Coin width={width} height={height} type={gold.type} title={gold.condition}>
+  <Coin
+    width={width}
+    height={height}
+    type={gold.type}
+    title={`${gold.amt} ${Gold[gold.type]} ${gold.condition}`}
+  >
     <div>{gold.amt === 0.5 ? '1/2' : gold.amt}</div>
   </Coin>
 )

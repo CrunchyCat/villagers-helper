@@ -37,6 +37,7 @@ export const VillagersSet = ({
             .map((cardID, i) => {
               const card = cards[cardID]
               return (
+                //TODO: add compact edit mode
                 <tr onClick={() => setViewCard(cardID)} key={`${setID}${i}`}>
                   <td>{card.name}</td>
                   <td>

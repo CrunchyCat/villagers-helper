@@ -91,10 +91,10 @@ const Card = styled.img<{
 }>`
   max-width: ${p => p.view === View.Normal ? '11rem' : '7.447rem'};
   max-height: 42vh;
-  border-radius: 6.5%/4%;
   border: groove ${p => p.color};
-  border-width: 0 1px 1px 0;
   box-shadow: 0.075rem 0.075rem 0.15rem ${p => p.color};
+  border-width: 0 1px 1px 0;
+  border-radius: 6.5%/4%;
   user-select: none;
   cursor: pointer;
   ${p => p.editMode ? `
