@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { Helmet } from 'react-helmet-async'
+import { StyleConstants } from 'styles/StyleConstants'
 import { NavBar } from 'app/components/NavBar'
 import { VillagersCards } from 'app/components/VillagersCards'
 import { IconToggleGroup } from 'app/components/IconToggleGroup'
@@ -72,6 +73,12 @@ const Wrapper = styled.div`
 const ViewBar = styled.div<{ isHidden: boolean }>`
   position: sticky;
   top: 3rem;
+
+  @media only screen and (display-mode: standalone) and (orientation: portrait) {
+    top: calc(3rem + ${StyleConstants.STATUS_BAR_HEIGHT});
+  }
+
+  z-index: 4;
   width: 100%;
   height: ${p => (p.isHidden ? '0' : '3.5rem')};
   max-width: 78rem;
@@ -80,7 +87,6 @@ const ViewBar = styled.div<{ isHidden: boolean }>`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  z-index: 4;
   gap: 1.5%;
   opacity: ${p => (p.isHidden ? '0' : '1')};
   transform: ${p => (p.isHidden ? 'translateY(-7rem)' : 'translateX(0)')};
@@ -106,7 +112,7 @@ const SearchBar = styled.input`
         c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z'/></svg>")
     no-repeat 0.75rem center;
 
-  @media (pointer: fine) {
+  @media only screen and (pointer: fine) {
     &:hover {
       border-color: ${p => p.theme.text};
     }
@@ -130,7 +136,6 @@ const SearchBar = styled.input`
 const ViewSwitch = styled.div`
   width: 15.5%;
   max-width: 4rem;
-  height: 100%;
   padding: 0.4rem;
   display: flex;
   justify-content: center;
@@ -147,7 +152,7 @@ const ViewSwitch = styled.div`
     border-color: ${p => p.theme.primary};
   }
 
-  @media (pointer: fine) {
+  @media only screen and (pointer: fine) {
     &:hover {
       border-color: ${p => p.theme.text};
     }

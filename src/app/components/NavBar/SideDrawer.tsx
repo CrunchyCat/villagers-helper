@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
+import { StyleConstants } from 'styles/StyleConstants'
 
 interface Props {
   show: boolean
@@ -60,14 +61,19 @@ const Drawer = styled.nav<{ show: boolean }>`
 `
 
 const DrawerList = styled.ul`
+  margin: 0;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media only screen and (orientation: landscape) {
+    margin-left: calc(1rem + ${StyleConstants.STATUS_BAR_HEIGHT});
+  }
 `
 
 const DrawerListItem = styled.li`
-  margin: 0.5rem;
+  margin: 0.75rem;
   font-size: 1.5rem;
 
   .active {

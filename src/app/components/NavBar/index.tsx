@@ -54,6 +54,12 @@ const TopBar = styled.header`
   top: 0;
   width: 100%;
   height: ${StyleConstants.NAV_BAR_HEIGHT};
+
+  @media only screen and (display-mode: standalone) and (orientation: portrait) {
+    height: calc(${StyleConstants.COMBINED_BAR_HEIGHT});
+    padding-top: ${StyleConstants.STATUS_BAR_HEIGHT};
+  }
+
   z-index: 5;
   display: flex;
   box-shadow: 0 1px 0 0 ${p => p.theme.borderLight};
@@ -81,8 +87,12 @@ const Title = styled.div`
 
 const WrapperMobile = styled.div`
   width: 100%;
-  margin: 0 1rem 0 1rem;
+  margin: 0 1.5rem;
   display: flex;
+
+  @media only screen and (orientation: landscape) {
+    margin: 0 3.5rem;
+  }
 
   ${mediaMin.medium`
     display: none !important
@@ -102,7 +112,7 @@ const NavRight = styled.nav`
   div {
     margin-left: auto;
     width: 24px;
-    height: ${StyleConstants.NAV_BAR_HEIGHT};
+    height: 100%;
     background: transparent
       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='${p =>
         p.theme

@@ -81,7 +81,7 @@ const CardHolder = styled.div`
   position: relative;
 `
 
-// prettier-ignore
+//prettier-ignore
 const Card = styled.img<{
   editMode: boolean
   view: View

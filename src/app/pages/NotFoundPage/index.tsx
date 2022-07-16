@@ -29,12 +29,20 @@ export const NotFoundPage = () => (
 
 //TODO: Fix Scrolling with Toolbar hidden on iOS
 const Wrapper = styled.div`
-  height: calc(${window.innerHeight}px - ${StyleConstants.NAV_BAR_HEIGHT});
-  min-height: 320px;
+  height: calc(
+    100vh - ${StyleConstants.NAV_BAR_HEIGHT} -
+      ${StyleConstants.BROWSER_BAR_HEIGHT}
+  );
+  min-height: 280px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+
+  @media only screen and (display-mode: standalone) {
+    height: calc(100vh - ${StyleConstants.COMBINED_BAR_HEIGHT});
+    padding-top: ${StyleConstants.STATUS_BAR_HEIGHT};
+  }
 `
 
 const Title = styled.div`

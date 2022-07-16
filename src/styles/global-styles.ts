@@ -1,28 +1,23 @@
 import { createGlobalStyle } from 'styled-components'
 import { StyleConstants } from './StyleConstants'
 
+//prettier-ignore
 export const GlobalStyle = createGlobalStyle`
-  html,
-  body {
-    height: 100%;
-    width: 100%;
-    line-height: 1.5;
-  }
-
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     padding-top: ${StyleConstants.NAV_BAR_HEIGHT};
+
+    @media only screen and (display-mode: standalone) and (orientation: portrait) {
+      height: calc(100vh - ${StyleConstants.COMBINED_BAR_HEIGHT});
+      padding-top: calc(${StyleConstants.NAV_BAR_HEIGHT} + ${StyleConstants.STATUS_BAR_HEIGHT});
+    }
+
     background-color: ${p => p.theme.background};
   }
 
   #root {
     min-height: 100%;
     min-width: 100%;
-  }
-
-  p,
-  label {
-    line-height: 1.5em;
   }
 
   input, select, button {
