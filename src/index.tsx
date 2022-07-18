@@ -12,11 +12,9 @@ import * as ReactDOMClient from 'react-dom/client'
 import { Provider } from 'react-redux'
 // import FontFaceObserver from 'fontfaceobserver' //TODO: Observe font loading (1/2)
 
-// Use consistent styling
-import 'sanitize.css/sanitize.css'
+import 'sanitize.css/sanitize.css' // Use consistent styling
 
-// Import root app
-import { App } from 'app'
+import { App } from 'app' // Import root app
 
 import { HelmetProvider } from 'react-helmet-async'
 
@@ -24,6 +22,7 @@ import { configureAppStore } from 'store/configureStore'
 
 import { ThemeProvider } from 'styles/theme/ThemeProvider'
 
+import * as serviceWorkerRegistration from 'utils/serviceWorkerRegistration' //TODO: Enable service worker (1/2)
 import reportWebVitals from 'reportWebVitals'
 
 // Initialize languages
@@ -59,7 +58,9 @@ if (module.hot) {
   })
 }
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Register Service Worker for Offline Support
+serviceWorkerRegistration.register() //TODO: Enable service worker (2/2)
+
+// If you want to start measuring performance in your app, send to an analytics endpoint or pass a function to log
+// results (for example: reportWebVitals(console.log)). Learn more: https://bit.ly/CRA-vitals
 reportWebVitals()

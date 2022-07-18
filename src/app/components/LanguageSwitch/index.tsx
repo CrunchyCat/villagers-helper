@@ -19,17 +19,15 @@ export const LanguageSwitch = () => {
         <Radio
           id="en"
           label="English"
-          className="radio"
           name="language"
           onChange={handleLanguageChange}
           value="en"
           isSelected={i18n.language === 'en'}
         />
-        {/* TODO: Add German Translation */
-        /* <Radio
+        {/* TODO: Add German Translation */}
+        {/* <Radio
           id="tr"
           label="Deutsch"
-          className="radio"
           name="language"
           onChange={handleLanguageChange}
           value="de"
@@ -43,14 +41,12 @@ export const LanguageSwitch = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  ${FormLabel} {
-    margin-bottom: 0.625rem;
-  }
 `
+
 const Languages = styled.div`
   display: flex;
 
-  .radio {
+  div {
     margin-right: 1.5rem;
   }
 `

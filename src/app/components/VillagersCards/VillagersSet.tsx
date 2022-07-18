@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { VillagersCard } from './VillagersCard'
 import { IconInfo } from 'app/Icons/IconInfo'
 import { IconCoin } from 'app/components/IconCoin'
-import { Villager, CardSet, cards, View } from 'data/card/cards'
+import { Villager, CardSet, cards, /* Suit, */ View } from 'data/card/cards'
 import icon_lock from 'data/assets/icons/icon_lock.png'
 import icon_food from 'data/assets/icons/icon_food.png'
 import icon_builder from 'data/assets/icons/icon_builder.png'
@@ -85,6 +85,7 @@ export const VillagersSet = ({
                         height="1.825rem"
                       />
                     )}
+                    {/*TODO: {card.suit === Suit.Special && card.desc} */}
                   </td>
                 </tr>
               )
@@ -133,6 +134,7 @@ const SetWrapper = styled.div<{ color: string; compact: boolean }>`
   background-color: ${p => p.theme.backgroundVariant};
   box-shadow: 0.05rem 0.05rem 0.1rem ${p => p.color};
   border-radius: 1.5rem;
+  overflow: hidden;
   transition: all 0.35s ease-in-out;
 `
 
@@ -140,7 +142,6 @@ const ColorStrip = styled.div<{ color: string; compact: boolean }>`
   display: flex;
   justify-content: center;
   padding-top: ${p => (p.compact ? '1.75rem' : '2.5rem')};
-  border-radius: 1.5rem 1.5rem 0 0;
   background-color: ${p => p.color};
   img {
     position: absolute;
@@ -195,51 +196,39 @@ const CardsWrapper = styled.div<{ color: string; wide: boolean }>`
   padding: ${p => (p.wide ? '0.5rem' : '1.25rem')} 0;
   gap: ${p => (p.wide ? '0.5rem 0.35rem' : '0.75rem')};
   background-color: ${p => p.color}40;
-  border-radius: 0 0 1.5rem 1.5rem;
   transition: all 0.25s ease-in-out;
 `
 
 const CardsTable = styled.table<{ color: string }>`
   background-color: ${p => p.color}40;
-  border-radius: 0 0 1.5rem 1.5rem;
-  tbody {
-    tr {
+  overflow: hidden;
+  tbody > tr {
+    &:first-child > td {
+      padding-top: 1.25rem;
+    }
+    &:nth-child(even) {
+      background-color: ${p => p.color}30;
+    }
+    td {
+      width: 13%;
+      padding: 0.25rem 0 0.25rem;
+      border-top: 1px solid ${p => p.color};
+      color: ${p => p.theme.text};
       &:first-child {
-        td {
-          padding-top: 1.25rem;
-        }
+        font-weight: bold;
+        padding-left: 0.5rem;
+        width: 33.4%;
       }
-      &:nth-child(even) {
-        background-color: ${p => p.color}30;
+      &:nth-child(2) {
+        width: 33.1%;
       }
       &:last-child {
-        td {
-          &:first-child {
-            border-radius: 0 0 0 1.5rem;
-          }
-          &:last-child {
-            border-radius: 0 0 1.5rem 0;
-          }
-        }
-      }
-      td {
-        width: 13%;
-        padding: 0.25rem 0 0.25rem;
-        border-top: 1px solid ${p => p.color};
-        color: ${p => p.theme.text};
-        &:first-child {
-          font-weight: bold;
-          padding-left: 0.5rem;
-          width: 33.4%;
-        }
-        &:nth-child(2) {
-          width: 33.1%;
-        }
-        &:last-child {
-          width: 10%;
-          padding-right: 0.5rem;
-          text-align: right;
-        }
+        width: 10%;
+        padding-right: 0.5rem;
+        text-align: right;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }

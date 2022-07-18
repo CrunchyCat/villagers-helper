@@ -146,14 +146,19 @@ export type VillagerDetails = {
   exp: Exp
   imgFront: string
   imgBack: string
+  lock?: Villager | null
   food?: number
   builders?: number
-  lock?: Villager | null
   gold?: {
     type: Gold
     amt: number
     condition: string
   }
+  desc?: string
+  clarification?: string[]
+  use?: string
+  draftPlay?: true
+  discard?: true
 }
 
 export type CardSet = {
@@ -161,7 +166,7 @@ export type CardSet = {
   img: string
   color: string
   cards: Villager[]
-  hide?: boolean
+  hide?: true
 }
 
 /* Private Functions for Calculating Card Info */
@@ -179,12 +184,12 @@ enum Condition { Any, Each, All }
  */
  const getGold = (type: Gold, amt: number, quantifier?: Condition, condition?: string, size?: number) => {
   if (type === Gold.Gold)
-    return {type: type, amt: amt, condition: 'at each market phase'}
+    return {type: type, amt: amt, condition: 'at each Market Phase'}
   if (quantifier === 1) {
     const strCondition = size ? `for every ${size} ${condition}s` : `for each ${condition}`
     return { type: type, amt: amt, condition: strCondition }
   }
-  const strCondition = `sum of ${quantifier === 0 ? '1' : 'all'} ${condition}`
+  const strCondition = `x sum of ${quantifier === 0 ? 'one' : 'all'} ${condition}`
   return { type: type, amt: amt, condition: strCondition }
 }
 
@@ -195,15 +200,18 @@ export const cards: VillagerDetails[] = [
   { name: 'Unknown', suit: Suit.Unknown, exp: Exp.None, imgFront: back_unknown, imgBack: back_unknown },
   /* Grains Villagers */
   { name: 'Founders', suit: Suit.Grains, exp: Exp.Base, imgFront: founders, imgBack: back_founders,
-    food: 1, gold: getGold(Gold.Gold, 2) },
+    food: 1, gold: getGold(Gold.Gold, 2),
+    desc: "Provides a Village with 2 Gold, or 1 Food if the player's Village has none at the end of the first Build Phase.",
+    clarification: ["Founders can't be removed from your village, even by another player's apprentice.",
+      "If you use an apprentice to replace a Founders card in your own village, you may choose which side is face-up."] },
   { name: 'Brewer', suit: Suit.Grains, exp: Exp.Base, imgFront: brewer, imgBack: back_grains,
-    food: 1, builders: 1, lock: Villager.Cooper },
+    lock: Villager.Cooper, food: 1, builders: 1 },
   { name: 'Poulterer', suit: Suit.Grains, exp: Exp.Base, imgFront: poulterer, imgBack: back_grains,
-    food: 1, lock: Villager.Carpenter, gold: getGold(Gold.Gold, 3) },
+    lock: Villager.Carpenter, food: 1, gold: getGold(Gold.Gold, 3) },
   { name: 'Swineherd', suit: Suit.Grains, exp: Exp.Base, imgFront: swineherd, imgBack: back_grains,
     food: 1, gold: getGold(Gold.Gold, 2) },
   { name: 'Truffler', suit: Suit.Grains, exp: Exp.Base, imgFront: truffler, imgBack: back_grains,
-    food: 1, lock: Villager.Hunter, gold: getGold(Gold.Gold, 8) },
+    lock: Villager.Hunter, food: 1, gold: getGold(Gold.Gold, 8) },
   /* Wood Villagers */
   { name: 'Lumberjack', suit: Suit.Wood, exp: Exp.Base, imgFront: lumberjack, imgBack: back_lumberjack },
   { name: 'Carpenter', suit: Suit.Wood, exp: Exp.Base, imgFront: carpenter, imgBack: back_wood, builders: 1},
@@ -220,7 +228,7 @@ export const cards: VillagerDetails[] = [
   { name: 'Log Rafter', suit: Suit.Wood, exp: Exp.Base, imgFront: log_rafter, imgBack: back_wood,
     gold: getGold(Gold.Silver, 1, Condition.Each, "wood symbol") },
   { name: 'Healey', suit: Suit.Wood, exp: Exp.DiceTower, imgFront: healey, imgBack: back_wood,
-    builders: 1, lock: Villager.Vasel, gold: getGold(Gold.Gold, 3) },
+    lock: Villager.Vasel, builders: 1, gold: getGold(Gold.Gold, 3) },
   { name: 'Arkwright', suit: Suit.Wood, exp: Exp.Profiteers, imgFront: arkwright, imgBack: back_wood,
     gold: getGold(Gold.Bronze, 2, Condition.Each, "wood symbol") },
   /* Hay Villagers */
@@ -231,7 +239,7 @@ export const cards: VillagerDetails[] = [
     lock: Villager.Carpenter, gold: getGold(Gold.Gold, 4) },
   { name: 'Grazier', suit: Suit.Hay, exp: Exp.Base, imgFront: grazier, imgBack: back_hay, food: 1},
   { name: 'Milk Maid', suit: Suit.Hay, exp: Exp.Base, imgFront: milk_maid, imgBack: back_hay,
-    food: 2, lock: Villager.Cooper },
+    lock: Villager.Cooper, food: 2},
   { name: 'Fromager', suit: Suit.Hay, exp: Exp.Base, imgFront: fromager, imgBack: back_hay,
     food: 1, gold: getGold(Gold.Gold, 15) },
   { name: 'Peddler', suit: Suit.Hay, exp: Exp.Base, imgFront: peddler, imgBack: back_hay,
@@ -243,7 +251,7 @@ export const cards: VillagerDetails[] = [
   { name: 'Vasel', suit: Suit.Hay, exp: Exp.DiceTower, imgFront: vasel, imgBack: back_hay,
     gold: getGold(Gold.Gold, 3) },
   { name: 'Carter', suit: Suit.Hay, exp: Exp.Profiteers, imgFront: carter, imgBack: back_hay,
-    gold: getGold(Gold.Bronze, 1, Condition.Each, 'production chain with 3+ villagers') },
+    gold: getGold(Gold.Bronze, 1, Condition.Each, 'Production Chain with 3+ villagers') },
   /* Ore Villagers */
   { name: 'Miner', suit: Suit.Ore, exp: Exp.Base, imgFront: miner, imgBack: back_miner },
   { name: 'Blacksmith', suit: Suit.Ore, exp: Exp.Base, imgFront: blacksmith, imgBack: back_ore,
@@ -252,7 +260,7 @@ export const cards: VillagerDetails[] = [
     lock: Villager.Blacksmith, gold: getGold(Gold.Gold, 4) },
   { name: 'Mason', suit: Suit.Ore, exp: Exp.Base, imgFront: mason, imgBack: back_ore,
     builders: 1, gold: getGold(Gold.Gold, 2) },
-  { name: 'Seeker',  suit: Suit.Ore, exp: Exp.Base, imgFront: seeker, imgBack: back_ore },
+  { name: 'Seeker', suit: Suit.Ore, exp: Exp.Base, imgFront: seeker, imgBack: back_ore },
   { name: 'Spelunker', suit: Suit.Ore, exp: Exp.Base, imgFront: spelunker, imgBack: back_ore,
     lock: Villager.Chandler, gold: getGold(Gold.Gold, 10) },
   { name: 'Jeweler', suit: Suit.Ore, exp: Exp.Base, imgFront: jeweler, imgBack: back_ore,
@@ -260,7 +268,7 @@ export const cards: VillagerDetails[] = [
   { name: 'Locksmith', suit: Suit.Ore, exp: Exp.Base, imgFront: locksmith, imgBack: back_ore,
     lock: Villager.Blacksmith },
   { name: 'Garcia', suit: Suit.Ore, exp: Exp.DiceTower, imgFront: garcia, imgBack: back_ore,
-    food: 1, lock: Villager.Vasel, gold: getGold(Gold.Gold, 3) },
+    lock: Villager.Vasel, food: 1, gold: getGold(Gold.Gold, 3) },
   { name: 'Alchemist', suit: Suit.Ore, exp: Exp.Profiteers, imgFront: alchemist, imgBack: back_ore,
     gold: getGold(Gold.Bronze, 0.5, Condition.Any, "villager's silver, rounding down") },
   /* Grapes Villagers */
@@ -291,13 +299,13 @@ export const cards: VillagerDetails[] = [
     gold: getGold(Gold.Gold, 3) },
   { name: 'Wattler', suit: Suit.Solitary, exp: Exp.Base, imgFront: wattler, imgBack: back_solitary, builders: 1},
   { name: 'Fisher', suit: Suit.Solitary, exp: Exp.Base, imgFront: fisher, imgBack: back_solitary,
-    food: 1, lock: Villager.Shipwright, gold: getGold(Gold.Gold, 3) },
+    lock: Villager.Shipwright, food: 1, gold: getGold(Gold.Gold, 3) },
   { name: 'Beekeeper', suit: Suit.Solitary, exp: Exp.Base, imgFront: beekeeper, imgBack: back_solitary,
     lock: Villager.Carpenter, gold: getGold(Gold.Gold, 4) },
   { name: 'Grocer', suit: Suit.Solitary, exp: Exp.Base, imgFront: grocer, imgBack: back_solitary,
-    lock: Villager.Harvester, gold: getGold(Gold.Silver, 3, Condition.Each, "food") },
+    lock: Villager.Harvester, gold: getGold(Gold.Silver, 3, Condition.Each, "Food") },
   { name: 'Freemason', suit: Suit.Solitary, exp: Exp.Base, imgFront: freemason, imgBack: back_solitary,
-    lock: Villager.Brewer, gold: getGold(Gold.Silver, 3, Condition.Each, "builder") },
+    lock: Villager.Brewer, gold: getGold(Gold.Silver, 3, Condition.Each, "Builder") },
   { name: 'Priest', suit: Suit.Solitary, exp: Exp.Base, imgFront: priest, imgBack: back_solitary,
     lock: Villager.Chandler, gold: getGold(Gold.Silver, 3, Condition.Each, "solitary symbol", 2) },
   { name: 'Agent', suit: Suit.Solitary, exp: Exp.Base, imgFront: agent, imgBack: back_solitary,
@@ -311,24 +319,76 @@ export const cards: VillagerDetails[] = [
   { name: 'Captain', suit: Suit.Solitary, exp: Exp.Profiteers, imgFront: captain, imgBack: back_solitary,
     gold: getGold(Gold.Bronze, 1, Condition.Each, "gold symbol") },
   /* Special Villagers */
-  { name: 'Monk', suit: Suit.Special, exp: Exp.Base, imgFront: monk, imgBack: back_special },
-  { name: 'Apprentice', suit: Suit.Special, exp: Exp.Base, imgFront: apprentice, imgBack: back_special },
-  { name: 'Tinner', suit: Suit.Special, exp: Exp.Base, imgFront: tinner, imgBack: back_special },
-  { name: 'Smuggler', suit: Suit.Special, exp: Exp.Base, imgFront: smuggler, imgBack: back_special,
-    lock: Villager.Shipwright },
-  { name: 'Freelancer', suit: Suit.Special, exp: Exp.Profiteers, imgFront: freelancer, imgBack: back_special },
-  { name: 'Benefactor', suit: Suit.Special, exp: Exp.Saints, imgFront: benefactor, imgBack: back_special },
-  { name: 'Nun', suit: Suit.Special, exp: Exp.Saints, imgFront: nun, imgBack: back_special },
-  { name: 'Pigeoneer', suit: Suit.Special, exp: Exp.Saints, imgFront: pigeoneer, imgBack: back_special },
-  { name: 'Prophet', suit: Suit.Special, exp: Exp.Saints, imgFront: prophet, imgBack: back_special },
-  { name: 'Recruiter', suit: Suit.Special, exp: Exp.Saints, imgFront: recruiter, imgBack: back_special },
-  { name: 'Barbarian', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: barbarian, imgBack: back_special },
-  { name: 'Courier', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: courier, imgBack: back_special },
-  { name: 'Flaker', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: flaker, imgBack: back_special },
-  { name: 'Noble', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: noble, imgBack: back_special },
-  { name: 'Schemer', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: schemer, imgBack: back_special },
-  { name: 'Thief', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: thief, imgBack: back_special },
-  { name: 'Sheriff', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: sheriff, imgBack: back_special }
+  { name: 'Monk', suit: Suit.Special, exp: Exp.Base, imgFront: monk, imgBack: back_special,
+    desc: 'Can be used as any one villager in a Production Chain, except for the top (last) villager.',
+    clarification: ["Can't be the top card (last) of a Production Chain at the end of your Build Phase.",
+    'The card that is replaced must be immediately placed in your Village.',
+    'Does not act as the card it is replacing, i.e., has no symbol other than the Special Suit Symbol.',
+    'If used as the bottom (first) card of a Production Chain, it can have 2 cards on top of it. They must be of the same suit.'] },
+  { name: 'Apprentice', suit: Suit.Special, exp: Exp.Base, imgFront: apprentice, imgBack: back_special,
+    desc: 'Can be used to replace any non-top villager (has at least one villager on it) in any Village.',
+    clarification: ["Can't be the top card (last) of a Production Chain at the end of your Build Phase.",
+      'The card that is replaced must be immediately placed in your Village.',
+      "The Founders card of another player's Village may not be replaced, but your own Founders card can be.",
+      "If you choose to replace your own Founders card, you may choose which side of it is face-up."] },
+  { name: 'Tinner', suit: Suit.Special, exp: Exp.Base, imgFront: tinner, imgBack: back_special,
+    desc: 'When played, any villagers played in your Village with padlocks can be unlocked for free during the current Build Phase.',
+    clarification: ['Any villagers can be unlocked for free, even if they have different unlockers, regardless of if other players have the unlocking villagers.',
+    "You may decide which villagers the Tinner applies to (in order to pay your own villagers for example)."],
+    discard: true },
+  { name: 'Smuggler', suit: Suit.Special, exp: Exp.Base, imgFront: smuggler, imgBack: back_special, lock: Villager.Shipwright,
+    desc: 'Earn half of the printed gold value of a villager in your Village, rounding up.', discard: true },
+  { name: 'Freelancer', suit: Suit.Special, exp: Exp.Profiteers, imgFront: freelancer, imgBack: back_special,
+    desc: 'Any player may place 1 Gold on a Freelancer at the start of their Build Phase to get an extra Build Action.',
+    clarification: ["You may pay any players' Freelancer, including your own, up to once per Build Phase.",
+    'The maximum of 5 Build Actions per Build Phase still applies.'], use: 'Use at start of Build Phase' },
+  /* Special Villagers - Saints */
+  { name: 'Benefactor', suit: Suit.Special, exp: Exp.Saints, imgFront: benefactor, imgBack: back_special,
+    desc: "Play a villager from your hand into your Village. It can't be a special villager.",
+    clarification: ["You can't trade in the card you're playing to get a Basic villager. That action can only be taken during the Build Phase.",
+    'If used to add Food to your villager, it is effective immediately, i.e, the current Draft Phase.'],
+    draftPlay: true, discard: true },
+  { name: 'Nun', suit: Suit.Special, exp: Exp.Saints, imgFront: nun, imgBack: back_special,
+    desc: 'At the end of the game, the Nun awards an amount of Gold equal to the Silver value of any villager that you have only one of in your Village.'},
+  { name: 'Pigeoneer', suit: Suit.Special, exp: Exp.Saints, imgFront: pigeoneer, imgBack: back_special,
+    desc: 'Look at the top 6 cards of the Reserve & take any 1 of them directly to your hand. Return the rest in any order.',
+    clarification: ['This does not count toward your Draft Limit.'], discard: true },
+  { name: 'Prophet', suit: Suit.Special, exp: Exp.Saints, imgFront: prophet, imgBack: back_special,
+    desc: 'Look through any stack on the Road & draft a villager from it. Return the rest of the stack to its place in any order.',
+    clarification: ['This action counts as the Draft for this turn.',
+    'May not be used to look through the Reserve (the Pigeoneer does that).'], draftPlay: true, discard: true },
+  { name: 'Recruiter', suit: Suit.Special, exp: Exp.Saints, imgFront: recruiter, imgBack: back_special,
+    desc: 'In every Draft Phase turn, you may choose to pay 1 Gold to draft 2 villagers instead of 1.',
+    clarification: ['Your Food Limit still applies.', 'Replace face-up cards before drafting a second time.'],
+    use: 'Use at start of any Draft Phase turn' },
+  /* Special Villagers - Scoundrels */
+  { name: 'Barbarian', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: barbarian, imgBack: back_special,
+    desc: 'Discard all villagers on the Road, taking the coins into your supply. Replace the villagers with villagers from the Reserve.',
+    draftPlay: true, discard: true },
+  { name: 'Courier', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: courier, imgBack: back_special,
+    desc: "In another player's turn, before a card is drafted, take a villager from the road directly to your hand.",
+    clarification: ['Must be used before current player has drafted a card.', 'This does not count toward your Draft Limit.',
+    'Replace face-up cards after drafting.'], draftPlay: true, discard: true },
+  { name: 'Flaker', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: flaker, imgBack: back_special,
+    desc: "Take a villager from any player's Village Square directly to your hand.",
+    clarification: ['This does not count toward your Draft Limit.', 'May be used on your own Village Square (thus allowing an extra draft).'],
+    draftPlay: true, discard: true },
+  { name: 'Noble', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: noble, imgBack: back_special,
+    desc: "Look through another player's hand & steal one villager from that hand. It can't be a special villager.",
+    clarification: ["You may look at both sides of the other player's cards.", 'This does not count toward your Draft Limit.'], discard: true },
+  { name: 'Schemer', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: schemer, imgBack: back_special,
+    desc: "Steal a top (last in a Production Chain) villager from any Village. It can't be a special Villager.",
+    clarification: ['Any coins on the stolen villager go to the Supply of the player stolen from.',
+    'May be used to take one of your own Villagers back to your hand.'], discard: true },
+  { name: 'Thief', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: thief, imgBack: back_special,
+    desc: "In every Build Phase, take 3 Gold from another player's Supply & place them on the Thief.",
+    clarification: ['Coins on the Theif may be scored by other villagers, such as the Agent & the Arkwright.',
+    'You cannot steal coins from a player with fewer than 3 Gold in their Supply.',
+    "You can only steal from another player's Supply, not from Gold placed on their villagers.",
+    'Coins on the Thief are scored in the Market Phases, just like other villagers with coins placed on them.'], use: 'Use during Draft Phase' },
+  { name: 'Sheriff', suit: Suit.Special, exp: Exp.Scoundrels, imgFront: sheriff, imgBack: back_special,
+    desc: 'Discard a Thief belonging to any player. Take its coins to your Supply.',
+    clarification: ['May be used on your own Thief to move the coins to your Supply.'], discard: true },
 ]
 
 export const groups: { name: string, sets: CardSet[] }[] = [
@@ -371,15 +431,18 @@ export const groups: { name: string, sets: CardSet[] }[] = [
       },
       { /* Wood Villagers */
         name: 'Wood', img: suit_wood, color: '#9DC274',
-        cards: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+        cards: [Villager.Lumberjack, Villager.Carpenter, Villager.Cooper, Villager.Shipwright, Villager.Wheeler,
+          Villager.Cartwright, Villager.WoodCarver, Villager.LogRafter, Villager.Healey, Villager.Arkwright]
       },
       { /* Hay Villagers */
         name: 'Hay', img: suit_hay, color: '#7F499F',
-        cards: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+        cards: [Villager.Hayer, Villager.Thatcher, Villager.BedBuilder, Villager.Grazier, Villager.MilkMaid,
+          Villager.Fromager, Villager.Peddler, Villager.HorseTrader, Villager.OreMuler, Villager.Vasel, Villager.Carter]
       },
       { /* Ore Villagers */
         name: 'Ore', img: suit_ore, color: '#0D0709',
-        cards: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
+        cards: [Villager.Miner, Villager.Blacksmith, Villager.GlassBlower, Villager.Mason, Villager.Seeker,
+          Villager.Spelunker, Villager.Jeweler, Villager.Locksmith, Villager.Garcia, Villager.Alchemist]
       },
       { /* Grapes Villagers */
         name: 'Grapes', img: suit_grapes, color: '#F15FA7',
@@ -395,11 +458,15 @@ export const groups: { name: string, sets: CardSet[] }[] = [
       },
       { /* Solitary Villagers */
         name: 'Solitary', img: suit_solitary, color: '#814B26',
-        cards: [47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60]
+        cards: [Villager.Harvester, Villager.Hunter, Villager.Chandler, Villager.Wattler, Villager.Fisher,
+          Villager.Beekeeper, Villager.Grocer, Villager.Freemason, Villager.Priest, Villager.Agent, Villager.Plower,
+          Villager.Scribe, Villager.Wholesaler, Villager.Captain]
       },
       { /* Special Villagers */
         name: 'Special', img: suit_special, color: '#FE5240',
-        cards: [61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77]
+        cards: [Villager.Monk, Villager.Apprentice, Villager.Tinner, Villager.Smuggler, Villager.Freelancer,
+          Villager.Benefactor, Villager.Nun, Villager.Pigeoneer, Villager.Prophet, Villager.Recruiter, Villager.Barbarian,
+          Villager.Courier, Villager.Flaker, Villager.Noble, Villager.Schemer, Villager.Thief, Villager.Sheriff]
       }
     ]
   },
@@ -412,12 +479,19 @@ export const groups: { name: string, sets: CardSet[] }[] = [
       },
       { /* Base Game */
         name: 'Base', img: exp_base, color: '#83D67F',
-        cards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 16, 17, 18, 19, 20, 21, 22, 23, 24, 27, 28, 29, 30,
-          31, 32, 33, 34, 37, 38, 39, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 61, 62, 63, 64]
+        cards: [Villager.Founders, Villager.Brewer, Villager.Poulterer, Villager.Swineherd, Villager.Truffler,
+          Villager.Lumberjack, Villager.Carpenter, Villager.Cooper, Villager.Shipwright, Villager.Wheeler,
+          Villager.Cartwright, Villager.WoodCarver, Villager.LogRafter, Villager.Hayer, Villager.Thatcher,
+          Villager.BedBuilder, Villager.Grazier, Villager.MilkMaid, Villager.Fromager, Villager.Peddler,
+          Villager.HorseTrader, Villager.OreMuler, Villager.Miner, Villager.Blacksmith, Villager.GlassBlower,
+          Villager.Mason, Villager.Seeker, Villager.Spelunker, Villager.Jeweler, Villager.Locksmith, Villager.Graper,
+          Villager.Vintner, Villager.WineTrader, Villager.Harvester, Villager.Hunter, Villager.Chandler,
+          Villager.Wattler, Villager.Fisher, Villager.Beekeeper, Villager.Grocer, Villager.Freemason, Villager.Priest,
+          Villager.Agent, Villager.Monk, Villager.Apprentice, Villager.Tinner, Villager.Smuggler]
       },
       { /* 4+ Players Expansion */
         name: '4+ Players', img: exp_4player, color: '#FF6153',
-        cards: [40, 41, 42, 43, 44, 45, 46]
+        cards: [Villager.Shepherd, Villager.Spinner, Villager.Weaver, Villager.Tailor, Villager.Tanner, Villager.Saddler, Villager.Cobbler]
       },
       { /* Promo Pack #1 */
         name: 'Promo #1', img: exp_promo1, color: '#814B26',
@@ -429,7 +503,7 @@ export const groups: { name: string, sets: CardSet[] }[] = [
       },
       { /* Profiteers Expansion */
         name: 'Profiteers', img: exp_profiteers, color: '#999998',
-        cards: [59, 65, 15,  26, 36, 60]
+        cards: [Villager.Wholesaler, Villager.Freelancer, Villager.Arkwright, Villager.Carter, Villager.Alchemist, Villager.Captain]
       },
       { /* Saints Expansion */
         name: 'Saints', img: exp_saints, color: '#E94FAC',
@@ -437,7 +511,7 @@ export const groups: { name: string, sets: CardSet[] }[] = [
       },
       { /* Scoundrels Expansion */
         name: 'Scoundrels', img: exp_scoundrels, color: '#2E629F',
-        cards: [71, 72, 73, 74, 75, 76, 77]
+        cards: [Villager.Barbarian, Villager.Courier, Villager.Flaker, Villager.Noble, Villager.Schemer, Villager.Thief, Villager.Sheriff]
       }
     ]
   }

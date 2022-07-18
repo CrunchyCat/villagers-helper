@@ -1,6 +1,8 @@
 {
   "name": "villagers-helper",
   "version": "0.0.1",
+  "description": "A helpful tool for the villagers game, created by Haakon Gaarder. (Deployed with GH Pages)",
+  "homepage": "https://www.vilrs.com",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "1.8.3",
@@ -26,6 +28,7 @@
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "fontfaceobserver": "2.3.0",
+    "gh-pages": "^4.0.0",
     "husky": "8.0.1",
     "i18next": "21.8.13",
     "i18next-browser-languagedetector": "6.1.4",
@@ -65,6 +68,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -b master -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start:prod": "yarn run build && serve -s build",

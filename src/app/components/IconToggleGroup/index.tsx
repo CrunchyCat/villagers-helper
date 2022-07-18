@@ -3,8 +3,8 @@ import { Group } from 'data/card/cards'
 
 interface Props {
   group: Group
-  width: string
-  height: string
+  width?: string
+  height?: string
 }
 
 export const IconToggleGroup = ({ group, width, height }: Props) => (

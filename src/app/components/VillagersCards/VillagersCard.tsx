@@ -47,7 +47,7 @@ export const VillagersCard = ({
             }}
           />
           <InfoCard show={shouldFlip} color={color}>
-            <InfoText>
+            <InfoText wide={view === View.Wide}>
               <p>{card.name}</p>
               <strong>disabled</strong>
             </InfoText>
@@ -108,8 +108,8 @@ const Card = styled.img<{
 const InfoCard = styled.div<{ show: boolean; color: string }>`
   position: absolute;
   top: 11%;
-  left: 11%;
-  width: 82%;
+  left: 6%;
+  width: 88%;
   height: 82%;
   display: flex;
   flex-direction: column;
@@ -121,7 +121,7 @@ const InfoCard = styled.div<{ show: boolean; color: string }>`
   transition: all 0.6s ease-out;
 `
 
-const InfoText = styled.div`
+const InfoText = styled.div<{ wide: boolean }>`
   margin-top: 0.5rem;
   padding: 0.2rem;
   text-align: center;
@@ -132,20 +132,22 @@ const InfoText = styled.div`
 
   p {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: ${p => (p.wide ? '0.97rem' : 'clamp(0.97rem, 3.5vh, 1.46rem)')};
     font-weight: bold;
+    transition: all 0.35s;
   }
 `
 
 const CardOption = styled.div`
   align-self: center;
+  padding: 0.1rem;
   display: flex;
   align-items: center;
   opacity: 0.8;
   font-weight: 900;
   color: ${p => p.theme.text};
   background-color: ${p => p.theme.backgroundVariant};
-  border-radius: 1rem 50% 50% 1rem;
+  border-radius: 1.5rem;
   cursor: pointer;
   pointer-events: all;
 
