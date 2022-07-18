@@ -1,14 +1,14 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { mediaMax, mediaMin } from 'styles/media'
-import { Backdrop } from '../Backdrop'
+import { Backdrop } from 'app/components/Backdrop'
 import { IconClose } from 'app/Icons/IconClose'
 import { IconCoin } from 'app/components/IconCoin'
 import { Villager, cards, Group, groups, Gold } from 'data/card/cards'
 import icon_lock from 'data/assets/icons/icon_lock.png'
 import icon_food from 'data/assets/icons/icon_food.png'
 import icon_builder from 'data/assets/icons/icon_builder.png'
-import { IconUse } from '../IconUse'
+import { IconUse } from 'app/components/IconUse'
 
 interface Props {
   show: boolean
