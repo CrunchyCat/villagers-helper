@@ -21,6 +21,7 @@ export const IconCoin = ({ gold, width, height }: Props) => (
 
 const Coin = styled.div<{ width: string; height: string; type: Gold }>`
   width: ${p => p.width};
+  min-width: ${({ width }) => width};
   height: ${p => p.height};
   border-radius: 50%;
   border: solid 0.04rem;

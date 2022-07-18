@@ -19,10 +19,8 @@ export const VillagersCards = ({ group, filter, view, editMode }: Props) => {
       <CardModal
         show={showModal}
         cardID={viewCard}
-        clickClose={() => {
-          setShowModal(false)
-          // document.body.style.overflow = 'unset' //TODO: Fix scrolling on body during modal
-        }}
+        clickClose={() => setShowModal(false)}
+        clickChange={(cardID: Villager) => setViewCard(cardID)}
       />
       {Object.entries(groups[group].sets) // For Each Card Set
         .filter(x => !x[1]?.hide) // Filter out Hidden Sets
@@ -39,7 +37,6 @@ export const VillagersCards = ({ group, filter, view, editMode }: Props) => {
             setViewCard={cardID => {
               setViewCard(cardID)
               setShowModal(true)
-              // document.body.style.overflow = 'hidden' //TODO: Fix scrolling on body during modal
             }}
             key={setID}
           />

@@ -5,21 +5,26 @@ import { Backdrop } from 'app/components/Backdrop'
 import { IconClose } from 'app/Icons/IconClose'
 import { IconCoin } from 'app/components/IconCoin'
 import { Villager, cards, Group, groups, Gold } from 'data/card/cards'
-import icon_lock from 'data/assets/icons/icon_lock.png'
-import icon_food from 'data/assets/icons/icon_food.png'
-import icon_builder from 'data/assets/icons/icon_builder.png'
 import { IconUse } from 'app/components/IconUse'
+import icon_lock from 'data/assets/icons/icon_lock.png'
+import icon_unlock from 'data/assets/icons/icon_unlock.png'
+import { IconFood } from 'app/Icons/IconFood'
+import icon_builder from 'data/assets/icons/icon_builder.png'
 
 interface Props {
   show: boolean
   cardID: Villager
   clickClose: () => void
+  clickChange: (cardID: Villager) => void
 }
 
-export const CardModal = ({ show, cardID, clickClose }: Props) => {
+export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
   const card = cards[cardID]
   const suit = groups[Group.Suit].sets[card.suit]
   const exp = groups[Group.Exp].sets[card.exp]
+  const unlocks = cards
+    .map((v, i) => ({ v, i }))
+    .filter(v => v.v.lock === cardID)
 
   return (
     <>
@@ -46,81 +51,101 @@ export const CardModal = ({ show, cardID, clickClose }: Props) => {
             </span>
           </TitleBar>
           {card.lock && (
-            <IconTextCenter>
-              <img src={icon_lock} alt={`unlocked by: ${card.lock}`} />
+            <ItemsCenter style={{ marginBottom: '0.5rem' }}>
+              <ImgSmall src={icon_lock} alt={`unlocked by: ${card.lock}`} />
               {cards[card.lock].name}
-            </IconTextCenter>
+            </ItemsCenter>
           )}
-          <IconTextCenter>
+          <ItemsCenter>
             {/* TODO: Move Card Playing to Cards Data */}
             {cardID === Villager.Founders
               ? 'Starting card'
               : `Play ${
                   cardID === Villager.Courier
-                    ? "at start of another player's"
+                    ? "at start of a player's"
                     : 'during'
                 } ${card?.draftPlay ? 'Draft' : 'Build'} Phase ${
-                  card?.discard ? '& Discard' : 'into Village'
+                  card?.discard ? '& Discard' : ''
                 }`}
-          </IconTextCenter>
-          <IconTextCenter>{card.use}</IconTextCenter>
+          </ItemsCenter>
+          <ItemsCenter>{card.use}</ItemsCenter>
           <SetTop>
+            <SepLine />
+            {!!unlocks.length && (
+              <ItemsSplit>
+                <ImgSmall
+                  src={icon_unlock}
+                  style={{ margin: '0 0.5rem 0 0.2rem' }}
+                  alt={`unlocks other villagers`}
+                />
+                <ItemSet>
+                  {unlocks.map(v => (
+                    <span
+                      onClick={() => clickChange(v.i)}
+                      style={{ cursor: 'pointer' }}
+                      key={`U${cardID}${v.i}`}
+                    >
+                      {v.v.name}
+                    </span>
+                  ))}
+                </ItemSet>
+              </ItemsSplit>
+            )}
             {!!card.food && (
-              <IconTextSplit>
-                <ImgSet>
+              <ItemsSplit>
+                <IconFoods>
                   {[...Array(card.food).keys()].map(i => (
-                    <img
-                      src={icon_food}
-                      alt={`${card.food} Food`}
+                    <IconFood
+                      width="1.825rem"
+                      height="1.825rem"
                       key={`F${cardID}${i}`}
                     />
                   ))}
-                </ImgSet>
+                </IconFoods>
                 {card.food} Food
-              </IconTextSplit>
+              </ItemsSplit>
             )}
             {!!card.builders && (
-              <IconTextSplit>
-                <ImgSet>
+              <ItemsSplit>
+                <ItemSet style={{ marginLeft: '0.35rem' }}>
                   {[...Array(card.builders).keys()].map(i => (
-                    <img
+                    <ImgSmall
                       src={icon_builder}
                       alt={`${card.builders} Builder(s)`}
                       key={`B${cardID}${i}`}
                     />
                   ))}
-                </ImgSet>
+                </ItemSet>
                 <span>{card.builders} Builder(s)</span>
-              </IconTextSplit>
+              </ItemsSplit>
             )}
             {card.gold && (
-              <IconTextSplit>
+              <ItemsSplit>
                 <IconCoin gold={card.gold} width="1.825rem" height="1.825rem" />
                 {/* TODO: Fix text reward description, size is small */}
-                <span style={{ fontSize: '0.712rem' }}>{`${card.gold.amt} ${
-                  Gold[card.gold.type]
-                } ${card.gold.condition}`}</span>
-              </IconTextSplit>
+                <span style={{ marginLeft: '0.5rem' }}>
+                  {`${card.gold.amt} ${Gold[card.gold.type]}
+                    ${card.gold.condition}`}
+                </span>
+              </ItemsSplit>
             )}
           </SetTop>
         </div>
         <SetMid>
           {card.desc}
-          <>
-            {card.clarification?.map((i, k) => (
-              <div key={k}>{i}</div>
-            ))}
-          </>
+          {card.clarification?.map((i, k) => (
+            <div key={k}>{i}</div>
+          ))}
         </SetMid>
         <SetBottom>
-          <IconTextCenter>
-            <img src={suit.img} alt={suit.name} />
+          <ItemsCenter>
+            <ImgSmall src={suit.img} alt={suit.name} />
             {suit.name}
-          </IconTextCenter>
-          <IconTextCenter>
-            <img src={exp.img} alt={exp.name} />
+          </ItemsCenter>
+          <ItemsCenter>
+            <ImgSmall src={exp.img} alt={exp.name} />
             {exp.name}
-          </IconTextCenter>
+          </ItemsCenter>
         </SetBottom>
       </Modal>
       <Backdrop show={show} click={clickClose} />
@@ -216,15 +241,15 @@ const TitleBar = styled.div`
     display: flex;
     align-items: center;
     cursor: pointer;
-  }
-  svg {
-    width: 1.5rem;
-    height: 1.5rem;
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
   }
 `
 
 const SetTop = styled.div`
-  margin: 0 1.5rem 0.7rem 1.5rem;
+  margin: 0.4rem 1.5rem 0.6rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -263,29 +288,52 @@ const IconText = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  font-size: 0.9rem;
   color: ${p => p.theme.text};
-  img {
-    max-width: 1.825rem;
-    max-height: 1.825rem;
-    width: auto;
-    height: auto;
-  }
 `
 
-const IconTextSplit = styled(IconText)`
+const ItemsSplit = styled(IconText)`
   min-width: 12rem;
   max-width: 26rem;
   justify-content: space-between;
 `
 
-const IconTextCenter = styled(IconText)`
+const ItemsCenter = styled(IconText)`
   justify-content: center;
   gap: 0.5rem;
+  font-size: 0.9rem;
 `
 
-const ImgSet = styled.div`
+const SepLine = styled.hr`
+  height: 1px;
+  width: 100%;
+  min-width: 12rem;
+  max-width: 26rem;
+  margin: 0;
+  border: 0 none;
+  background-color: white;
+`
+
+const ItemSet = styled.div`
   display: flex;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  span:not(:last-child)::after {
+    content: ' • ';
+  }
+`
+
+const ImgSmall = styled.img`
+  max-width: 1.825rem;
+  max-height: 1.825rem;
+  width: auto;
+  height: auto;
+`
+
+const IconFoods = styled.div`
+  display: flex;
+  color: #fe3d33;
+  stroke: #fe3d33;
+  transform: scale(1.2);
 `

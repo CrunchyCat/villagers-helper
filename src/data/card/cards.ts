@@ -239,7 +239,7 @@ export const cards: VillagerDetails[] = [
     lock: Villager.Carpenter, gold: getGold(Gold.Gold, 4) },
   { name: 'Grazier', suit: Suit.Hay, exp: Exp.Base, imgFront: grazier, imgBack: back_hay, food: 1},
   { name: 'Milk Maid', suit: Suit.Hay, exp: Exp.Base, imgFront: milk_maid, imgBack: back_hay,
-    lock: Villager.Cooper, food: 2},
+    lock: Villager.Cooper, food: 2 },
   { name: 'Fromager', suit: Suit.Hay, exp: Exp.Base, imgFront: fromager, imgBack: back_hay,
     food: 1, gold: getGold(Gold.Gold, 15) },
   { name: 'Peddler', suit: Suit.Hay, exp: Exp.Base, imgFront: peddler, imgBack: back_hay,

@@ -5,7 +5,7 @@ import { IconInfo } from 'app/Icons/IconInfo'
 import { IconCoin } from 'app/components/IconCoin'
 import { Villager, CardSet, cards, /* Suit, */ View } from 'data/card/cards'
 import icon_lock from 'data/assets/icons/icon_lock.png'
-import icon_food from 'data/assets/icons/icon_food.png'
+import { IconFood } from 'app/Icons/IconFood'
 import icon_builder from 'data/assets/icons/icon_builder.png'
 
 interface Props {
@@ -53,15 +53,15 @@ export const VillagersSet = ({
                   </td>
                   <td>
                     {!!card.food && (
-                      <IconText>
+                      <IconFoods>
                         {[...Array(card.food).keys()].map(i => (
-                          <img
-                            src={icon_food}
-                            alt={`${card.food} Food`}
+                          <IconFood
+                            width="1.825rem"
+                            height="1.825rem"
                             key={`F${cardID}${i}`}
                           />
                         ))}
-                      </IconText>
+                      </IconFoods>
                     )}
                   </td>
                   <td>
@@ -246,4 +246,11 @@ const IconText = styled.div`
     width: auto;
     height: auto;
   }
+`
+
+const IconFoods = styled.div`
+  display: flex;
+  color: #fe3d33;
+  stroke: #fe3d33;
+  transform: scale(1.2);
 `
