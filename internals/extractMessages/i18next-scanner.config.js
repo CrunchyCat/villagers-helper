@@ -1,15 +1,15 @@
-var fs = require('fs');
-const path = require('path');
-const typescript = require('typescript');
-const compilerOptions = require('../../tsconfig.json').compilerOptions;
+var fs = require('fs')
+const path = require('path')
+const typescript = require('typescript')
+const compilerOptions = require('../../tsconfig.json').compilerOptions
 
-const stringfyTranslationObjects = require('./stringfyTranslations.js');
+const stringfyTranslationObjects = require('./stringfyTranslations.js')
 
 module.exports = {
   input: [
     'src/app/**/**.{ts,tsx}',
     '!**/node_modules/**',
-    '!src/app/**/*.test.{ts,tsx}',
+    '!src/app/**/*.test.{ts,tsx}'
   ],
   output: './',
   options: {
@@ -17,7 +17,7 @@ module.exports = {
     removeUnusedKeys: false,
     func: {
       list: ['t'],
-      extensions: [''], // We dont want this extension because we manually check on transform function below
+      extensions: [''] // We dont want this extension because we manually check on transform function below
     },
     lngs: ['en', 'de'],
     defaultLng: 'en',
@@ -26,37 +26,37 @@ module.exports = {
       loadPath: 'src/locales/{{lng}}/{{ns}}.json',
       savePath: 'src/locales/{{lng}}/{{ns}}.json',
       jsonIndent: 2,
-      lineEnding: '\n',
+      lineEnding: '\n'
     },
     keySeparator: '.', // char to separate keys
     nsSeparator: ':', // char to split namespace from key
     interpolation: {
       prefix: '{{',
-      suffix: '}}',
-    },
+      suffix: '}}'
+    }
   },
   transform: function transform(file, enc, done) {
-    const extensions = ['.ts', '.tsx'];
+    const extensions = ['.ts', '.tsx']
 
-    const { base, ext } = path.parse(file.path);
+    const { base, ext } = path.parse(file.path)
     if (extensions.includes(ext) && !base.includes('.d.ts')) {
-      const content = fs.readFileSync(file.path, enc);
-      const shouldStringfyObjects = base === 'messages.ts';
-      parseContent(content, this.parser, shouldStringfyObjects);
+      const content = fs.readFileSync(file.path, enc)
+      const shouldStringfyObjects = base === 'messages.ts'
+      parseContent(content, this.parser, shouldStringfyObjects)
     }
 
-    done();
-  },
-};
+    done()
+  }
+}
 function parseContent(content, parser, shouldStringfyObjects = true) {
   const { outputText } = typescript.transpileModule(content, {
-    compilerOptions: compilerOptions,
-  });
-  let cleanedContent = outputText;
+    compilerOptions: compilerOptions
+  })
+  let cleanedContent = outputText
   if (shouldStringfyObjects) {
-    cleanedContent = stringfyTranslationObjects(outputText);
+    cleanedContent = stringfyTranslationObjects(outputText)
   }
-  parser.parseFuncFromString(cleanedContent);
+  parser.parseFuncFromString(cleanedContent)
 }
 
-module.exports.parseContent = parseContent;
+module.exports.parseContent = parseContent

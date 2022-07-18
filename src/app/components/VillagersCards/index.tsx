@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { CardModal } from '../CardModal'
+import { CardModal } from 'app/components/CardModal'
 import { VillagersSet } from './VillagersSet'
 import { Villager, cards, Group, groups, View } from 'data/card/cards'
 
