@@ -3,10 +3,19 @@ import styled from 'styled-components/macro'
 import { VillagersCard } from './VillagersCard'
 import { IconInfo } from 'app/Icons/IconInfo'
 import { IconCoin } from 'app/components/IconCoin'
-import { Villager, CardSet, cards, /* Suit, */ View } from 'data/card/cards'
+import {
+  Villager,
+  CardSet,
+  cards,
+  Suit,
+  View,
+  groups,
+  Group
+} from 'data/card/cards'
 import icon_lock from 'data/assets/icons/icon_lock.png'
 import { IconFood } from 'app/Icons/IconFood'
 import icon_builder from 'data/assets/icons/icon_builder.png'
+import { IconUse } from '../IconUse'
 
 interface Props {
   setID: string
@@ -51,42 +60,69 @@ export const VillagersSet = ({
                       </IconText>
                     )}
                   </td>
-                  <td>
-                    {!!card.food && (
-                      <IconFoods>
-                        {[...Array(card.food).keys()].map(i => (
-                          <IconFood
+                  {card.suit !== Suit.Special ? (
+                    <>
+                      <td>
+                        {!!card.food && (
+                          <IconFoods>
+                            {[...Array(card.food).keys()].map(i => (
+                              <IconFood
+                                width="1.825rem"
+                                height="1.825rem"
+                                key={`F${cardID}${i}`}
+                              />
+                            ))}
+                          </IconFoods>
+                        )}
+                      </td>
+                      <td>
+                        {!!card.builders && (
+                          <IconText>
+                            {[...Array(card.builders).keys()].map(i => (
+                              <img
+                                src={icon_builder}
+                                alt={`${card.builders} Builder(s)`}
+                                key={`B${cardID}${i}`}
+                              />
+                            ))}
+                          </IconText>
+                        )}
+                      </td>
+                      <td>
+                        {card.gold && (
+                          <IconCoin
+                            gold={card.gold}
                             width="1.825rem"
                             height="1.825rem"
-                            key={`F${cardID}${i}`}
                           />
-                        ))}
-                      </IconFoods>
-                    )}
-                  </td>
-                  <td>
-                    {!!card.builders && (
-                      <IconText>
-                        {[...Array(card.builders).keys()].map(i => (
-                          <img
-                            src={icon_builder}
-                            alt={`${card.builders} Builder(s)`}
-                            key={`B${cardID}${i}`}
-                          />
-                        ))}
-                      </IconText>
-                    )}
-                  </td>
-                  <td>
-                    {card.gold && (
-                      <IconCoin
-                        gold={card.gold}
-                        width="1.825rem"
-                        height="1.825rem"
-                      />
-                    )}
-                    {/*TODO: {card.suit === Suit.Special && card.desc} */}
-                  </td>
+                        )}
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td />
+                      <td>
+                        <div
+                          style={{
+                            height: '1.825rem',
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'flex-end'
+                          }}
+                        >
+                          {card.discard && (
+                            <IconUse
+                              playType="discard"
+                              color={groups[Group.Suit].sets[card.suit].color}
+                              width="1.1rem"
+                              height="1.825rem"
+                            />
+                          )}
+                        </div>
+                      </td>
+                      <td />
+                    </>
+                  )}
                 </tr>
               )
             })}

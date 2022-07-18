@@ -61,7 +61,9 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
           {card.lock && (
             <ItemsCenter style={{ marginBottom: '0.5rem' }}>
               <ImgSmall src={icon_lock} alt={`unlocked by: ${card.lock}`} />
-              {cards[card.lock].name}
+              <CardLink onClick={() => card.lock && clickChange(card.lock)}>
+                {cards[card.lock].name}
+              </CardLink>
             </ItemsCenter>
           )}
           <ItemsCenter>
@@ -88,13 +90,12 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
                 />
                 <ItemSet>
                   {unlocks.map(v => (
-                    <span
+                    <CardLink
                       onClick={() => clickChange(v.i)}
-                      style={{ cursor: 'pointer' }}
                       key={`U${cardID}${v.i}`}
                     >
                       {v.v.name}
-                    </span>
+                    </CardLink>
                   ))}
                 </ItemSet>
               </ItemsSplit>
@@ -319,6 +320,14 @@ const SepLine = styled.hr`
   margin: 0;
   border: 0 none;
   background-color: white;
+`
+
+const CardLink = styled.span`
+  cursor: pointer;
+  color: ${p => p.theme.text};
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 const ItemSet = styled.div`
