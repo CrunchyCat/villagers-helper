@@ -15765,9 +15765,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"villagers-helper@workspace:.":
+"vilrs@workspace:.":
   version: 0.0.0-use.local
-  resolution: "villagers-helper@workspace:."
+  resolution: "vilrs@workspace:."
   dependencies:
     "@reduxjs/toolkit": 1.8.3
     "@testing-library/jest-dom": 5.16.4
