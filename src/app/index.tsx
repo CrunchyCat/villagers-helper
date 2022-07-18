@@ -15,8 +15,8 @@ export const App = () => {
   return (
     <BrowserRouter>
       <Helmet
-        titleTemplate="%s - villagers helper"
-        defaultTitle="villagers helper"
+        titleTemplate="%s - vilrs"
+        defaultTitle="vilrs"
         htmlAttributes={{ lang: i18n.language }}
       ></Helmet>
       <Routes>

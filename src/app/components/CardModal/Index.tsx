@@ -40,6 +40,14 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
                 height="2.25rem"
               />
             )}
+            {card.basic && (
+              <IconUse
+                playType="2"
+                color={suit.color}
+                width="1.5rem"
+                height="2.25rem"
+              />
+            )}
             {/* TODO: Show 1, 2, and 1/2 children cards */}
           </ColorStrip>
           <TitleBar>

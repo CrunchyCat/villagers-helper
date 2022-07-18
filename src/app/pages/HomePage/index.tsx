@@ -8,12 +8,12 @@ import { A } from 'app/components/A'
 export const HomePage = () => (
   <>
     <Helmet>
-      <title>villagers helper</title>
+      <title>vilrs</title>
       <meta name="description" content="A helpful tool for villagers" />
     </Helmet>
     <NavBar title="" />
     <Wrapper>
-      <Title>villagers helper</Title>
+      <Title>vilrs</Title>
       <Lead>
         this was <strong>created</strong> by{' '}
         <A

@@ -33,8 +33,8 @@ export const NavBar = ({ title, btnSearch }: Props) => {
         {/* prettier-ignore */}
         <WrapperDesktop>
           <HomeLink to="/">
-            <img src={logo} alt="villagers helper" />
-            <span><strong>villagers helper</strong>A helpful tool for villagers</span>
+            <img src={logo} alt="vilrs" />
+            <span><strong>vilrs</strong>A helpful tool for villagers</span>
           </HomeLink>
           <Title>{title}</Title>
           <NavLinks>
@@ -147,10 +147,10 @@ const HomeLink = styled(NavLink)`
     font-size: 0.875rem;
     color: ${p => p.theme.textSecondary};
     strong {
-      font-size: 1.25rem;
+      font-size: 1.6rem;
       color: ${p => p.theme.text};
       font-weight: bold;
-      margin: 0 1rem;
+      margin: 0 0.75rem;
     }
   }
 `

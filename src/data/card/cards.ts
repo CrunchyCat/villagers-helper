@@ -146,6 +146,7 @@ export type VillagerDetails = {
   exp: Exp
   imgFront: string
   imgBack: string
+  basic?: true
   lock?: Villager | null
   food?: number
   builders?: number
@@ -200,7 +201,7 @@ export const cards: VillagerDetails[] = [
   { name: 'Unknown', suit: Suit.Unknown, exp: Exp.None, imgFront: back_unknown, imgBack: back_unknown },
   /* Grains Villagers */
   { name: 'Founders', suit: Suit.Grains, exp: Exp.Base, imgFront: founders, imgBack: back_founders,
-    food: 1, gold: getGold(Gold.Gold, 2),
+    basic: true, food: 1, gold: getGold(Gold.Gold, 2),
     desc: "Provides a Village with 2 Gold, or 1 Food if the player's Village has none at the end of the first Build Phase.",
     clarification: ["Founders can't be removed from your village, even by another player's apprentice.",
       "If you use an apprentice to replace a Founders card in your own village, you may choose which side is face-up."] },
@@ -213,7 +214,7 @@ export const cards: VillagerDetails[] = [
   { name: 'Truffler', suit: Suit.Grains, exp: Exp.Base, imgFront: truffler, imgBack: back_grains,
     lock: Villager.Hunter, food: 1, gold: getGold(Gold.Gold, 8) },
   /* Wood Villagers */
-  { name: 'Lumberjack', suit: Suit.Wood, exp: Exp.Base, imgFront: lumberjack, imgBack: back_lumberjack },
+  { name: 'Lumberjack', suit: Suit.Wood, exp: Exp.Base, imgFront: lumberjack, imgBack: back_lumberjack, basic: true },
   { name: 'Carpenter', suit: Suit.Wood, exp: Exp.Base, imgFront: carpenter, imgBack: back_wood, builders: 1},
   { name: 'Cooper', suit: Suit.Wood, exp: Exp.Base, imgFront: cooper, imgBack: back_wood,
     lock: Villager.Blacksmith, gold: getGold(Gold.Gold, 4) },
@@ -232,7 +233,7 @@ export const cards: VillagerDetails[] = [
   { name: 'Arkwright', suit: Suit.Wood, exp: Exp.Profiteers, imgFront: arkwright, imgBack: back_wood,
     gold: getGold(Gold.Bronze, 2, Condition.Each, "wood symbol") },
   /* Hay Villagers */
-  { name: 'Hayer', suit: Suit.Hay, exp: Exp.Base, imgFront: hayer, imgBack: back_hayer },
+  { name: 'Hayer', suit: Suit.Hay, exp: Exp.Base, imgFront: hayer, imgBack: back_hayer, basic: true },
   { name: 'Thatcher', suit: Suit.Hay, exp: Exp.Base, imgFront: thatcher, imgBack: back_hay,
     builders: 1, gold: getGold(Gold.Gold, 2) },
   { name: 'Bed Builder', suit: Suit.Hay, exp: Exp.Base, imgFront: bed_builder, imgBack: back_hay,
@@ -253,7 +254,7 @@ export const cards: VillagerDetails[] = [
   { name: 'Carter', suit: Suit.Hay, exp: Exp.Profiteers, imgFront: carter, imgBack: back_hay,
     gold: getGold(Gold.Bronze, 1, Condition.Each, 'Production Chain with 3+ villagers') },
   /* Ore Villagers */
-  { name: 'Miner', suit: Suit.Ore, exp: Exp.Base, imgFront: miner, imgBack: back_miner },
+  { name: 'Miner', suit: Suit.Ore, exp: Exp.Base, imgFront: miner, imgBack: back_miner, basic: true },
   { name: 'Blacksmith', suit: Suit.Ore, exp: Exp.Base, imgFront: blacksmith, imgBack: back_ore,
     gold: getGold(Gold.Gold, 2) },
   { name: 'Glass Blower', suit: Suit.Ore, exp: Exp.Base, imgFront: glass_blower, imgBack: back_ore,
@@ -272,13 +273,13 @@ export const cards: VillagerDetails[] = [
   { name: 'Alchemist', suit: Suit.Ore, exp: Exp.Profiteers, imgFront: alchemist, imgBack: back_ore,
     gold: getGold(Gold.Bronze, 0.5, Condition.Any, "villager's silver, rounding down") },
   /* Grapes Villagers */
-  { name: 'Graper', suit: Suit.Grapes, exp: Exp.Base, imgFront: graper, imgBack: back_grapes, food: 1},
+  { name: 'Graper', suit: Suit.Grapes, exp: Exp.Base, imgFront: graper, imgBack: back_grapes, basic: true, food: 1},
   { name: 'Vintner', suit: Suit.Grapes, exp: Exp.Base, imgFront: vintner, imgBack: back_grapes,
     lock: Villager.Cooper, gold: getGold(Gold.Gold, 5) },
   { name: 'Wine Trader', suit: Suit.Grapes, exp: Exp.Base, imgFront: wine_trader, imgBack: back_grapes,
     lock: Villager.GlassBlower, gold: getGold(Gold.Gold, 14) },
   /* Wool Villagers */
-  { name: 'Shepherd', suit: Suit.Wool, exp: Exp.FourPlayer, imgFront: shepherd, imgBack: back_wool, food: 1},
+  { name: 'Shepherd', suit: Suit.Wool, exp: Exp.FourPlayer, imgFront: shepherd, imgBack: back_wool, basic: true, food: 1},
   { name: 'Spinner', suit: Suit.Wool, exp: Exp.FourPlayer, imgFront: spinner, imgBack: back_wool,
     gold: getGold(Gold.Gold, 4) },
   { name: 'Weaver', suit: Suit.Wool, exp: Exp.FourPlayer, imgFront: weaver, imgBack: back_wool,
@@ -287,7 +288,7 @@ export const cards: VillagerDetails[] = [
     gold: getGold(Gold.Gold, 24) },
   /* Leather Villagers */
   { name: 'Tanner', suit: Suit.Leather, exp: Exp.FourPlayer, imgFront: tanner, imgBack: back_leather,
-    gold: getGold(Gold.Gold, 2) },
+    basic: true, gold: getGold(Gold.Gold, 2) },
   { name: 'Saddler', suit: Suit.Leather, exp: Exp.FourPlayer, imgFront: saddler, imgBack: back_leather,
     gold: getGold(Gold.Gold, 5) },
   { name: 'Cobbler', suit: Suit.Leather, exp: Exp.FourPlayer, imgFront: cobbler, imgBack: back_leather,

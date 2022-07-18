@@ -1,7 +1,7 @@
-# villagers helper
+# vilrs: villagers resources
 
 <img width="914" alt="React Boilerplate Meets CRA" src="https://www.yucata.de/Games/Villagers/images/villagers_en.png" align="center">
-villagers helper is a companion web app for Villagers, the game by Haakon Gaarder.
+vilrs is a companion web app for Villagers, the game by Haakon Gaarder.
 
 ---
 
