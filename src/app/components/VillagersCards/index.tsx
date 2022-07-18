@@ -27,6 +27,7 @@ export const VillagersCards = ({ group, filter, view, editMode }: Props) => {
         .filter(x =>
           x[1].cards.some(x => cards[x].name.toLowerCase().indexOf(filter) > -1)
         ) // Filter out Sets with no matching cards
+        // .filter(x => x[1].cards.some(x => cards[x].builders))
         .map(([setID, set]) => (
           <VillagersSet
             setID={setID}

@@ -43,6 +43,7 @@ export const VillagersSet = ({
         <tbody>
           {set.cards
             .filter(id => cards[id].name.toLowerCase().indexOf(filter) > -1)
+            // .filter(id => cards[id].builders) //TODO: Implement Filters
             .map((cardID, i) => {
               const card = cards[cardID]
               return (
