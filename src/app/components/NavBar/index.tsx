@@ -57,7 +57,7 @@ const TopBar = styled.header`
 
   @media only screen and (display-mode: standalone) and (orientation: portrait) {
     height: calc(${StyleConstants.COMBINED_BAR_HEIGHT});
-    padding-top: ${StyleConstants.STATUS_BAR_HEIGHT};
+    padding-top: calc(${StyleConstants.STATUS_BAR_HEIGHT});
   }
 
   z-index: 5;
@@ -91,7 +91,8 @@ const WrapperMobile = styled.div`
   display: flex;
 
   @media only screen and (orientation: landscape) {
-    margin: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
+    margin: 0 calc(1.5rem + env(safe-area-inset-right)) 0
+      calc(1.5rem + env(safe-area-inset-left));
   }
 
   ${mediaMin.medium`

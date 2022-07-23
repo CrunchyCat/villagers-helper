@@ -41,7 +41,7 @@ const Wrapper = styled.div`
 
   @media only screen and (display-mode: standalone) {
     height: calc(100vh - ${StyleConstants.COMBINED_BAR_HEIGHT});
-    padding-top: ${StyleConstants.STATUS_BAR_HEIGHT};
+    padding-top: calc(${StyleConstants.STATUS_BAR_HEIGHT});
   }
 `
 
