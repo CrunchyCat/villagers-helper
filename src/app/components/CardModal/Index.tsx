@@ -59,11 +59,12 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
             </span>
           </TitleBar>
           {card.lock && (
-            <ItemsCenter style={{ marginBottom: '0.5rem' }}>
+            <ItemsCenter
+              onClick={() => card.lock && clickChange(card.lock)}
+              style={{ marginBottom: '0.5rem' }}
+            >
               <ImgSmall src={icon_lock} alt={`unlocked by: ${card.lock}`} />
-              <CardLink onClick={() => card.lock && clickChange(card.lock)}>
-                {cards[card.lock].name}
-              </CardLink>
+              <CardLink>{cards[card.lock].name}</CardLink>
             </ItemsCenter>
           )}
           <ItemsCenter>
@@ -319,7 +320,7 @@ const SepLine = styled.hr`
   max-width: 26rem;
   margin: 0;
   border: 0 none;
-  background-color: white;
+  background-color: ${p => p.theme.text};
 `
 
 const CardLink = styled.span`

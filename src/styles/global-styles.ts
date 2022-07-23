@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 
     @media only screen and (display-mode: standalone) and (orientation: portrait) {
       height: calc(100vh - ${StyleConstants.COMBINED_BAR_HEIGHT});
-      padding-top: calc(${StyleConstants.NAV_BAR_HEIGHT} + ${StyleConstants.STATUS_BAR_HEIGHT});
+      padding-top: calc(${StyleConstants.COMBINED_BAR_HEIGHT});
     }
 
     background-color: ${p => p.theme.background};
