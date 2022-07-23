@@ -8,8 +8,7 @@ import { Radio } from 'app/components/Radio'
 export const LanguageSwitch = () => {
   const { t, i18n } = useTranslation()
   const handleLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const language = event.target.value
-    i18n.changeLanguage(language)
+    i18n.changeLanguage(event.target.value)
   }
 
   return (
