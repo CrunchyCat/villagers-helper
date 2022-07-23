@@ -91,7 +91,7 @@ const WrapperMobile = styled.div`
   display: flex;
 
   @media only screen and (orientation: landscape) {
-    margin: 0 3.5rem;
+    margin: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
   }
 
   ${mediaMin.medium`

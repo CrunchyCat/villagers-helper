@@ -92,6 +92,10 @@ const ViewBar = styled.div<{ isHidden: boolean }>`
   transform: ${p => (p.isHidden ? 'translateY(-7rem)' : 'translateX(0)')};
   transition: height 0.4s, padding-top 0.1s, opacity 0.8s,
     transform 0.5s ease-out;
+
+  @media only screen and (orientation: landscape) {
+    margin-right: calc(1rem + env(safe-area-inset-right));
+  }
 `
 
 //TODO: Implement search icon using a component (making it clean to add hover/focus styling)

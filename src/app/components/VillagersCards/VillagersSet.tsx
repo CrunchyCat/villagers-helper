@@ -267,6 +267,15 @@ const CardsTable = styled.table<{ color: string }>`
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
+      @media only screen and (orientation: landscape) {
+        &:first-child {
+          padding-left: env(safe-area-inset-left);
+        }
+        &:last-child {
+          padding-right: env(safe-area-inset-right);
+        }
+      }
     }
   }
 `
