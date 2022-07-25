@@ -23,15 +23,14 @@ export const LanguageSwitch = () => {
           value="en"
           isSelected={i18n.language === 'en'}
         />
-        {/* TODO: Add German Translation */}
-        {/* <Radio
-          id="tr"
-          label="Deutsch"
+        <Radio
+          id="es"
+          label="Español"
           name="language"
           onChange={handleLanguageChange}
-          value="de"
-          isSelected={i18n.language === 'de'}
-        /> */}
+          value="es"
+          isSelected={i18n.language === 'es'}
+        />
       </Languages>
     </Wrapper>
   )

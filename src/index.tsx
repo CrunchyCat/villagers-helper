@@ -11,7 +11,6 @@ import * as React from 'react'
 import * as ReactDOMClient from 'react-dom/client'
 import { Provider } from 'react-redux'
 // import FontFaceObserver from 'fontfaceobserver' //TODO: Observe font loading (1/2)
-
 import 'sanitize.css/sanitize.css' // Use consistent styling
 
 import { App } from 'app' // Import root app
@@ -19,7 +18,6 @@ import { App } from 'app' // Import root app
 import { HelmetProvider } from 'react-helmet-async'
 
 import { configureAppStore } from 'store/configureStore'
-
 import { ThemeProvider } from 'styles/theme/ThemeProvider'
 
 import * as serviceWorkerRegistration from 'utils/serviceWorkerRegistration'
