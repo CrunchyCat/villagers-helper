@@ -22,8 +22,7 @@ import { ThemeProvider } from 'styles/theme/ThemeProvider'
 
 import * as serviceWorkerRegistration from 'utils/serviceWorkerRegistration'
 
-// Initialize languages
-import './locales/i18n'
+import './locales/i18n' // Initialize languages
 
 /* //TODO: Observe font loading (2/2)
 const openSansObserver = new FontFaceObserver('Inter', {}) // Observe loading of Inter
