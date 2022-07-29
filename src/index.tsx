@@ -55,4 +55,8 @@ if (module.hot) {
 }
 
 // Register Service Worker for Offline Support
-serviceWorkerRegistration.register() //TODO: Show updates in UI with param {onUpdate: () => func}
+//TODO: Better modals for update available & downloaded (including changelog)
+serviceWorkerRegistration.register({
+  onUpdate: () => alert('update available! close all tabs to download it'),
+  onCached: () => alert('just updated!')
+})
