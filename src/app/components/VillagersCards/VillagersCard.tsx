@@ -1,5 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
+import { useDispatch } from 'react-redux'
+import { backdropActions } from 'app/components/NavBar/slice'
 import { IconInfo } from 'app/Icons/IconInfo'
 import { Villager, cards, Group, groups, View } from 'data/card/cards'
 
@@ -18,6 +20,8 @@ export const VillagersCard = ({
 }: Props) => {
   const card = cards[cardID]
   const color = groups[Group.Suit].sets[card.suit].color
+
+  const dispatch = useDispatch()
 
   const [shouldFlip, setShouldFlip] = React.useState(false)
   const [didFlip, setDidFlip] = React.useState(false)
@@ -51,7 +55,12 @@ export const VillagersCard = ({
               <p>{card.name}</p>
               <strong>disabled</strong>
             </InfoText>
-            <CardOption onClick={() => selectCard(cardID, true)}>
+            <CardOption
+              onClick={() => {
+                dispatch(backdropActions.toggleBackdrop(true))
+                selectCard(cardID, true)
+              }}
+            >
               &nbsp;info&nbsp;
               <IconInfo />
             </CardOption>
@@ -66,6 +75,7 @@ export const VillagersCard = ({
           src={card.imgFront}
           alt={card.name}
           onClick={() => {
+            dispatch(backdropActions.toggleBackdrop(true))
             selectCard(cardID, true)
             if (shouldFlip) return
             setShouldFlip(true)

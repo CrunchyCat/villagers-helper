@@ -3,15 +3,26 @@ import { Helmet } from 'react-helmet-async'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { GlobalStyle } from 'styles/global-styles'
 import { useTranslation } from 'react-i18next'
-import { HomePage } from './pages/HomePage/Loadable'
-import { RulesPage } from './pages/RulesPage/Loadable'
-import { ConfigsPage } from './pages/ConfigsPage/Loadable'
-import { CardsPage } from './pages/CardsPage/Loadable'
-import { SettingsPage } from './pages/SettingsPage/Loadable'
-import { NotFoundPage } from './pages/NotFoundPage/Loadable'
+import { useDispatch, useSelector } from 'react-redux'
+import { setOverlay } from 'app/components/NavBar/slice/selectors'
+import { useOverlaySlice } from 'app/components/NavBar/slice'
+import { HomePage } from 'app/pages/HomePage/Loadable'
+import { RulesPage } from 'app/pages/RulesPage/Loadable'
+import { ConfigsPage } from 'app/pages/ConfigsPage/Loadable'
+import { CardsPage } from 'app/pages/CardsPage/Loadable'
+import { SettingsPage } from 'app/pages/SettingsPage/Loadable'
+import { NotFoundPage } from 'app/pages/NotFoundPage/Loadable'
+import { Backdrop } from 'app/components/Backdrop'
+import { SideDrawer } from 'app/components/SideDrawer'
+import { CardModal } from './components/CardModal'
+import { Villager } from 'data/card/cards'
 
 export const App = () => {
   const { i18n } = useTranslation()
+  const overlayState = useSelector(setOverlay)
+  const { actions } = useOverlaySlice()
+  const dispatch = useDispatch()
+
   return (
     <BrowserRouter>
       <Helmet
@@ -19,6 +30,20 @@ export const App = () => {
         defaultTitle="vilrs"
         htmlAttributes={{ lang: i18n.language }}
       ></Helmet>
+      <Backdrop
+        show={overlayState.showBackdrop}
+        clickClose={() => dispatch(actions.closeAll())}
+      />
+      <SideDrawer
+        show={overlayState.showDrawer}
+        clickClose={() => dispatch(actions.toggleSideDrawer(false))}
+      />
+      <CardModal
+        show={overlayState.showCardModal}
+        cardID={overlayState.cardModalCard}
+        clickClose={() => dispatch(actions.toggleCardModal(false))}
+        clickChange={(id: Villager) => dispatch(actions.setCardModal(id))}
+      />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="rules" element={<RulesPage />} />

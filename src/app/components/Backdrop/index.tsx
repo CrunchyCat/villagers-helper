@@ -2,12 +2,12 @@ import * as React from 'react'
 import styled from 'styled-components/macro'
 
 interface Props {
-  click: () => void
   show: boolean
+  clickClose: () => void
 }
 
-export const Backdrop = ({ click, show }: Props) => (
-  <Tint onClick={click} show={show} />
+export const Backdrop = ({ show, clickClose }: Props) => (
+  <Tint onClick={clickClose} show={show} />
 )
 
 const Tint = styled.div<{ show: boolean }>`

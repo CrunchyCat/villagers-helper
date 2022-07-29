@@ -3,10 +3,11 @@ import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
 import { StyleConstants } from 'styles/StyleConstants'
 import { mediaMin, mediaMax } from 'styles/media'
-import { SideDrawer } from './SideDrawer'
-import { Backdrop } from 'app/components/Backdrop'
 import { DrawerToggleButton } from './DrawerToggleButton'
 import logo from './assets/logo.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { setOverlay } from './slice/selectors'
+import { useOverlaySlice } from './slice'
 
 interface Props {
   title: string
@@ -14,38 +15,40 @@ interface Props {
 }
 
 export const NavBar = ({ title, btnSearch }: Props) => {
-  const [drawerIsOpen, setDrawerIsOpen] = React.useState(false)
+  const { actions } = useOverlaySlice()
+  const overlayState = useSelector(setOverlay)
+  const dispatch = useDispatch()
 
   return (
-    <>
-      <SideDrawer show={drawerIsOpen} />
-      <Backdrop click={() => setDrawerIsOpen(false)} show={drawerIsOpen} />
-      <TopBar>
-        <WrapperMobile>
-          <NavLeft>
-            <DrawerToggleButton click={() => setDrawerIsOpen(x => !x)} />
-          </NavLeft>
+    <TopBar>
+      <WrapperMobile>
+        <NavLeft>
+          <DrawerToggleButton
+            click={() =>
+              dispatch(actions.toggleSideDrawer(!overlayState.showDrawer))
+            }
+          />
+        </NavLeft>
 
-          <Title>{title}</Title>
-          <NavRight>{btnSearch && <div onClick={btnSearch} />}</NavRight>
-        </WrapperMobile>
+        <Title>{title}</Title>
+        <NavRight>{btnSearch && <div onClick={btnSearch} />}</NavRight>
+      </WrapperMobile>
 
-        {/* prettier-ignore */}
-        <WrapperDesktop>
-          <HomeLink to="/">
-            <img src={logo} alt="vilrs" />
-            <span><strong>vilrs</strong>A helpful tool for villagers</span>
-          </HomeLink>
-          <Title>{title}</Title>
-          <NavLinks>
-            <NavLink to="/rules"className={({ isActive }) => (isActive ? 'active' : 'inactive')}  title="game rules">rules</NavLink>
-            <NavLink to="/configs" className={({ isActive }) => (isActive ? 'active' : 'inactive')} title="game configurations">configurations</NavLink>
-            <NavLink to="/cards" className={({ isActive }) => (isActive ? 'active' : 'inactive')} title="game cards">cards</NavLink>
-            <NavLink to="/settings" className={({ isActive }) => (isActive ? 'active' : 'inactive')} title="settings">settings</NavLink>
-          </NavLinks>
-        </WrapperDesktop>
-      </TopBar>
-    </>
+      {/* prettier-ignore */}
+      <WrapperDesktop>
+        <HomeLink to="/">
+          <img src={logo} alt="vilrs" />
+          <span><strong>vilrs</strong>A helpful tool for villagers</span>
+        </HomeLink>
+        <Title>{title}</Title>
+        <NavLinks>
+          <NavLink to="/rules"className={({ isActive }) => (isActive ? 'active' : 'inactive')}  title="game rules">rules</NavLink>
+          <NavLink to="/configs" className={({ isActive }) => (isActive ? 'active' : 'inactive')} title="game configurations">configurations</NavLink>
+          <NavLink to="/cards" className={({ isActive }) => (isActive ? 'active' : 'inactive')} title="game cards">cards</NavLink>
+          <NavLink to="/settings" className={({ isActive }) => (isActive ? 'active' : 'inactive')} title="settings">settings</NavLink>
+        </NavLinks>
+      </WrapperDesktop>
+    </TopBar>
   )
 }
 

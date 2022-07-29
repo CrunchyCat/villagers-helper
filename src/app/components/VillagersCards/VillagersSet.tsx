@@ -16,6 +16,8 @@ import icon_lock from 'data/assets/icons/icon_lock.png'
 import { IconFood } from 'app/Icons/IconFood'
 import icon_builder from 'data/assets/icons/icon_builder.png'
 import { IconUse } from '../IconUse'
+import { useDispatch } from 'react-redux'
+import { useOverlaySlice } from '../NavBar/slice'
 
 interface Props {
   setID: string
@@ -23,140 +25,142 @@ interface Props {
   filter: string
   view: View
   editMode: boolean
-  setViewCard: (cardID: Villager) => void
 }
 
-export const VillagersSet = ({
-  setID,
-  set,
-  filter,
-  view,
-  editMode,
-  setViewCard
-}: Props) => (
-  <SetWrapper color={set.color} compact={view !== View.Normal} key={setID}>
-    <ColorStrip color={set.color} compact={view !== View.Normal}>
-      <img src={set.img} alt={set.name} />
-    </ColorStrip>
-    {view === View.Compact ? (
-      <CardsTable color={set.color}>
-        <tbody>
-          {set.cards
-            .filter(id => cards[id].name.toLowerCase().indexOf(filter) > -1)
-            // .filter(id => cards[id].builders) //TODO: Implement Filters
-            .map((cardID, i) => {
-              const card = cards[cardID]
-              return (
-                //TODO: add compact edit mode
-                <tr onClick={() => setViewCard(cardID)} key={`${setID}${i}`}>
-                  <td>{card.name}</td>
-                  <td>
-                    {card.lock && (
-                      <IconText>
-                        <img
-                          src={icon_lock}
-                          alt={`unlocked by: ${card.lock}`}
-                        />
-                        {cards[card.lock].name}
-                      </IconText>
-                    )}
-                  </td>
-                  {card.suit !== Suit.Special ? (
-                    <>
-                      <td>
-                        {!!card.food && (
-                          <IconFoods>
-                            {[...Array(card.food).keys()].map(i => (
-                              <IconFood
-                                width="1.825rem"
-                                height="1.825rem"
-                                key={`F${cardID}${i}`}
-                              />
-                            ))}
-                          </IconFoods>
-                        )}
-                      </td>
-                      <td>
-                        {!!card.builders && (
-                          <IconText>
-                            {[...Array(card.builders).keys()].map(i => (
-                              <img
-                                src={icon_builder}
-                                alt={`${card.builders} Builder(s)`}
-                                key={`B${cardID}${i}`}
-                              />
-                            ))}
-                          </IconText>
-                        )}
-                      </td>
-                      <td>
-                        {card.gold && (
-                          <IconCoin
-                            gold={card.gold}
-                            width="1.825rem"
-                            height="1.825rem"
+export const VillagersSet = ({ setID, set, filter, view, editMode }: Props) => {
+  const { actions } = useOverlaySlice()
+  const dispatch = useDispatch()
+
+  return (
+    <SetWrapper color={set.color} compact={view !== View.Normal} key={setID}>
+      <ColorStrip color={set.color} compact={view !== View.Normal}>
+        <img src={set.img} alt={set.name} />
+      </ColorStrip>
+      {view === View.Compact ? (
+        <CardsTable color={set.color}>
+          <tbody>
+            {set.cards
+              .filter(id => cards[id].name.toLowerCase().indexOf(filter) > -1)
+              // .filter(id => cards[id].builders) //TODO: Implement Filters
+              .map((cardID, i) => {
+                const card = cards[cardID]
+                return (
+                  //TODO: add compact edit mode
+                  <tr
+                    onClick={() => dispatch(actions.setCardModal(cardID))}
+                    key={`${setID}${i}`}
+                  >
+                    <td>{card.name}</td>
+                    <td>
+                      {card.lock && (
+                        <IconText>
+                          <img
+                            src={icon_lock}
+                            alt={`unlocked by: ${card.lock}`}
                           />
-                        )}
-                      </td>
-                    </>
-                  ) : (
-                    <>
-                      <td />
-                      <td>
-                        <div
-                          style={{
-                            height: '1.825rem',
-                            width: '100%',
-                            display: 'flex',
-                            justifyContent: 'flex-end'
-                          }}
-                        >
-                          {card.discard && (
-                            <IconUse
-                              playType="discard"
-                              color={groups[Group.Suit].sets[card.suit].color}
-                              width="1.1rem"
+                          {cards[card.lock].name}
+                        </IconText>
+                      )}
+                    </td>
+                    {card.suit !== Suit.Special ? (
+                      <>
+                        <td>
+                          {!!card.food && (
+                            <IconFoods>
+                              {[...Array(card.food).keys()].map(i => (
+                                <IconFood
+                                  width="1.825rem"
+                                  height="1.825rem"
+                                  key={`F${cardID}${i}`}
+                                />
+                              ))}
+                            </IconFoods>
+                          )}
+                        </td>
+                        <td>
+                          {!!card.builders && (
+                            <IconText>
+                              {[...Array(card.builders).keys()].map(i => (
+                                <img
+                                  src={icon_builder}
+                                  alt={`${card.builders} Builder(s)`}
+                                  key={`B${cardID}${i}`}
+                                />
+                              ))}
+                            </IconText>
+                          )}
+                        </td>
+                        <td>
+                          {card.gold && (
+                            <IconCoin
+                              gold={card.gold}
+                              width="1.825rem"
                               height="1.825rem"
                             />
                           )}
-                        </div>
-                      </td>
-                      <td />
-                    </>
-                  )}
-                </tr>
-              )
-            })}
-        </tbody>
-      </CardsTable>
-    ) : (
-      <>
-        <SetTop wide={view === View.Wide}>
-          <h1>{set.name}</h1>
-          <div>
-            {`(${set.cards.length}/${set.cards.length})`}
-            <IconInfo />
-          </div>
-        </SetTop>
-        <CardsWrapper color={set.color} wide={view === View.Wide}>
-          {set.cards
-            .filter(id => cards[id].name.toLowerCase().indexOf(filter) > -1)
-            .map((cardID, i) => (
-              <VillagersCard
-                cardID={cardID}
-                view={view}
-                editMode={editMode}
-                selectCard={(cardID, show) =>
-                  show ? setViewCard(cardID) : removeCard(cardID)
-                }
-                key={`${setID}${i}`}
-              />
-            ))}
-        </CardsWrapper>
-      </>
-    )}
-  </SetWrapper>
-)
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <td />
+                        <td>
+                          <div
+                            style={{
+                              height: '1.825rem',
+                              width: '100%',
+                              display: 'flex',
+                              justifyContent: 'flex-end'
+                            }}
+                          >
+                            {card.discard && (
+                              <IconUse
+                                playType="discard"
+                                color={groups[Group.Suit].sets[card.suit].color}
+                                width="1.1rem"
+                                height="1.825rem"
+                              />
+                            )}
+                          </div>
+                        </td>
+                        <td />
+                      </>
+                    )}
+                  </tr>
+                )
+              })}
+          </tbody>
+        </CardsTable>
+      ) : (
+        <>
+          <SetTop wide={view === View.Wide}>
+            <h1>{set.name}</h1>
+            <div>
+              {`(${set.cards.length}/${set.cards.length})`}
+              <IconInfo />
+            </div>
+          </SetTop>
+          <CardsWrapper color={set.color} wide={view === View.Wide}>
+            {set.cards
+              .filter(id => cards[id].name.toLowerCase().indexOf(filter) > -1)
+              .map((cardID, i) => (
+                <VillagersCard
+                  cardID={cardID}
+                  view={view}
+                  editMode={editMode}
+                  selectCard={(cardID, show) =>
+                    show
+                      ? dispatch(actions.setCardModal(cardID))
+                      : removeCard(cardID)
+                  }
+                  key={`${setID}${i}`}
+                />
+              ))}
+          </CardsWrapper>
+        </>
+      )}
+    </SetWrapper>
+  )
+}
 
 const removeCard = (cardID: Villager) => {
   console.log('TOGGLING CARD: ', cards[cardID]) //TODO: Make Cards Remove from view, probably using index

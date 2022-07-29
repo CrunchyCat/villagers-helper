@@ -5,12 +5,13 @@ import { StyleConstants } from 'styles/StyleConstants'
 
 interface Props {
   show: boolean
+  clickClose: () => void
 }
 
-export const SideDrawer = ({ show }: Props) => (
+export const SideDrawer = ({ show, clickClose }: Props) => (
   <Drawer show={show}>
     <DrawerList>
-      <DrawerListItem>
+      <DrawerListItem onClick={clickClose}>
         <NavLink
           className={({ isActive }) => (isActive ? 'active' : 'inactive')}
           to="/rules"
@@ -18,7 +19,7 @@ export const SideDrawer = ({ show }: Props) => (
           rules
         </NavLink>
       </DrawerListItem>
-      <DrawerListItem>
+      <DrawerListItem onClick={clickClose}>
         <NavLink
           className={({ isActive }) => (isActive ? 'active' : 'inactive')}
           to="/configs"
@@ -26,7 +27,7 @@ export const SideDrawer = ({ show }: Props) => (
           configurations
         </NavLink>
       </DrawerListItem>
-      <DrawerListItem>
+      <DrawerListItem onClick={clickClose}>
         <NavLink
           className={({ isActive }) => (isActive ? 'active' : 'inactive')}
           to="/cards"
@@ -34,7 +35,7 @@ export const SideDrawer = ({ show }: Props) => (
           cards
         </NavLink>
       </DrawerListItem>
-      <DrawerListItem>
+      <DrawerListItem onClick={clickClose}>
         <NavLink
           className={({ isActive }) => (isActive ? 'active' : 'inactive')}
           to="/settings"
@@ -81,6 +82,7 @@ const DrawerListItem = styled.li`
     color: ${p => p.theme.textSecondary};
     text-decoration: none;
     cursor: default;
+    transition: margin-left 0.5s ease-in-out;
   }
 
   .inactive {
