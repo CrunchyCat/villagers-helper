@@ -55,9 +55,8 @@ if (module.hot) {
 }
 
 // Register Service Worker for Offline Support
-//TODO: Better modals for update available & downloaded (including changelog)
+//TODO: Better modals for update available & 1st cache (including changelog)
 serviceWorkerRegistration.register({
   onUpdate: () =>
-    setTimeout(() => alert('update available! restart to apply'), 500),
-  onCached: () => setTimeout(() => alert('just updated!'), 500)
+    setTimeout(() => alert('update available! restart to apply'), 500)
 })
