@@ -1,7 +1,7 @@
 import * as React from 'react'
+import styled from 'styled-components/macro'
 import { FormLabel } from 'app/components/FormLabel'
 import { Radio } from 'app/components/Radio'
-import styled from 'styled-components/macro'
 import { useDispatch, useSelector } from 'react-redux'
 import { themeActions } from 'styles/theme/slice'
 import { ThemeKeyType } from 'styles/theme/slice/types'

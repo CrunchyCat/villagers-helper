@@ -1,15 +1,13 @@
 import { ThemeKeyType } from './slice/types'
 
-export const isSystemDark = window?.matchMedia
-  ? window.matchMedia('(prefers-color-scheme: dark)')?.matches
-  : undefined
+export const isSystemDark = window.matchMedia(
+  '(prefers-color-scheme: dark)'
+)?.matches
 
 export const saveTheme = (theme: ThemeKeyType) => {
-  window.localStorage && localStorage.setItem('selectedTheme', theme)
+  window.localStorage?.setItem('selectedTheme', theme)
 }
 
 export const getThemeFromStorage = (): ThemeKeyType | null => {
-  return window.localStorage
-    ? (localStorage.getItem('selectedTheme') as ThemeKeyType) || null
-    : null
+  return (window.localStorage?.getItem('selectedTheme') as ThemeKeyType) || null
 }

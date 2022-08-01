@@ -1,4 +1,7 @@
 {
+  "expSelector": {
+    "selectExp": "Select Expansions"
+  },
   "languageSwitch": {
     "selectLanguage": "Select Language"
   },
