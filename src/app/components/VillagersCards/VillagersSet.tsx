@@ -282,7 +282,7 @@ const CardsTable = styled.table<{ color: string }>`
 
       @media only screen and (orientation: landscape) {
         &:first-child {
-          padding-left: env(safe-area-inset-left);
+          padding-left: calc(0.5rem + env(safe-area-inset-left));
         }
         &:last-child {
           padding-right: env(safe-area-inset-right);
