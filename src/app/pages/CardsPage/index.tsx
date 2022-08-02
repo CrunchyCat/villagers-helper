@@ -6,21 +6,16 @@ import { NavBar } from 'app/components/NavBar'
 import { VillagersCards } from 'app/components/VillagersCards'
 import { IconToggleGroup } from 'app/components/IconToggleGroup'
 import { IconToggleView } from 'app/components/IconToggleView'
+import { useDispatch, useSelector } from 'react-redux'
+import { useCardsFiltersSlice } from './slice'
+import { getCardsFilters } from './slice/selectors'
 import { IconFilter } from 'app/Icons/IconFilter'
-import {
-  Group,
-  GROUPS_LENGTH,
-  groups,
-  View,
-  VIEWS_LENGTH,
-  views
-} from 'data/card/cards'
+import { GROUPS_LENGTH, groups, VIEWS_LENGTH, views } from 'data/card/cards'
 
 export const CardsPage = () => {
-  const [isViewBarHidden, setViewBarHidden] = React.useState(false)
-  const [filter, setFilter] = React.useState('')
-  const [group, setGroup] = React.useState(Group.Suit)
-  const [view, setView] = React.useState(View.Normal)
+  const filters = useSelector(getCardsFilters)
+  const { actions } = useCardsFiltersSlice()
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -28,33 +23,58 @@ export const CardsPage = () => {
         <title>cards</title>
         <meta name="description" content="cards" />
       </Helmet>
-      <NavBar title="cards" btnSearch={() => setViewBarHidden(prev => !prev)} />
+      <NavBar
+        title="cards"
+        btnSearch={() =>
+          dispatch(actions.setViewbarHidden(!filters.hideViewbar))
+        }
+      />
       <Wrapper>
-        <ViewBar isHidden={isViewBarHidden}>
+        <ViewBar isHidden={filters.hideViewbar}>
           <ViewSwitch
             title="filter"
-            onClick={() => console.log('set filters') /*TODO: filters */}
+            onClick={() => {
+              dispatch(actions.setHasFood(Math.random() < 0.5))
+              dispatch(actions.setHasBuilders(Math.random() < 0.5))
+            }}
           >
             <IconFilter width="1.5rem" height="1.5rem" />
           </ViewSwitch>
-          <SearchBar onChange={e => setFilter(e.target.value.toLowerCase())} />
+          <SearchBar
+            defaultValue={filters.query}
+            onChange={e =>
+              dispatch(actions.setQuery(e.target.value.toLowerCase()))
+            }
+          />
           <ViewSwitch
-            onClick={() => setGroup(prev => (prev + 1) % GROUPS_LENGTH)}
-            title={`group by: ${groups[group].name}`}
+            onClick={() =>
+              dispatch(actions.setGroup((filters.group + 1) % GROUPS_LENGTH))
+            }
+            title={`group by: ${groups[filters.group].name}`}
           >
-            <IconToggleGroup group={group} width="1.5rem" height="1.5rem" />
+            <IconToggleGroup
+              group={filters.group}
+              width="1.5rem"
+              height="1.5rem"
+            />
           </ViewSwitch>
           <ViewSwitch
-            onClick={() => setView(prev => (prev + 1) % VIEWS_LENGTH)}
-            title={`${views[view]} view`}
+            onClick={() =>
+              dispatch(actions.setView((filters.view + 1) % VIEWS_LENGTH))
+            }
+            title={`${views[filters.view]} view`}
           >
-            <IconToggleView view={view} width="1.5rem" height="1.5rem" />
+            <IconToggleView
+              view={filters.view}
+              width="1.5rem"
+              height="1.5rem"
+            />
           </ViewSwitch>
         </ViewBar>
         <VillagersCards
-          group={group}
-          filter={filter.trim()}
-          view={view}
+          group={filters.group}
+          query={filters.query.trim()}
+          view={filters.view}
           editMode={false}
         />
       </Wrapper>

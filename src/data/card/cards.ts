@@ -396,10 +396,6 @@ export const groups: { name: string, sets: CardSet[] }[] = [
   {
     name: 'all',
     sets: [
-      { /* Unknown Villager */
-        name: 'Unknown', img: back_unknown, color: '#92D1BB',
-        cards: [Villager.Unknown], hide: true
-      },
       { /* All Villagers */
         name: 'All', img: exp_all, color: '#CC6A00',
         cards: [Villager.Agent, Villager.Alchemist, Villager.Apprentice, Villager.Arkwright, Villager.Barbarian,

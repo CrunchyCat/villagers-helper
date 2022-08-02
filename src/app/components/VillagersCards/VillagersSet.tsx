@@ -12,24 +12,37 @@ import {
   groups,
   Group
 } from 'data/card/cards'
+import { useDispatch, useSelector } from 'react-redux'
+import { useOverlaySlice } from '../NavBar/slice'
+import { getSelectedExps } from 'data/user/slice/selectors'
+import { getCardsFilters } from 'app/pages/CardsPage/slice/selectors'
 import icon_lock from 'data/assets/icons/icon_lock.png'
 import { IconFood } from 'app/Icons/IconFood'
 import icon_builder from 'data/assets/icons/icon_builder.png'
 import { IconUse } from '../IconUse'
-import { useDispatch } from 'react-redux'
-import { useOverlaySlice } from '../NavBar/slice'
 
 interface Props {
   setID: string
   set: CardSet
-  filter: string
+  query: string
   view: View
   editMode: boolean
 }
 
-export const VillagersSet = ({ setID, set, filter, view, editMode }: Props) => {
+export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
+  const selectedExps = useSelector(getSelectedExps)
+  const filters = useSelector(getCardsFilters)
   const { actions } = useOverlaySlice()
   const dispatch = useDispatch()
+
+  const cardsAvailable = set.cards.filter(id =>
+    selectedExps.includes(cards[id].exp)
+  ) // Filter to only show selected expansions
+
+  const cardsFiltered = cardsAvailable
+    .filter(id => cards[id].name.toLowerCase().indexOf(query) > -1) // Filter by search filter string
+    .filter(id => !filters.hasFood || cards[id].food) // Filter to Food
+    .filter(id => !filters.hasBuilders || cards[id].builders) // Filter to Builders
 
   return (
     <SetWrapper color={set.color} compact={view !== View.Normal} key={setID}>
@@ -39,95 +52,92 @@ export const VillagersSet = ({ setID, set, filter, view, editMode }: Props) => {
       {view === View.Compact ? (
         <CardsTable color={set.color}>
           <tbody>
-            {set.cards
-              .filter(id => cards[id].name.toLowerCase().indexOf(filter) > -1)
-              // .filter(id => cards[id].builders) //TODO: Implement Filters
-              .map((cardID, i) => {
-                const card = cards[cardID]
-                return (
-                  //TODO: add compact edit mode
-                  <tr
-                    onClick={() => dispatch(actions.setCardModal(cardID))}
-                    key={`${setID}${i}`}
-                  >
-                    <td>{card.name}</td>
-                    <td>
-                      {card.lock && (
-                        <IconText>
-                          <img
-                            src={icon_lock}
-                            alt={`unlocked by: ${card.lock}`}
+            {cardsFiltered.map((cardID, i) => {
+              const card = cards[cardID]
+              return (
+                //TODO: add compact edit mode
+                <tr
+                  onClick={() => dispatch(actions.setCardModal(cardID))}
+                  key={`${setID}${i}`}
+                >
+                  <td>{card.name}</td>
+                  <td>
+                    {card.lock && (
+                      <IconText>
+                        <img
+                          src={icon_lock}
+                          alt={`unlocked by: ${card.lock}`}
+                        />
+                        {cards[card.lock].name}
+                      </IconText>
+                    )}
+                  </td>
+                  {card.suit !== Suit.Special ? (
+                    <>
+                      <td>
+                        {!!card.food && (
+                          <IconFoods>
+                            {[...Array(card.food).keys()].map(i => (
+                              <IconFood
+                                width="1.825rem"
+                                height="1.825rem"
+                                key={`F${cardID}${i}`}
+                              />
+                            ))}
+                          </IconFoods>
+                        )}
+                      </td>
+                      <td>
+                        {!!card.builders && (
+                          <IconText>
+                            {[...Array(card.builders).keys()].map(i => (
+                              <img
+                                src={icon_builder}
+                                alt={`${card.builders} Builder(s)`}
+                                key={`B${cardID}${i}`}
+                              />
+                            ))}
+                          </IconText>
+                        )}
+                      </td>
+                      <td>
+                        {card.gold && (
+                          <IconCoin
+                            gold={card.gold}
+                            width="1.825rem"
+                            height="1.825rem"
                           />
-                          {cards[card.lock].name}
-                        </IconText>
-                      )}
-                    </td>
-                    {card.suit !== Suit.Special ? (
-                      <>
-                        <td>
-                          {!!card.food && (
-                            <IconFoods>
-                              {[...Array(card.food).keys()].map(i => (
-                                <IconFood
-                                  width="1.825rem"
-                                  height="1.825rem"
-                                  key={`F${cardID}${i}`}
-                                />
-                              ))}
-                            </IconFoods>
-                          )}
-                        </td>
-                        <td>
-                          {!!card.builders && (
-                            <IconText>
-                              {[...Array(card.builders).keys()].map(i => (
-                                <img
-                                  src={icon_builder}
-                                  alt={`${card.builders} Builder(s)`}
-                                  key={`B${cardID}${i}`}
-                                />
-                              ))}
-                            </IconText>
-                          )}
-                        </td>
-                        <td>
-                          {card.gold && (
-                            <IconCoin
-                              gold={card.gold}
-                              width="1.825rem"
+                        )}
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td />
+                      <td>
+                        <div
+                          style={{
+                            height: '1.825rem',
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'flex-end'
+                          }}
+                        >
+                          {card.discard && (
+                            <IconUse
+                              playType="discard"
+                              color={groups[Group.Suit].sets[card.suit].color}
+                              width="1.1rem"
                               height="1.825rem"
                             />
                           )}
-                        </td>
-                      </>
-                    ) : (
-                      <>
-                        <td />
-                        <td>
-                          <div
-                            style={{
-                              height: '1.825rem',
-                              width: '100%',
-                              display: 'flex',
-                              justifyContent: 'flex-end'
-                            }}
-                          >
-                            {card.discard && (
-                              <IconUse
-                                playType="discard"
-                                color={groups[Group.Suit].sets[card.suit].color}
-                                width="1.1rem"
-                                height="1.825rem"
-                              />
-                            )}
-                          </div>
-                        </td>
-                        <td />
-                      </>
-                    )}
-                  </tr>
-                )
-              })}
+                        </div>
+                      </td>
+                      <td />
+                    </>
+                  )}
+                </tr>
+              )
+            })}
           </tbody>
         </CardsTable>
       ) : (
@@ -135,26 +145,24 @@ export const VillagersSet = ({ setID, set, filter, view, editMode }: Props) => {
           <SetTop wide={view === View.Wide}>
             <h1>{set.name}</h1>
             <div>
-              {`(${set.cards.length}/${set.cards.length})`}
+              {`(${cardsFiltered.length}/${cardsAvailable.length})`}
               <IconInfo />
             </div>
           </SetTop>
           <CardsWrapper color={set.color} wide={view === View.Wide}>
-            {set.cards
-              .filter(id => cards[id].name.toLowerCase().indexOf(filter) > -1)
-              .map((cardID, i) => (
-                <VillagersCard
-                  cardID={cardID}
-                  view={view}
-                  editMode={editMode}
-                  selectCard={(cardID, show) =>
-                    show
-                      ? dispatch(actions.setCardModal(cardID))
-                      : removeCard(cardID)
-                  }
-                  key={`${setID}${i}`}
-                />
-              ))}
+            {cardsFiltered.map((cardID, i) => (
+              <VillagersCard
+                cardID={cardID}
+                view={view}
+                editMode={editMode}
+                selectCard={(cardID, show) =>
+                  show
+                    ? dispatch(actions.setCardModal(cardID))
+                    : removeCard(cardID)
+                }
+                key={`${setID}${i}`}
+              />
+            ))}
           </CardsWrapper>
         </>
       )}
