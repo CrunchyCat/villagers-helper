@@ -63,10 +63,14 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
                   <td>{card.name}</td>
                   <td>
                     {card.lock && (
-                      <IconText>
+                      <IconText
+                        title={`${card.name} is unlocked by ${
+                          cards[card.lock].name
+                        }`}
+                      >
                         <img
                           src={icon_lock}
-                          alt={`unlocked by: ${card.lock}`}
+                          alt={`unlocked by: ${cards[card.lock].name}`}
                         />
                         {cards[card.lock].name}
                       </IconText>

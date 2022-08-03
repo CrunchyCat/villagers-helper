@@ -60,8 +60,12 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
           <ItemsCenter
             onClick={() => card.lock && clickChange(card.lock)}
             style={{ marginBottom: '0.5rem' }}
+            title={`${card.name} is unlocked by ${cards[card.lock].name}`}
           >
-            <ImgSmall src={icon_lock} alt={`unlocked by: ${card.lock}`} />
+            <ImgSmall
+              src={icon_lock}
+              alt={`unlocked by: ${cards[card.lock].name}`}
+            />
             <CardLink>{cards[card.lock].name}</CardLink>
           </ItemsCenter>
         )}
