@@ -1,7 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
-import { StyleConstants } from 'styles/StyleConstants'
 
 interface Props {
   show: boolean
@@ -69,7 +68,7 @@ const DrawerList = styled.ul`
   justify-content: center;
 
   @media only screen and (orientation: landscape) {
-    margin-left: calc(1rem + ${StyleConstants.STATUS_BAR_HEIGHT});
+    margin-left: env(safe-area-inset-left);
   }
 `
 

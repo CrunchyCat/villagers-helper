@@ -39,7 +39,7 @@ const slice = createSlice({
   }
 })
 
-export const { actions: backdropActions } = slice
+export const { actions: overlayActions } = slice
 
 export const useOverlaySlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer })

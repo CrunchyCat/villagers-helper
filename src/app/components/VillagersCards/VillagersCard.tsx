@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { useDispatch } from 'react-redux'
-import { backdropActions } from 'app/components/NavBar/slice'
+import { overlayActions } from 'app/components/NavBar/slice'
 import { IconInfo } from 'app/Icons/IconInfo'
 import { Villager, cards, Group, groups, View } from 'data/card/cards'
 
@@ -57,7 +57,7 @@ export const VillagersCard = ({
             </InfoText>
             <CardOption
               onClick={() => {
-                dispatch(backdropActions.toggleBackdrop(true))
+                dispatch(overlayActions.toggleBackdrop(true))
                 selectCard(cardID, true)
               }}
             >
@@ -75,7 +75,7 @@ export const VillagersCard = ({
           src={card.imgFront}
           alt={card.name}
           onClick={() => {
-            dispatch(backdropActions.toggleBackdrop(true))
+            dispatch(overlayActions.toggleBackdrop(true))
             selectCard(cardID, true)
             if (shouldFlip) return
             setShouldFlip(true)
