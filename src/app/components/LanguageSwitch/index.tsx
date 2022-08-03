@@ -21,7 +21,7 @@ export const LanguageSwitch = () => {
           name="language"
           onChange={handleLanguageChange}
           value="en"
-          isSelected={i18n.language === 'en'}
+          isSelected={i18n.language.startsWith('en')}
         />
         <Radio
           id="es"
@@ -29,7 +29,7 @@ export const LanguageSwitch = () => {
           name="language"
           onChange={handleLanguageChange}
           value="es"
-          isSelected={i18n.language === 'es'}
+          isSelected={i18n.language.startsWith('es')}
         />
       </Languages>
     </Wrapper>
