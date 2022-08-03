@@ -88,6 +88,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding 0 0.2rem 0.5rem 0.2rem;
+
+  @media only screen and (display-mode: standalone) {
+    min-height: calc(100vh - ${StyleConstants.COMBINED_BAR_HEIGHT});
+  }
 `
 
 const ViewBar = styled.div<{ isHidden: boolean }>`
