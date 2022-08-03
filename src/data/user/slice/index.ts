@@ -6,7 +6,7 @@ import { UserDataState } from './types'
 import { Villager, Exp } from 'data/card/cards'
 
 export const initialState: UserDataState = {
-  //TODO: Add configurations list here
+  //TODO: Add configurations list here--- configurations: [ { name, color, icon, cards } ]
   disabledCards: getDisabledCardsFromStorage() || [Villager.Unknown], //TODO: Put into configurations list
   selectedExps: getSelectedExpsFromStorage() || [Exp.Base, Exp.FourPlayer, Exp.Promo1, Exp.DiceTower, Exp.Profiteers, Exp.Saints, Exp.Scoundrels],
 }
