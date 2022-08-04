@@ -15,7 +15,7 @@ interface Props extends InputProps {
   isSelected?: boolean
 }
 
-export const ExpCheckbox = memo(
+export const Checkbox = memo(
   ({ id, img, label, className, isSelected, ...restOf }: Props) => (
     <Wrapper className={className}>
       <input type="checkbox" id={id} checked={isSelected} {...restOf} />
@@ -64,7 +64,7 @@ const Wrapper = styled.div`
         display: inline-block;
         width: 1rem;
         height: 1rem;
-        border-radius: 30%;
+        border-radius: 25%;
         background-color: ${p => p.theme.background};
         content: '';
         border: 2px solid ${p => p.theme.border};
@@ -78,7 +78,7 @@ const Wrapper = styled.div`
         display: inline-block;
         width: 0.375rem;
         height: 0.375rem;
-        border-radius: 30%;
+        border-radius: 25%;
         top: 0.5625rem;
         left: 0.3125rem;
         background-color: ${p => p.theme.background};

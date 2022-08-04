@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { FormLabel } from 'app/components/FormLabel'
-import { ExpCheckbox } from 'app/components/ExpCheckbox'
+import { Checkbox } from 'app/components/Checkbox'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSelectedExps } from 'data/user/slice/selectors'
 import { useDataSlice } from 'data/user/slice'
@@ -32,7 +32,7 @@ export const ExpSelector = () => {
         {exps
           .filter((_, id) => id !== 0) // Remove None Expansion
           .map((set, id) => (
-            <ExpCheckbox
+            <Checkbox
               id={'' + (id + 1)}
               img={set.img}
               label={set.name}
