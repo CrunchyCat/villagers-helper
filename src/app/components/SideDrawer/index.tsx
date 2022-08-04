@@ -62,14 +62,11 @@ const Drawer = styled.nav<{ show: boolean }>`
 
 const DrawerList = styled.ul`
   margin: 0;
+  margin-left: env(safe-area-inset-left);
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  @media only screen and (orientation: landscape) {
-    margin-left: env(safe-area-inset-left);
-  }
 `
 
 const DrawerListItem = styled.li`

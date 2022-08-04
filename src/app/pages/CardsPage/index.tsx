@@ -96,19 +96,14 @@ const Wrapper = styled.div`
 
 const ViewBar = styled.div<{ isHidden: boolean }>`
   position: sticky;
-  top: 3rem;
-
-  @media only screen and (display-mode: standalone) and (orientation: portrait) {
-    top: calc(3rem + ${StyleConstants.STATUS_BAR_HEIGHT});
-  }
-
+  top: calc(3rem + ${StyleConstants.STATUS_BAR_HEIGHT});
   z-index: 4;
-  width: 100%;
   height: ${p => (p.isHidden ? '0' : '3.5rem')};
+  width: 100%;
   max-width: 78rem;
+  margin-right: calc(env(safe-area-inset-right) * 1.3);
   padding-top: ${p => (p.isHidden ? '0' : '1rem')};
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: flex-end;
   gap: 1.5%;
@@ -116,10 +111,6 @@ const ViewBar = styled.div<{ isHidden: boolean }>`
   transform: ${p => (p.isHidden ? 'translateY(-7rem)' : 'translateX(0)')};
   transition: height 0.4s, padding-top 0.1s, opacity 0.8s,
     transform 0.5s ease-out;
-
-  @media only screen and (orientation: landscape) {
-    margin-right: calc(1rem + env(safe-area-inset-right));
-  }
 `
 
 //TODO: Implement search icon using a component (making it clean to add hover/focus styling)

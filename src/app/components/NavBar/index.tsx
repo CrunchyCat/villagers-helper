@@ -90,13 +90,9 @@ const Title = styled.div`
 
 const WrapperMobile = styled.div`
   width: 100%;
-  margin: 0 1.5rem;
+  margin: 0 calc(1.5rem + env(safe-area-inset-right)) 0
+    calc(1.5rem + env(safe-area-inset-left));
   display: flex;
-
-  @media only screen and (orientation: landscape) {
-    margin: 0 calc(1.5rem + env(safe-area-inset-right)) 0
-      calc(1.5rem + env(safe-area-inset-left));
-  }
 
   ${mediaMin.medium`
     display: none !important

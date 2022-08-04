@@ -3,15 +3,7 @@ import styled from 'styled-components/macro'
 import { VillagersCard } from './VillagersCard'
 import { IconInfo } from 'app/Icons/IconInfo'
 import { IconCoin } from 'app/components/IconCoin'
-import {
-  Villager,
-  CardSet,
-  cards,
-  Suit,
-  View,
-  groups,
-  Group
-} from 'data/card/cards'
+import { Villager, CardSet, cards, View, groups, Group } from 'data/card/cards'
 import { useDispatch, useSelector } from 'react-redux'
 import { useOverlaySlice } from '../NavBar/slice'
 import { getSelectedExps } from 'data/user/slice/selectors'
@@ -76,69 +68,49 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
                       </IconText>
                     )}
                   </td>
-                  {card.suit !== Suit.Special ? (
-                    <>
-                      <td>
-                        {!!card.food && (
-                          <IconFoods>
-                            {[...Array(card.food).keys()].map(i => (
-                              <IconFood
-                                width="1.825rem"
-                                height="1.825rem"
-                                key={`F${cardID}${i}`}
-                              />
-                            ))}
-                          </IconFoods>
-                        )}
-                      </td>
-                      <td>
-                        {!!card.builders && (
-                          <IconText>
-                            {[...Array(card.builders).keys()].map(i => (
-                              <img
-                                src={icon_builder}
-                                alt={`${card.builders} Builder(s)`}
-                                key={`B${cardID}${i}`}
-                              />
-                            ))}
-                          </IconText>
-                        )}
-                      </td>
-                      <td>
-                        {card.gold && (
-                          <IconCoin
-                            gold={card.gold}
+                  <td>
+                    {!!card.food && (
+                      <IconFoods>
+                        {[...Array(card.food).keys()].map(i => (
+                          <IconFood
                             width="1.825rem"
                             height="1.825rem"
+                            key={`F${cardID}${i}`}
                           />
-                        )}
-                      </td>
-                    </>
-                  ) : (
-                    <>
-                      <td />
-                      <td>
-                        <div
-                          style={{
-                            height: '1.825rem',
-                            width: '100%',
-                            display: 'flex',
-                            justifyContent: 'flex-end'
-                          }}
-                        >
-                          {card.discard && (
-                            <IconUse
-                              playType="discard"
-                              color={groups[Group.Suit].sets[card.suit].color}
-                              width="1.1rem"
-                              height="1.825rem"
-                            />
-                          )}
-                        </div>
-                      </td>
-                      <td />
-                    </>
-                  )}
+                        ))}
+                      </IconFoods>
+                    )}
+                  </td>
+                  <td>
+                    {!!card.builders && (
+                      <IconText>
+                        {[...Array(card.builders).keys()].map(i => (
+                          <img
+                            src={icon_builder}
+                            alt={`${card.builders} Builder(s)`}
+                            key={`B${cardID}${i}`}
+                          />
+                        ))}
+                      </IconText>
+                    )}
+                  </td>
+                  <td>
+                    {card.gold && (
+                      <IconCoin
+                        gold={card.gold}
+                        width="1.825rem"
+                        height="1.825rem"
+                      />
+                    )}
+                    {card.discard && (
+                      <IconUse
+                        playType="discard"
+                        color={groups[Group.Suit].sets[card.suit].color}
+                        width="1.1rem"
+                        height="1.825rem"
+                      />
+                    )}
+                  </td>
                 </tr>
               )
             })}
@@ -256,42 +228,38 @@ const CardsTable = styled.table<{ color: string }>`
   background-color: ${p => p.color}40;
   overflow: hidden;
   tbody > tr {
-    &:first-child > td {
-      padding-top: 1.25rem;
-    }
-    &:nth-child(even) {
-      background-color: ${p => p.color}30;
-    }
     td {
-      width: 13%;
-      padding: 0.25rem 0 0.25rem;
+      line-height: 1.825rem;
+      padding: 0.25rem 0;
       border-top: 1px solid ${p => p.color};
       color: ${p => p.theme.text};
       &:first-child {
         font-weight: bold;
-        padding-left: 0.5rem;
-        width: 33.4%;
+        padding-left: calc(0.5rem + env(safe-area-inset-left));
+        width: 32%;
       }
       &:nth-child(2) {
-        width: 33.1%;
+        width: 31.7%;
+      }
+      &:nth-child(3) {
+        width: 17%;
+      }
+      &:nth-child(4) {
+        width: 9.2%;
       }
       &:last-child {
-        width: 10%;
-        padding-right: 0.5rem;
-        text-align: right;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        width: 10.1%;
+        padding-right: calc(0.5rem + env(safe-area-inset-right));
       }
-
-      @media only screen and (orientation: landscape) {
-        &:first-child {
-          padding-left: calc(0.5rem + env(safe-area-inset-left));
-        }
-        &:last-child {
-          padding-right: env(safe-area-inset-right);
-        }
-      }
+    }
+    &:first-child > td {
+      padding-top: 1.25rem;
+    }
+    &:last-child > td {
+      padding-bottom: 0.35rem;
+    }
+    &:nth-child(even) {
+      background-color: ${p => p.color}30;
     }
   }
 `

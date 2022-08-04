@@ -9,19 +9,22 @@ interface Props {
 }
 
 export const IconUse = ({ playType, color, width, height }: Props) => (
-  <span>
-    {playType === '1' && (
+  <Wrapper>
+    {playType !== 'discard' && (
       <IconCard color={color} width={width} height={height} />
     )}
     {playType === '2' && (
-      <div style={{ display: 'flex', columnGap: '0.1rem' }}>
-        <IconCard color={color} width={width} height={height} />
-        <IconCard color={color} width={width} height={height} />
-      </div>
+      <IconCard color={color} width={width} height={height} />
     )}
     {playType === 'discard' && <IconDiscard width={width} height={height} />}
-  </span>
+  </Wrapper>
 )
+
+const Wrapper = styled.span`
+  display: flex;
+  justify-content: center;
+  column-gap: 0.1rem;
+`
 
 const IconBase = styled.div<{ width: string; height: string }>`
   height: ${p => p.height};
