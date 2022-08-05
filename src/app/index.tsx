@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { GlobalStyle } from 'styles/global-styles'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { setOverlay } from 'app/components/NavBar/slice/selectors'
+import { selectOverlay } from 'app/components/NavBar/slice/selectors'
 import { useOverlaySlice } from 'app/components/NavBar/slice'
 import { HomePage } from 'app/pages/HomePage/Loadable'
 import { RulesPage } from 'app/pages/RulesPage/Loadable'
@@ -19,7 +19,7 @@ import { Villager } from 'data/card/cards'
 
 export const App = () => {
   const { i18n } = useTranslation()
-  const overlayState = useSelector(setOverlay)
+  const overlayState = useSelector(selectOverlay)
   const { actions } = useOverlaySlice()
   const dispatch = useDispatch()
 

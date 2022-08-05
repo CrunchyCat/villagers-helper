@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { mediaMax, mediaMin } from 'styles/media'
+import { mediaMin } from 'styles/media'
 import { IconClose } from 'app/Icons/IconClose'
 import { IconCoin } from 'app/components/IconCoin'
 import { Villager, cards, Group, groups, Gold } from 'data/card/cards'
@@ -165,9 +165,8 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
 
 const Modal = styled.div<{ show: boolean }>`
   position: fixed;
-  max-width: 50rem;
-  max-height: 40rem;
   z-index: 7;
+  padding-bottom: calc(env(safe-area-inset-bottom) * 0.65);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -184,26 +183,21 @@ const Modal = styled.div<{ show: boolean }>`
       )};
   }
 
-  ${mediaMax.small`
-    top: 28%;
-    width: 96%;
-    height: 72%;
-    margin: 0 2%;
-
-    @media only screen and (display-mode: standalone) {
-      padding-bottom: 0.75rem;
-    }
-
-    border-radius: 1.5rem 1.5rem 0 0;
-    transform: ${p => (p.show ? 'translateY(1)' : 'translateY(120%)')};
-    transition: visibility 0.2s, transform 0.2s ease-out;
-  `}
+  top: 28%;
+  width: 96%;
+  height: 72%;
+  margin: 0 2%;
+  border-radius: 1.5rem 1.5rem 0 0;
+  transform: ${p => (p.show ? 'translateY(1)' : 'translateY(120%)')};
+  transition: visibility 0.2s, transform 0.2s ease-out;
 
   ${mediaMin.small`
-    top: 10%;
+    top: 0;
     width: 80%;
-    height: 90%;
-    margin: 0 clamp(calc((20% + (80% - 50rem)) / 2), 10%, 100%);
+    max-width: 50rem;
+    height: 100%;
+    max-height: 40rem;
+    margin: clamp(0px, calc(50vh - 20rem), 100vh) clamp(calc(50vw - 25rem), 10vw, 100vw);
     border-radius: 1.5rem;
     opacity: ${p => (p.show ? '1' : '0')};
     transform: ${p => (p.show ? 'translateY(0)' : 'translateY(30%)')};

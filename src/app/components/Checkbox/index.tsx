@@ -85,11 +85,11 @@ const Wrapper = styled.div`
       }
 
       ${mediaMin.medium`
-      &:hover {
-        &::before {
-          border-color: ${p => p.theme.primary};
+        &:hover {
+          &::before {
+            border-color: ${p => p.theme.primary};
+          }
         }
-      }
       `}
     }
 

@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { FormLabel } from 'app/components/FormLabel'
 import { Checkbox } from 'app/components/Checkbox'
 import { useDispatch, useSelector } from 'react-redux'
-import { getSelectedExps } from 'data/user/slice/selectors'
+import { selectSelectedExps } from 'data/user/slice/selectors'
 import { useDataSlice } from 'data/user/slice'
 import { saveSelectedExps } from 'data/user/user-data'
 import { useTranslation } from 'react-i18next'
@@ -13,7 +13,7 @@ import { Group, groups } from 'data/card/cards'
 export const ExpSelector = () => {
   const { t } = useTranslation()
   const exps = groups[Group.Exp].sets
-  const selectedExps = useSelector(getSelectedExps)
+  const selectedExps = useSelector(selectSelectedExps)
   const { actions } = useDataSlice()
   const dispatch = useDispatch()
 

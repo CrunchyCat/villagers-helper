@@ -11,13 +11,13 @@ import { FormLabel } from 'app/components/FormLabel'
 
 //TODO: Remove this after testing
 import { useDispatch, useSelector } from 'react-redux'
-import { getDisabledCards } from 'data/user/slice/selectors'
+import { selectDisabledCards } from 'data/user/slice/selectors'
 import { useDataSlice } from 'data/user/slice'
 import { saveDisabledCards } from 'data/user/user-data'
 
 export const SettingsPage = () => {
   //TODO: Remove this after testing
-  const disabledCards = useSelector(getDisabledCards)
+  const disabledCards = useSelector(selectDisabledCards)
   const { actions } = useDataSlice()
   const dispatch = useDispatch()
   const handleUserDataChange = event => {

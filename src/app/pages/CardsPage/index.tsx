@@ -8,12 +8,12 @@ import { IconToggleGroup } from 'app/components/IconToggleGroup'
 import { IconToggleView } from 'app/components/IconToggleView'
 import { useDispatch, useSelector } from 'react-redux'
 import { useCardsFiltersSlice } from './slice'
-import { getCardsFilters } from './slice/selectors'
+import { selectCardsFilters } from './slice/selectors'
 import { IconFilter } from 'app/Icons/IconFilter'
 import { GROUPS_LENGTH, groups, VIEWS_LENGTH, views } from 'data/card/cards'
 
 export const CardsPage = () => {
-  const filters = useSelector(getCardsFilters)
+  const filters = useSelector(selectCardsFilters)
   const { actions } = useCardsFiltersSlice()
   const dispatch = useDispatch()
 

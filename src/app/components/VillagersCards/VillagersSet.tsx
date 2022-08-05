@@ -6,8 +6,8 @@ import { IconCoin } from 'app/components/IconCoin'
 import { Villager, CardSet, cards, View, groups, Group } from 'data/card/cards'
 import { useDispatch, useSelector } from 'react-redux'
 import { useOverlaySlice } from '../NavBar/slice'
-import { getSelectedExps } from 'data/user/slice/selectors'
-import { getCardsFilters } from 'app/pages/CardsPage/slice/selectors'
+import { selectSelectedExps } from 'data/user/slice/selectors'
+import { selectCardsFilters } from 'app/pages/CardsPage/slice/selectors'
 import icon_lock from 'data/assets/icons/icon_lock.png'
 import { IconFood } from 'app/Icons/IconFood'
 import icon_builder from 'data/assets/icons/icon_builder.png'
@@ -22,8 +22,8 @@ interface Props {
 }
 
 export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
-  const selectedExps = useSelector(getSelectedExps)
-  const filters = useSelector(getCardsFilters)
+  const selectedExps = useSelector(selectSelectedExps)
+  const filters = useSelector(selectCardsFilters)
   const { actions } = useOverlaySlice()
   const dispatch = useDispatch()
 

@@ -2,12 +2,12 @@ import { createSelector } from '@reduxjs/toolkit'
 import { RootState } from 'types'
 import { initialState } from '.'
 
-export const getDisabledCards = createSelector(
+export const selectDisabledCards = createSelector(
   [(state: RootState) => state.userData || initialState],
   userData => userData.disabledCards
 )
 
-export const getSelectedExps = createSelector(
+export const selectSelectedExps = createSelector(
   [(state: RootState) => state.userData || initialState],
   userData => userData.selectedExps
 )
