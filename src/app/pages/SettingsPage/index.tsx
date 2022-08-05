@@ -1,12 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { P } from 'app/components/P'
-import { NavBar } from 'app/components/NavBar'
-import { Helmet } from 'react-helmet-async'
 import { StyleConstants } from 'styles/StyleConstants'
-import { ExpSelector } from 'app/components/ExpSelector'
-import { ThemeSwitch } from 'app/components/ThemeSwitch'
-import { LanguageSwitch } from 'app/components/LanguageSwitch'
+import { ExpSelector } from 'app/pages/SettingsPage/components/ExpSelector'
+import { ThemeSwitch } from 'app/pages/SettingsPage/components/ThemeSwitch'
+import { LanguageSwitch } from 'app/pages/SettingsPage/components/LanguageSwitch'
+import { Helmet } from 'react-helmet-async'
+import { NavBar } from 'app/components/NavBar'
+import { P } from 'app/components/P'
 import { FormLabel } from 'app/components/FormLabel'
 
 //TODO: Remove this after testing
