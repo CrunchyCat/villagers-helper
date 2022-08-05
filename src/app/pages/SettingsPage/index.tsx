@@ -45,7 +45,6 @@ export const SettingsPage = () => {
             </P>
           </div>
           <ExpSelector />
-          {/* TODO: Allow card expansion selection & remove above */}
           <LanguageSwitch />
           <ThemeSwitch />
         </SettingsWrapper>

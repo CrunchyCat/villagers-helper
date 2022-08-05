@@ -152,7 +152,6 @@ const removeCard = (cardID: Villager) => {
 
 const SetWrapper = styled.div<{ color: string; compact: boolean }>`
   width: 100%;
-  max-width: 78rem;
   margin-top: ${p => (p.compact ? '0.75rem' : '1.2rem')};
   display: flex;
   flex-direction: column;
@@ -161,6 +160,13 @@ const SetWrapper = styled.div<{ color: string; compact: boolean }>`
   border-radius: 1.5rem;
   overflow: hidden;
   transition: all 0.35s ease-in-out;
+
+  @media only screen and (display-mode: standalone) {
+    width: calc(
+      100% - 0.65 * env(safe-area-inset-left) - 0.65 *
+        env(safe-area-inset-right)
+    );
+  }
 `
 
 const ColorStrip = styled.div<{ color: string; compact: boolean }>`

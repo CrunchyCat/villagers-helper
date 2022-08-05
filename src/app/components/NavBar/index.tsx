@@ -26,14 +26,14 @@ export const NavBar = ({ title, btnSearch }: Props) => {
     <TopBar>
       {theme === themes.light && <ColorBG />}
 
-      <NavLeft>
+      <NavLeft className="mobile">
         <DrawerToggleButton
           click={() =>
             dispatch(actions.toggleSideDrawer(!overlayState.showDrawer))
           }
         />
       </NavLeft>
-      <HomeLink to="/">
+      <HomeLink to="/" className="desktop">
         <img src={logo} alt="vilrs" />
         <span>
           <strong>vilrs</strong>A helpful tool for villagers
@@ -42,9 +42,11 @@ export const NavBar = ({ title, btnSearch }: Props) => {
 
       <Title>{title}</Title>
 
-      <NavRight>{btnSearch && <div onClick={btnSearch} />}</NavRight>
+      <NavRight className="mobile">
+        {btnSearch && <div onClick={btnSearch} />}
+      </NavRight>
       {/* prettier-ignore */}
-      <NavLinks>
+      <NavLinks className="desktop">
         <NavLink to="/rules"className={({ isActive }) => (isActive ? 'active' : 'inactive')}  title="game rules">rules</NavLink>
         <NavLink to="/configs" className={({ isActive }) => (isActive ? 'active' : 'inactive')} title="game configurations">configurations</NavLink>
         <NavLink to="/cards" className={({ isActive }) => (isActive ? 'active' : 'inactive')} title="game cards">cards</NavLink>
@@ -76,17 +78,16 @@ const TopBar = styled.header`
       )};
   }
 
-  a:nth-child(2),
-  nav:nth-child(5) {
+  .desktop {
     display: none !important;
   }
 
   ${mediaMin.medium`
     align-items: center;
-    a:nth-child(2), nav:nth-child(5) {
+    .desktop {
       display: inherit !important
     }
-    div:first-child, nav:nth-child(4) {
+    .mobile {
       display: none !important
     }
   `}
@@ -100,10 +101,7 @@ const ColorBG = styled.div`
     width: 100%;
     height: env(safe-area-inset-top);
     z-index: -1;
-    background: linear-gradient(
-      ${p => p.theme.textSecondary} 80%,
-      #ffffff00 80%
-    );
+    background: linear-gradient(#0000005a 80%, #ffffff00 80%);
   }
 `
 
