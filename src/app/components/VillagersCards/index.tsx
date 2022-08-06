@@ -27,7 +27,7 @@ export const VillagersCards = React.memo(
           .filter(x => !filters.hasBuilders || x[1].cards.some(x => cards[x].builders)) // without builder (if on)
           .filter(x => !filters.hasBuilders || !filters.hasFood || x[1].cards.some(x => cards[x].builders && cards[x].food)) // without both (if on)
           .filter(x => x[1].cards.some(x => cards[x].name.toLowerCase().indexOf(query) > -1)) // not in query filter
-          .map(([setID, set]) => (
+          .map(([setID, set]) => 
             <VillagersSet
               setID={setID}
               set={set}
@@ -36,7 +36,7 @@ export const VillagersCards = React.memo(
               editMode={editMode}
               key={setID}
             />
-          ))}
+          )}
       </>
     )
   }

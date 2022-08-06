@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { mediaMin } from 'styles/media'
 import { IconClose } from 'app/Icons/IconClose'
 import { IconCoin } from 'app/components/IconCoin'
-import { Villager, cards, Group, groups, Gold } from 'data/card/cards'
+import { Villager, cards, Group, groups, Gold, Suit } from 'data/card/cards'
 import { IconUse } from 'app/components/IconUse'
 import icon_lock from 'data/assets/icons/icon_lock.png'
 import icon_unlock from 'data/assets/icons/icon_unlock.png'
@@ -29,7 +29,15 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
     <Modal show={show}>
       <div>
         <ColorStrip color={suit.color}>
-          <img src={suit.img} alt={suit.name} />
+          {[...Array(card.symbols || 1).keys()].map(i => (
+            <img
+              src={suit.img}
+              alt={suit.name}
+              style={{
+                transform: `translateX(${i * 110 - (card.symbols ? 55 : 0)}%)`
+              }} //TODO: Allow for more than 2 symbols
+            />
+          ))}
           {card.discard && (
             <IconUse
               playType="discard"
@@ -38,15 +46,28 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
               height="2.25rem"
             />
           )}
-          {card.basic && (
+          {!card.above &&
+            card.suit !== Suit.Solitary &&
+            card.suit !== Suit.Special && (
+              <IconUse
+                playType="2"
+                color={suit.color}
+                width="1.5rem"
+                height="2.25rem"
+              />
+            )}
+          {card.below && (
             <IconUse
-              playType="2"
-              color={suit.color}
+              playType={card.suit === Suit.Special ? '3' : '1'}
+              color={
+                card.suit === Suit.Special
+                  ? groups[Group.Suit].sets[Suit.Unknown].color
+                  : suit.color
+              }
               width="1.5rem"
               height="2.25rem"
             />
           )}
-          {/* TODO: Show 1, 2, and 1/2 children cards */}
         </ColorStrip>
         <TitleBar>
           <h1>{card.name}</h1>
@@ -70,7 +91,6 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
           </ItemsCenter>
         )}
         <ItemsCenter>
-          {/* TODO: Move Card Playing to Cards Data */}
           {cardID === Villager.Founders
             ? 'Starting card'
             : `Play ${
@@ -134,7 +154,6 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
           {card.gold && (
             <ItemsSplit>
               <IconCoin gold={card.gold} width="1.825rem" height="1.825rem" />
-              {/* TODO: Fix text reward description, size is small */}
               <span style={{ marginLeft: '0.5rem' }}>
                 {`${card.gold.amt} ${Gold[card.gold.type]}
                   ${card.gold.condition}`}
@@ -143,12 +162,14 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
           )}
         </SetTop>
       </div>
-      <SetMid>
-        {card.desc}
-        {card.clarification?.map((i, k) => (
-          <div key={k}>{i}</div>
-        ))}
-      </SetMid>
+      {(card.desc || card.clarification) && (
+        <SetDesc>
+          {card.desc}
+          {card.clarification?.map((i, k) => (
+            <SetClar key={k}>{i}</SetClar>
+          ))}
+        </SetDesc>
+      )}
       <SetBottom>
         <ItemsCenter>
           <ImgSmall src={suit.img} alt={suit.name} />
@@ -171,6 +192,7 @@ const Modal = styled.div<{ show: boolean }>`
   flex-direction: column;
   justify-content: space-between;
   visibility: ${p => (p.show ? 'visible' : 'hidden')};
+  color: ${p => p.theme.text};
   background-color: ${p => p.theme.backgroundVariant};
   overflow: hidden;
 
@@ -226,7 +248,6 @@ const ColorStrip = styled.div<{ color: string }>`
 const TitleBar = styled.div`
   padding: 0 1.5rem;
   display: flex;
-  color: ${p => p.theme.text};
   &::before,
   h1,
   span {
@@ -259,17 +280,14 @@ const SetTop = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  color: ${p => p.theme.text};
 `
 
-//TODO: Add card/art spinning behind text
-const SetMid = styled.div`
-  flex-grow: 2;
+const SetDesc = styled.div`
+  flex-grow: 1;
   margin: 0 0.75rem;
   padding: 0.7rem;
-  font-size: clamp(0.7rem, 2vh, 1.6rem);
+  font-size: clamp(0.7rem, min(4vw, 3.5vh), 1.5rem);
   border-radius: 0.75rem;
-  color: ${p => p.theme.text};
   background-color: ${p => p.theme.background};
   @supports (backdrop-filter: blur(2px)) {
     background-color: ${p =>
@@ -279,6 +297,16 @@ const SetMid = styled.div`
       )};
   }
   overflow-y: auto;
+
+  div:first-child {
+    margin-top: 1.5rem;
+  }
+`
+
+const SetClar = styled.div`
+  margin: 0.75rem 1% 0 1%;
+  font-size: clamp(0.7rem, min(3.4vw, 3.3vh), 1.25rem);
+  border-bottom: 1px solid ${p => p.theme.border};
 `
 
 const SetBottom = styled.div`
@@ -286,14 +314,12 @@ const SetBottom = styled.div`
   flex-direction: row;
   gap: 1.5rem;
   margin: 0.7rem 0;
-  color: ${p => p.theme.text};
 `
 
 const IconText = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  color: ${p => p.theme.text};
 `
 
 const ItemsSplit = styled(IconText)`
@@ -320,7 +346,6 @@ const SepLine = styled.hr`
 
 const CardLink = styled.span`
   cursor: pointer;
-  color: ${p => p.theme.text};
   &:hover {
     text-decoration: underline;
   }
