@@ -33,6 +33,7 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
             <img
               src={suit.img}
               alt={suit.name}
+              key={i}
               style={{
                 transform: `translateX(${i * 110 - (card.symbols ? 55 : 0)}%)`
               }} //TODO: Allow for more than 2 symbols
@@ -80,7 +81,6 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
         {card.lock && (
           <ItemsCenter
             onClick={() => card.lock && clickChange(card.lock)}
-            style={{ marginBottom: '0.5rem' }}
             title={`${card.name} is unlocked by ${cards[card.lock].name}`}
           >
             <ImgSmall
@@ -90,18 +90,22 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
             <CardLink>{cards[card.lock].name}</CardLink>
           </ItemsCenter>
         )}
-        <ItemsCenter>
-          {cardID === Villager.Founders
-            ? 'Starting card'
-            : `Play ${
-                cardID === Villager.Courier
-                  ? "at start of a player's"
-                  : 'during'
-              } ${card?.draftPlay ? 'Draft' : 'Build'} Phase ${
-                card?.discard ? '& Discard' : ''
-              }`}
-        </ItemsCenter>
-        <ItemsCenter>{card.use}</ItemsCenter>
+        {(card.suit === Suit.Special || cardID === Villager.Founders) && (
+          <>
+            <ItemsCenter>
+              {cardID === Villager.Founders
+                ? 'Starting card'
+                : `Play ${
+                    cardID === Villager.Courier
+                      ? "at start of a player's"
+                      : 'during'
+                  } ${card?.draftPlay ? 'Draft' : 'Build'} Phase ${
+                    card?.discard ? '& Discard' : ''
+                  }`}
+            </ItemsCenter>
+            <ItemsCenter>{card.use}</ItemsCenter>
+          </>
+        )}
         <SetTop>
           <SepLine />
           {!!unlocks.length && (
@@ -230,23 +234,23 @@ const Modal = styled.div<{ show: boolean }>`
 const ColorStrip = styled.div<{ color: string }>`
   display: flex;
   justify-content: center;
-  padding-top: 2.375rem;
-  margin-bottom: 2rem;
+  padding-top: clamp(1.375rem, 10vh, 2.375rem);
+  margin-bottom: clamp(0.25rem, 6vh, 2rem);
   background-color: ${p => p.color};
   img {
     position: absolute;
     align-self: center;
-    width: 3.75rem;
+    width: clamp(1.75rem, 13vh, 3.75rem);
   }
   span {
     position absolute;
-    top: 1.1875rem;
+    top: clamp(0.25rem, 5vh, 1.1875rem);
     right: 15%;
   }
 `
 
 const TitleBar = styled.div`
-  padding: 0 1.5rem;
+  margin: 0 1.5rem;
   display: flex;
   &::before,
   h1,
@@ -256,8 +260,8 @@ const TitleBar = styled.div`
   }
   h1 {
     text-align: center;
-    font-size: 2.25rem;
-    line-height: 2.5rem;
+    font-size: clamp(1.75rem, min(9.25vw, 8.25vh), 2.5rem);
+    line-height: clamp(1.75rem, min(10.3vw, 8.5vh), 2.5rem);
     margin: 0;
     font-weight: bold;
     white-space: nowrap;
@@ -275,7 +279,7 @@ const TitleBar = styled.div`
 `
 
 const SetTop = styled.div`
-  margin: 0.4rem 1.5rem 0.6rem 1.5rem;
+  margin: 0 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -284,7 +288,7 @@ const SetTop = styled.div`
 
 const SetDesc = styled.div`
   flex-grow: 1;
-  margin: 0 0.75rem;
+  margin: 0.4rem 0.75rem 0;
   padding: 0.7rem;
   font-size: clamp(0.7rem, min(4vw, 3.5vh), 1.5rem);
   border-radius: 0.75rem;
@@ -313,7 +317,7 @@ const SetBottom = styled.div`
   display: flex;
   flex-direction: row;
   gap: 1.5rem;
-  margin: 0.7rem 0;
+  margin: clamp(0.25rem, 1.35vh, 0.7rem) 0;
 `
 
 const IconText = styled.div`
@@ -339,7 +343,7 @@ const SepLine = styled.hr`
   width: 100%;
   min-width: 12rem;
   max-width: 26rem;
-  margin: 0;
+  margin: clamp(0px, 1.75vh, 0.4rem) 0 0;
   border: 0 none;
   background-color: ${p => p.theme.text};
 `
