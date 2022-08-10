@@ -1,6 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { IconClose } from 'app/Icons/IconClose'
+import { IconPerson } from 'app/Icons/IconPerson'
+import { IconGithub } from 'app/Icons/IconGithub'
 
 const clickHide = () => {
   const thisModal = document.getElementById('updateModal')
@@ -36,20 +38,17 @@ export const UpdateModal = () => {
         <SepLine />
         <LinkSet>
           <LinkCenter href="https://www.calebhoff.com">
-            {/* <img src={suit.img} alt={suit.name} /> */}
+            <IconPerson />
             calebhoff.com
           </LinkCenter>
           <LinkCenter href="https://github.com/CrunchyCat/villagers-helper">
-            {/* <img src={exp.img} alt={exp.name} /> */}
+            <IconGithub />
             Github
           </LinkCenter>
         </LinkSet>
         <SetDesc>{updateText}</SetDesc>
         <LinkSet>
-          <BtnCenter onClick={clickHide}>
-            {/* <img src={exp.img} alt={exp.name} /> */}
-            continue
-          </BtnCenter>
+          <BtnCenter onClick={clickHide}>continue</BtnCenter>
         </LinkSet>
       </ModalWindow>
     </ModalScreen>
@@ -173,13 +172,6 @@ const TextCenter = styled.div`
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
-
-  img {
-    max-width: 1.825rem;
-    max-height: 1.825rem;
-    width: auto;
-    height: auto;
-  }
 `
 
 const LinkCenter = styled.a`
@@ -196,7 +188,8 @@ const LinkCenter = styled.a`
     text-decoration: underline;
   }
 
-  img {
+  svg {
+    stroke: ${p => p.theme.text};
     max-width: 1.825rem;
     max-height: 1.825rem;
     width: auto;
