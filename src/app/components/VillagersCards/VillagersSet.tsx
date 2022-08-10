@@ -201,6 +201,7 @@ const SetTop = styled.div<{ wide: boolean }>`
   h1 {
     text-align: center;
     font-size: ${p => (p.wide ? '1.75rem' : '2rem')};
+    line-height: ${p => (p.wide ? '2rem' : '3rem')};
     font-weight: bold;
     white-space: nowrap;
     color: ${p => p.theme.text};
