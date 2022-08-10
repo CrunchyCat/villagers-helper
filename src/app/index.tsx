@@ -14,7 +14,8 @@ import { SettingsPage } from 'app/pages/SettingsPage/Loadable'
 import { NotFoundPage } from 'app/pages/NotFoundPage/Loadable'
 import { Backdrop } from 'app/components/Overlay/components/Backdrop'
 import { SideDrawer } from 'app/components/Overlay/components/SideDrawer'
-import { CardModal } from './components/Overlay/components/CardModal'
+import { UpdateModal } from 'app/components/Overlay/components/UpdateModal'
+import { CardModal } from 'app/components/Overlay/components/CardModal'
 import { Villager } from 'data/card/cards'
 
 export const App = () => {
@@ -38,6 +39,7 @@ export const App = () => {
         show={overlayState.showDrawer}
         clickClose={() => dispatch(actions.toggleSideDrawer(false))}
       />
+      <UpdateModal />
       <CardModal
         show={overlayState.showCardModal}
         cardID={overlayState.cardModalCard}

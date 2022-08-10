@@ -292,14 +292,11 @@ const SetDesc = styled.div`
   padding: 0.7rem;
   font-size: clamp(0.7rem, min(4vw, 3.5vh), 1.5rem);
   border-radius: 0.75rem;
-  background-color: ${p => p.theme.background};
-  @supports (backdrop-filter: blur(2px)) {
-    background-color: ${p =>
-      p.theme.background.replace(
-        /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-        'rgba$1,0.4)'
-      )};
-  }
+  background-color: ${p =>
+    p.theme.background.replace(
+      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
+      'rgba$1,0.4)'
+    )};
   overflow-y: auto;
 
   div:first-child {
