@@ -14,7 +14,7 @@ export const UpdateModal = () => {
 
   React.useEffect(() => {
     fetch(
-      'https://raw.githubusercontent.com/ProjectSakura/OTA/10/changelog/changelog_beryllium.txt'
+      'https://raw.githubusercontent.com/CrunchyCat/villagers-helper/master/changelog.txt'
     )
       .then(resp => resp.text())
       .then(data => setUpdateText(data))
