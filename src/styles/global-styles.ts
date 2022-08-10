@@ -5,31 +5,27 @@ import { StyleConstants } from './StyleConstants'
 export const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    padding-top: ${StyleConstants.NAV_BAR_HEIGHT};
-
-    @media only screen and (display-mode: standalone) and (orientation: portrait) {
-      height: calc(100vh - ${StyleConstants.COMBINED_BAR_HEIGHT});
-      padding-top: calc(${StyleConstants.COMBINED_BAR_HEIGHT});
-    }
-
+    padding-top: calc(${StyleConstants.COMBINED_BAR_HEIGHT});
     background-color: ${p => p.theme.background};
   }
 
   #root {
-    min-height: 100%;
     min-width: 100%;
+    height: calc(100vh - ${StyleConstants.COMBINED_BAR_HEIGHT});
+    @supports (-webkit-touch-callout: none){
+      @media only screen and (display-mode: browser) {
+        height: calc(100vh - ${StyleConstants.COMBINED_BAR_HEIGHT} - ${StyleConstants.BROWSER_BAR_HEIGHT});
+      }
+    }
   }
 
   input, select, button {
     font-family: inherit;
     font-size: inherit;
   }
-
-  .icon {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
 `
+
+//TODO: App global styles, EX: .icon { width: 1.5rem; height: 1.5rem; }
 
 /* //TODO: Add after body when there are fonts to load (Replace Inter with that Font)
 body.fontLoaded {

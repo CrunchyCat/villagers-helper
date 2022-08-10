@@ -1,5 +1,5 @@
 import { ThemeState } from 'styles/theme/slice/types'
-import { OverlayState } from 'app/components/NavBar/slice/types'
+import { OverlayState } from 'app/components/Overlay/slice/types'
 import { UserDataState } from 'data/user/slice/types'
 import { CardsFilterState } from 'app/pages/CardsPage/slice/types'
 // [IMPORT NEW CONTAINERSTATE ABOVE]

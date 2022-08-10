@@ -12,12 +12,11 @@ import { Group, groups } from 'data/card/cards'
 
 export const ExpSelector = () => {
   const { t } = useTranslation()
-  const exps = groups[Group.Exp].sets
   const selectedExps = useSelector(selectSelectedExps)
   const { actions } = useDataSlice()
   const dispatch = useDispatch()
 
-  const handleExpansionChange = id => {
+  const handleSelectedExpChange = id => {
     const newExps = selectedExps.includes(id)
       ? selectedExps.filter(i => i !== id)
       : selectedExps.concat(id)
@@ -29,14 +28,14 @@ export const ExpSelector = () => {
     <Wrapper>
       <FormLabel>{t(...messages.selectLanguage())}</FormLabel>
       <Expansions>
-        {exps
+        {groups[Group.Exp].sets
           .filter((_, id) => id !== 0) // Remove None Expansion
           .map((set, id) => (
             <Checkbox
               id={'' + (id + 1)}
               img={set.img}
               label={set.name}
-              onChange={() => handleExpansionChange(id + 1)}
+              onChange={() => handleSelectedExpChange(id + 1)}
               isSelected={selectedExps.includes(id + 1)}
               key={id}
             />

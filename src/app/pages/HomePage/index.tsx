@@ -1,8 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { StyleConstants } from 'styles/StyleConstants'
 import { Helmet } from 'react-helmet-async'
-import { NavBar } from 'app/components/NavBar'
+import { NavBar } from 'app/components/Overlay/components/NavBar'
 import { A } from 'app/components/A'
 
 export const HomePage = () => (
@@ -29,24 +28,14 @@ export const HomePage = () => (
 )
 
 const Wrapper = styled.main`
-  height: calc(
-    100vh - ${StyleConstants.NAV_BAR_HEIGHT} -
-      ${StyleConstants.BROWSER_BAR_HEIGHT}
-  );
-  min-height: 280px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  @media only screen and (display-mode: standalone) {
-    height: calc(100vh - ${StyleConstants.COMBINED_BAR_HEIGHT});
-    padding-top: calc(${StyleConstants.STATUS_BAR_HEIGHT});
-  }
 `
 
 const Title = styled.h1`
-  margin-top: -8vh;
   font-size: 2rem;
   font-weight: bold;
   color: ${p => p.theme.text};

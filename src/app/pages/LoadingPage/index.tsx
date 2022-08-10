@@ -2,12 +2,12 @@ import * as React from 'react'
 import styled from 'styled-components/macro'
 import { LoadingIndicator } from 'app/components/LoadingIndicator'
 
-const LoadingWrapper = styled.div`
-  width: 100%;
-  height: 100vh;
+const LoadingWrapper = styled.main`
+  height: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 `
 
 export const LoadingPage = () => (

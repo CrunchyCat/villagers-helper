@@ -3,11 +3,12 @@ import styled from 'styled-components/macro'
 import { VillagersCard } from './VillagersCard'
 import { IconInfo } from 'app/Icons/IconInfo'
 import { IconCoin } from 'app/components/IconCoin'
-import { Villager, CardSet, cards, View, groups, Group } from 'data/card/cards'
+import { CardSet, cards, View, groups, Group } from 'data/card/cards'
 import { useDispatch, useSelector } from 'react-redux'
-import { useOverlaySlice } from '../NavBar/slice'
+import { useOverlaySlice } from '../Overlay/slice'
 import { selectSelectedExps } from 'data/user/slice/selectors'
 import { selectCardsFilters } from 'app/pages/CardsPage/slice/selectors'
+// import { useDataSlice } from 'data/user/slice'
 import icon_lock from 'data/assets/icons/icon_lock.png'
 import { IconFood } from 'app/Icons/IconFood'
 import icon_builder from 'data/assets/icons/icon_builder.png'
@@ -24,8 +25,15 @@ interface Props {
 export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
   const selectedExps = useSelector(selectSelectedExps)
   const filters = useSelector(selectCardsFilters)
-  const { actions } = useOverlaySlice()
+  const overlayActions = useOverlaySlice().actions
+  // const userActions = useDataSlice().actions
   const dispatch = useDispatch()
+
+  const handledDisabledCardsChange = id => {
+    console.log('disabling card...')
+    // saveConfiguration(newConfiguration)
+    // dispatch(userActions.setConfiguration(newConfiguration))
+  }
 
   const cardsAvailable = set.cards.filter(id =>
     selectedExps.includes(cards[id].exp)
@@ -49,7 +57,7 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
               return (
                 //TODO: add compact edit mode
                 <tr
-                  onClick={() => dispatch(actions.setCardModal(cardID))}
+                  onClick={() => dispatch(overlayActions.setCardModal(cardID))}
                   key={`${setID}${i}`}
                 >
                   <td>{card.name}</td>
@@ -133,8 +141,8 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
                 editMode={editMode}
                 selectCard={(cardID, show) =>
                   show
-                    ? dispatch(actions.setCardModal(cardID))
-                    : removeCard(cardID)
+                    ? dispatch(overlayActions.setCardModal(cardID))
+                    : handledDisabledCardsChange(cardID)
                 }
                 key={`${setID}${i}`}
               />
@@ -146,13 +154,9 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
   )
 }
 
-const removeCard = (cardID: Villager) => {
-  console.log('TOGGLING CARD: ', cards[cardID]) //TODO: Make Cards Remove from view, probably using index
-}
-
 const SetWrapper = styled.div<{ color: string; compact: boolean }>`
   width: 100%;
-  margin-top: ${p => (p.compact ? '0.75rem' : '1.2rem')};
+  margin: ${p => (p.compact ? '0.75rem' : '1.2rem')} auto 0 auto;
   display: flex;
   flex-direction: column;
   background-color: ${p => p.theme.backgroundVariant};
@@ -240,9 +244,9 @@ const CardsTable = styled.table<{ color: string }>`
       border-top: 1px solid ${p => p.color};
       color: ${p => p.theme.text};
       &:first-child {
-        font-weight: bold;
-        padding-left: calc(0.5rem + env(safe-area-inset-left));
         width: 32%;
+        font-weight: bold;
+        padding-left: 0.5rem;
       }
       &:nth-child(2) {
         width: 31.7%;
@@ -255,7 +259,6 @@ const CardsTable = styled.table<{ color: string }>`
       }
       &:last-child {
         width: 10.1%;
-        padding-right: calc(0.5rem + env(safe-area-inset-right));
       }
     }
     &:first-child > td {

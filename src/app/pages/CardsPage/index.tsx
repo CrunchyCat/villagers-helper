@@ -1,8 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { Helmet } from 'react-helmet-async'
-import { StyleConstants } from 'styles/StyleConstants'
-import { NavBar } from 'app/components/NavBar'
+import { NavBar } from 'app/components/Overlay/components/NavBar'
 import { ViewBar } from './components/ViewBar'
 import { VillagersCards } from 'app/components/VillagersCards'
 import { useDispatch, useSelector } from 'react-redux'
@@ -32,22 +31,17 @@ export const CardsPage = () => {
           group={filters.group}
           query={filters.query.trim()}
           view={filters.view}
-          editMode={false}
+          editMode={true}
         />
       </Wrapper>
     </>
   )
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.main`
   max-width: 78rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding 0 0.2rem 0.5rem 0.2rem;
-
-  @media only screen and (display-mode: standalone) {
-    min-height: calc(100vh - ${StyleConstants.COMBINED_BAR_HEIGHT});
-  }
 `

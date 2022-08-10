@@ -61,8 +61,7 @@ const Drawer = styled.nav<{ show: boolean }>`
 `
 
 const DrawerList = styled.ul`
-  margin: 0;
-  margin-left: env(safe-area-inset-left);
+  margin: 0 0 0 env(safe-area-inset-left);
   height: 100%;
   display: flex;
   flex-direction: column;

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { Helmet } from 'react-helmet-async'
-import { NavBar } from 'app/components/NavBar'
+import { NavBar } from 'app/components/Overlay/components/NavBar'
 
 export const ConfigsPage = () => (
   <>
@@ -14,8 +14,7 @@ export const ConfigsPage = () => (
   </>
 )
 
-//TODO: Fix Scrolling with Toolbar hidden on iOS
-const Wrapper = styled.div`
+const Wrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;

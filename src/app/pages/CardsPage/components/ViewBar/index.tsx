@@ -56,8 +56,8 @@ const Wrapper = styled.div<{ isHidden: boolean }>`
   z-index: 4;
   width: 100%;
   height: ${p => (p.isHidden ? '0' : '3.5rem')};
-  margin-right: calc(env(safe-area-inset-right) * 1.25);
   padding-top: ${p => (p.isHidden ? '0' : '1rem')};
+  padding-right: env(safe-area-inset-right);
   display: flex;
   align-items: center;
   justify-content: flex-end;
