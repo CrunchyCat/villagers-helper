@@ -31,7 +31,7 @@ export const CardsPage = () => {
           group={filters.group}
           query={filters.query.trim()}
           view={filters.view}
-          editMode={true}
+          editMode={false}
         />
       </Wrapper>
     </>
