@@ -219,7 +219,7 @@ export const cards: VillagerDetails[] = [
   /* Wood Villagers */
   { name: 'Lumberjack', suit: Suit.Wood, exp: Exp.Base, imgFront: lumberjack, imgBack: back_lumberjack, basic: true,
     below: [Villager.Carpenter, Villager.Cooper, Villager.Shipwright, Villager.Wheeler, Villager.WoodCarver,
-      Villager.LogRafter, Villager.Healey, Villager.Arkwright], food: 1, builders: 1 },
+      Villager.LogRafter, Villager.Healey, Villager.Arkwright] },
   { name: 'Carpenter', suit: Suit.Wood, exp: Exp.Base, imgFront: carpenter, imgBack: back_wood,
     above: Villager.Lumberjack, builders: 1 },
   { name: 'Cooper', suit: Suit.Wood, exp: Exp.Base, imgFront: cooper, imgBack: back_wood,
