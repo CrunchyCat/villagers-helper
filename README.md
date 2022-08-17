@@ -1,17 +1,19 @@
-# vilrs: *villagers resources*
+# vilrs: _villager's resource_
 
-<img width="914" alt="React Boilerplate Meets CRA" src="https://www.yucata.de/Games/Villagers/images/villagers_en.png" align="center">
+<img width="914" alt="Villagers game banner" src="https://www.yucata.de/Games/Villagers/images/villagers_en.png" align="center">
 vilrs is a companion web app for Villagers, the game by Haakon Gaarder.
 
 ---
 
 ## Install & Start
 
-> ⚠️ Using [Yarn Package Manager](https://yarnpkg.com) is recommended over `npm`.
+1. 🔻 `npm preinstall`: Globally install [Yarn Classic](https://classic.yarnpkg.com) & [Serve](https://github.com/vercel/serve)
+   > ⚠️ Using [Yarn Package Manager](https://yarnpkg.com) is recommended over [npm](https://www.npmjs.com/package/npm).
 
 1. ⬇️ `yarn install`: Install all dependencies
 
 1. 🧑‍💻 `yarn run start`: Run local development server
+   > 🖥️ Alternatively, `yarn run start:prod` can be used to test in production mode
 
 ---
 
