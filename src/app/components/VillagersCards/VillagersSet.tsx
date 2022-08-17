@@ -44,6 +44,8 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
     .filter(id => !filters.hasFood || cards[id].food) // Filter to Food
     .filter(id => !filters.hasBuilders || cards[id].builders) // Filter to Builders
 
+  if (!cardsFiltered.length) return null // Return null if no cards are available
+
   return (
     <SetWrapper color={set.color} compact={view !== View.Normal} key={setID}>
       <ColorStrip color={set.color} compact={view !== View.Normal}>
