@@ -8,9 +8,14 @@ vilrs is a companion web app for Villagers, the game by Haakon Gaarder.
 
 ## Install & Start
 
-1. 🔻 `npm preinstall`: Globally install [Yarn Classic](https://classic.yarnpkg.com) & [Serve](https://github.com/vercel/serve)
+1. 🔻 `npm preinstall`: Install global dependencies
+   1. [Yarn Classic](https://classic.yarnpkg.com)
 
-   > ⚠️ Using [Yarn Package Manager](https://yarnpkg.com) is recommended over [npm](https://www.npmjs.com/package/npm).
+      > ⚠️ Using [Yarn Package Manager](https://yarnpkg.com) is recommended over [npm](https://www.npmjs.com/package/npm).
+
+   1. [Typescript](https://www.typescriptlang.org), [ts-node](https://typestrong.org/ts-node), & [@types/node](https://www.npmjs.com/package/@types/node)
+
+   1. [Serve](https://github.com/vercel/serve)
 
 1. ⬇️ `yarn install`: Install all dependencies
 
