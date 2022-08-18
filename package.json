@@ -10,7 +10,6 @@
     "@testing-library/react": "13.3.0",
     "@types/fontfaceobserver": "2.1.0",
     "@types/jest": "28.1.4",
-    "@types/node": "18.0.3",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
     "@types/react-redux": "7.1.24",
@@ -59,12 +58,10 @@
     "stylelint": "14.9.1",
     "stylelint-config-recommended": "8.0.0",
     "stylelint-config-styled-components": "0.1.1",
-    "stylelint-processor-styled-components": "1.10.0",
-    "ts-node": "10.8.2",
-    "typescript": "4.7.4"
+    "stylelint-processor-styled-components": "1.10.0"
   },
   "scripts": {
-    "preinstall": "npm i yarn -g && npm i serve -g",
+    "preinstall": "npm i yarn -g && npm i typescript -g && npm i ts-node -g && npm i @types/node@^18 -g && npm i serve -g",
     "start": "react-scripts start",
     "start:prod": "yarn run build && serve -s build",
     "build": "react-scripts build",
