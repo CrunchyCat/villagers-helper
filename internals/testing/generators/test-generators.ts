@@ -21,7 +21,7 @@ interface PlopGenerator extends PG {
 
 process.chdir(path.join(__dirname, '../../generators'))
 
-const plop = nodePlop('./plopfile.ts')
+const plop = await nodePlop('./plopfile.ts')
 const componentGen = plop.getGenerator('component') as PlopGenerator
 const sliceGen = plop.getGenerator('slice') as PlopGenerator
 
