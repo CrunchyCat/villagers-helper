@@ -57,8 +57,9 @@ if (module.hot) {
 // Register Service Worker for Offline Support & Show Update Modal
 serviceWorkerRegistration.register({
   onUpdate: () =>
-    setTimeout(() => {
+    setTimeout(registration => {
       if (document.getElementById('updateModal'))
         document.getElementById('updateModal')!.style.visibility = 'visible'
+      registration.waiting.postMessage({ type: 'SKIP_WAITING' })
     }, 0)
 })
