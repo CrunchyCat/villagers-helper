@@ -7,24 +7,33 @@ type Config = {
 
 // Register Service Worker
 export function register(config?: Config) {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator)
-    window.addEventListener('load', () => registerValidSW(config))
-}
-
-// Unregister Service Worker
-export function unregister() {
-  if ('serviceWorker' in navigator)
-    navigator.serviceWorker.ready
-      .then(registration => registration.unregister())
-      .catch(error => console.error(error.message))
+  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      //TODO: Replace with registerValidSW(config) when local testing is done
+      if (window.location.hostname === 'localhost') {
+        fetch(`${process.env.PUBLIC_URL}/service-worker.js`, {
+          headers: { 'Service-Worker': 'script' }
+        })
+          .then(res => {
+            if (res.status === 404)
+              navigator.serviceWorker.ready.then(reg =>
+                reg.unregister().then(() => window.location.reload())
+              )
+            else registerValidSW(config) // Service worker found. Proceed as normal.
+          })
+          .catch(() => console.log('vilrs is running in offline mode'))
+        navigator.serviceWorker.ready.then(() => console.log('served by sw')) // Localhost: Additional Logging
+      } else registerValidSW(config) // Not Localhost: Register service worker
+    })
+  }
 }
 
 function registerValidSW(config?: Config) {
   navigator.serviceWorker
     .register(`${process.env.PUBLIC_URL}/service-worker.js`)
-    .then(registration => {
-      registration.onupdatefound = () => {
-        const installStatus = registration.installing
+    .then(reg => {
+      reg.onupdatefound = () => {
+        const installStatus = reg.installing
         if (installStatus == null) return
 
         installStatus.onstatechange = () => {
@@ -32,15 +41,15 @@ function registerValidSW(config?: Config) {
 
           if (navigator.serviceWorker.controller) {
             // New content is available to be cached
-            console.log('Close all tabs of this page to get new content.')
-            if (config?.onUpdate) config?.onUpdate(registration) // Execute onUpdate callback
+            console.log('new content available! close all instances to update')
+            if (config?.onUpdate) config?.onUpdate(reg) // Execute onUpdate callback
           } else {
             // New content was cached
-            console.log('Content is cached for offline use.')
-            if (config?.onCached) config.onCached(registration) // Execute onCached callback
+            console.log('vilrs has been cached for offline use')
+            if (config?.onCached) config.onCached(reg) // Execute onCached callback
           }
         }
       }
     })
-    .catch(e => console.error('Error during service worker registration:', e))
+    .catch(e => console.error('error during service worker registration', e))
 }
