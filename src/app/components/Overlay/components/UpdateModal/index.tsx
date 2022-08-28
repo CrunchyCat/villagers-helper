@@ -7,7 +7,7 @@ import { IconPerson } from 'app/Icons/IconPerson'
 import { IconGithub } from 'app/Icons/IconGithub'
 
 export const UpdateModal = () => {
-  const [hasUpdate, setHasUpdate] = React.useState(false)
+  const [hasUpdate, setHasUpdate] = React.useState(true)
   const [updateInfo, setUpdateInfo] = React.useState([
     { title: 'loading...' } as UpdateInfoType
   ])
@@ -267,5 +267,8 @@ const DetailsSummary = styled.summary`
   border-bottom: 1px solid ${p => p.theme.textSecondary};
   &:hover {
     border-color: ${p => p.theme.text};
+  }
+  &::-webkit-details-marker {
+    display: none;
   }
 `
