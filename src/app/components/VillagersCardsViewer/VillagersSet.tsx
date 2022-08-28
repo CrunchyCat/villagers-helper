@@ -9,9 +9,9 @@ import { useOverlaySlice } from '../Overlay/slice'
 import { selectSelectedExps } from 'data/user/slice/selectors'
 import { selectCardsFilters } from 'app/pages/CardsPage/slice/selectors'
 // import { useDataSlice } from 'data/user/slice'
-import icon_lock from 'data/assets/icons/icon_lock.png'
+import icon_lock from 'data/assets/icons/icon_lock.webp'
 import { IconFood } from 'app/Icons/IconFood'
-import icon_builder from 'data/assets/icons/icon_builder.png'
+import icon_builder from 'data/assets/icons/icon_builder.webp'
 import { IconUse } from '../IconUse'
 
 interface Props {

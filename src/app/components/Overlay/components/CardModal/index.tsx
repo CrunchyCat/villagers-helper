@@ -5,10 +5,10 @@ import { IconClose } from 'app/Icons/IconClose'
 import { IconCoin } from 'app/components/IconCoin'
 import { Villager, cards, Group, groups, Gold, Suit } from 'data/card/cards'
 import { IconUse } from 'app/components/IconUse'
-import icon_lock from 'data/assets/icons/icon_lock.png'
-import icon_unlock from 'data/assets/icons/icon_unlock.png'
+import icon_lock from 'data/assets/icons/icon_lock.webp'
+import icon_unlock from 'data/assets/icons/icon_unlock.webp'
 import { IconFood } from 'app/Icons/IconFood'
-import icon_builder from 'data/assets/icons/icon_builder.png'
+import icon_builder from 'data/assets/icons/icon_builder.webp'
 
 interface Props {
   show: boolean

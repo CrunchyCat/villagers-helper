@@ -9,7 +9,7 @@ import { selectOverlay } from '../../slice/selectors'
 import { selectTheme } from 'styles/theme/slice/selectors'
 import { useOverlaySlice } from '../../slice'
 import { themes } from 'styles/theme/themes'
-import logo from './assets/logo.png'
+import logo from './assets/logo.webp'
 
 interface Props {
   title: string
