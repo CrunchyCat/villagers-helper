@@ -8,8 +8,8 @@ type Config = {
 // Register Service Worker
 export function register(config?: Config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+    //window.addEventListener('load', () => registerValidSW(config)) //TODO: Replace with this after local SW testing
     window.addEventListener('load', () => {
-      //TODO: Replace with registerValidSW(config) when local testing is done
       if (window.location.hostname === 'localhost') {
         fetch(`${process.env.PUBLIC_URL}/service-worker.js`, {
           headers: { 'Service-Worker': 'script' }

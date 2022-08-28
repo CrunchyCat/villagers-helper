@@ -20,8 +20,6 @@ import { HelmetProvider } from 'react-helmet-async'
 import { configureAppStore } from 'store/configureStore'
 import { ThemeProvider } from 'styles/theme/ThemeProvider'
 
-import * as serviceWorkerRegistration from 'utils/serviceWorkerRegistration'
-
 import './locales/i18n' // Initialize languages
 
 /* //TODO: Observe font loading (2/2)
@@ -53,12 +51,3 @@ if (module.hot) {
     // No need to render the App again because i18next works with the hooks
   })
 }
-
-// Register Service Worker for Offline Support & Show Update Modal
-serviceWorkerRegistration.register({
-  onUpdate: () =>
-    setTimeout(() => {
-      if (document.getElementById('updateModal'))
-        document.getElementById('updateModal')!.style.visibility = 'visible'
-    }, 0)
-})

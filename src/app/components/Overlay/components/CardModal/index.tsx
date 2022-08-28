@@ -117,10 +117,7 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
               />
               <ItemSet>
                 {unlocks.map(v => (
-                  <CardLink
-                    onClick={() => clickChange(v.i)}
-                    key={`U${cardID}${v.i}`}
-                  >
+                  <CardLink onClick={() => clickChange(v.i)} key={v.i}>
                     {v.v.name}
                   </CardLink>
                 ))}
@@ -131,11 +128,7 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
             <ItemsSplit>
               <IconFoods>
                 {[...Array(card.food).keys()].map(i => (
-                  <IconFood
-                    width="1.825rem"
-                    height="1.825rem"
-                    key={`F${cardID}${i}`}
-                  />
+                  <IconFood width="1.825rem" height="1.825rem" key={i} />
                 ))}
               </IconFoods>
               {card.food} Food
@@ -148,7 +141,7 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
                   <ImgSmall
                     src={icon_builder}
                     alt={`${card.builders} Builder(s)`}
-                    key={`B${cardID}${i}`}
+                    key={i}
                   />
                 ))}
               </ItemSet>
@@ -341,7 +334,7 @@ const SepLine = styled.hr`
   min-width: 12rem;
   max-width: 26rem;
   margin: clamp(0px, 1.75vh, 0.4rem) 0 0;
-  border: 0 none;
+  border: none;
   background-color: ${p => p.theme.text};
 `
 

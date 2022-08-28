@@ -60,7 +60,7 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
                 //TODO: add compact edit mode
                 <tr
                   onClick={() => dispatch(overlayActions.setCardModal(cardID))}
-                  key={`${setID}${i}`}
+                  key={i}
                 >
                   <td>{card.name}</td>
                   <td>
@@ -85,7 +85,7 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
                           <IconFood
                             width="1.825rem"
                             height="1.825rem"
-                            key={`F${cardID}${i}`}
+                            key={i}
                           />
                         ))}
                       </IconFoods>
@@ -98,7 +98,7 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
                           <img
                             src={icon_builder}
                             alt={`${card.builders} Builder(s)`}
-                            key={`B${cardID}${i}`}
+                            key={i}
                           />
                         ))}
                       </IconText>
@@ -146,7 +146,7 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
                     ? dispatch(overlayActions.setCardModal(cardID))
                     : handledDisabledCardsChange(cardID)
                 }
-                key={`${setID}${i}`}
+                key={i}
               />
             ))}
           </CardsWrapper>

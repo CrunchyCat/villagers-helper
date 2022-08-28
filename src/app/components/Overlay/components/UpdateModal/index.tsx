@@ -1,42 +1,55 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
+import { register } from 'utils/serviceWorkerRegistration'
+import { UpdateInfoType } from './slice/types'
 import { IconClose } from 'app/Icons/IconClose'
 import { IconPerson } from 'app/Icons/IconPerson'
 import { IconGithub } from 'app/Icons/IconGithub'
 
-const clickHide = () => {
-  const thisModal = document.getElementById('updateModal')
-  thisModal!.style.visibility = 'hidden'
-  thisModal!.style.opacity = '0'
-  thisModal!.style.transform = 'translateY(30%)'
-}
-
 export const UpdateModal = () => {
-  const [updateText, setUpdateText] = React.useState('restart to apply update')
+  const [hasUpdate, setHasUpdate] = React.useState(false)
+  const [updateInfo, setUpdateInfo] = React.useState([
+    { title: 'loading...' } as UpdateInfoType
+  ])
 
-  React.useEffect(() => {
-    fetch(
-      'https://raw.githubusercontent.com/CrunchyCat/villagers-helper/master/changelog.txt'
-    )
-      .then(resp => resp.text())
-      .then(data => setUpdateText(data))
+  // Register Service Worker for Offline Support & Show Update Modal
+  register({
+    onUpdate: reg => {
+      setHasUpdate(true)
+      setTimeout(
+        () =>
+          document.getElementById('btnUpd8')?.addEventListener('click', () => {
+            reg?.waiting?.postMessage({ type: 'SKIP_WAITING' })
+            window.location.reload()
+          }),
+        100
+      )
+      fetch(
+        'https://raw.githubusercontent.com/CrunchyCat/villagers-helper/master/changelog.json'
+      )
+        .then(resp => resp.text())
+        .then(data => setUpdateInfo(JSON.parse(data)))
+        .catch(() =>
+          setUpdateInfo([{ title: "can't load changelog" } as UpdateInfoType])
+        )
+    }
   })
 
   return (
-    <ModalScreen id="updateModal">
-      <Tint onClick={clickHide} />
+    <ModalScreen hasUpdate={hasUpdate}>
+      <Tint onClick={() => setHasUpdate(false)} />
       <ModalWindow>
         <TitleBar>
           <h1>update available</h1>
           <span>
-            <div onClick={clickHide}>
+            <div onClick={() => setHasUpdate(false)}>
               <IconClose />
             </div>
           </span>
         </TitleBar>
         <TextCenter>restart the app to update to the latest version</TextCenter>
         <SepLine />
-        <LinkSet>
+        <ItemSet>
           <LinkCenter href="https://www.calebhoff.com">
             <IconPerson />
             calebhoff.com
@@ -45,26 +58,47 @@ export const UpdateModal = () => {
             <IconGithub />
             Github
           </LinkCenter>
-        </LinkSet>
-        <SetDesc>{updateText}</SetDesc>
-        <LinkSet>
-          <BtnCenter onClick={clickHide}>continue</BtnCenter>
-        </LinkSet>
+        </ItemSet>
+        <SetDesc>
+          {updateInfo.map((version, i) => (
+            <details key={i}>
+              <DetailsSummary>
+                <ItemSet>
+                  <strong>{version.title}</strong>
+                  <div style={{ flexShrink: '0' }}>
+                    <small>{version?.date}</small>
+                    <strong>&nbsp;&nbsp;{version?.version}</strong>
+                  </div>
+                </ItemSet>
+              </DetailsSummary>
+              {version.changes?.map((change, k) => (
+                <SetClar key={k}>{change}</SetClar>
+              ))}
+              {version.fixes?.map((fix, k) => (
+                <SetClar key={k}>{fix}</SetClar>
+              ))}
+            </details>
+          ))}
+        </SetDesc>
+        <ItemSet>
+          <BtnCenter id="btnUpd8">update</BtnCenter>
+          <BtnCenter onClick={() => setHasUpdate(false)}>later</BtnCenter>
+        </ItemSet>
       </ModalWindow>
     </ModalScreen>
   )
 }
 
-const ModalScreen = styled.div`
-  visibility: hidden;
+const ModalScreen = styled.div<{ hasUpdate: boolean }>`
+  visibility: ${p => (p.hasUpdate ? 'visible' : 'hidden')};
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 8;
-  opacity: 1;
-  transform: translateY(0);
+  opacity: ${p => (p.hasUpdate ? 1 : 0)};
+  transform: ${p => (p.hasUpdate ? 'translateY(0)' : 'translateY(30%)')};
   transition: visibility 0.15s, opacity 0.15s, transform 0.25s ease-out;
 `
 
@@ -140,7 +174,7 @@ const TitleBar = styled.div`
 const SepLine = styled.hr`
   height: 1px;
   width: calc(100% - 1.5rem);
-  border: 0 none;
+  border: none;
   background-color: ${p => p.theme.text};
 `
 
@@ -148,7 +182,7 @@ const SetDesc = styled.div`
   flex-grow: 1;
   margin: 0 0.75rem;
   padding: 0.7rem;
-  font-size: clamp(0.8rem, 2vmin, 1.25rem);
+  font-size: clamp(0.85rem, 2vmin, 1.25rem);
   border-radius: 0.75rem;
   background-color: ${p =>
     p.theme.background.replace(
@@ -158,9 +192,16 @@ const SetDesc = styled.div`
   overflow-y: auto;
 `
 
-const LinkSet = styled.div`
+const SetClar = styled.div`
+  margin: 0.75rem 1% 0 1%;
+  font-size: clamp(0.75rem, 1.5vmin, 1.1rem);
+  border-bottom: 1px solid ${p => p.theme.border};
+`
+
+const ItemSet = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 1.5rem;
   margin: 1rem 0;
 `
@@ -209,10 +250,22 @@ const BtnCenter = styled(TextCenter)`
     )};
   border: 1px solid ${p => p.theme.textSecondary};
   cursor: pointer;
+  user-select: none;
   border-radius: 2rem;
 
   &:hover {
     background-color: ${p => p.theme.backgroundVariant};
-    border: 1px solid ${p => p.theme.text};
+    border-color: ${p => p.theme.text};
+  }
+`
+
+const DetailsSummary = styled.summary`
+  padding: 0 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  border-bottom: 1px solid ${p => p.theme.textSecondary};
+  &:hover {
+    border-color: ${p => p.theme.text};
   }
 `
