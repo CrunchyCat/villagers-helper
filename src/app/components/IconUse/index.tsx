@@ -49,8 +49,8 @@ const Wrapper = styled.span`
 const IconBase = styled.div<{ width: string; height: string }>`
   width: ${p => p.width};
   height: ${p => p.height};
-  box-shadow: 0 0 0.1rem white;
-  border: 1px solid white;
+  box-shadow: 0 0 0.1rem ${p => p.theme.backgroundVariant};
+  border: 1px solid ${p => p.theme.backgroundVariant};
   border-radius: 0.25rem;
 `
 
@@ -63,8 +63,8 @@ const IconSlash = styled.div<{ color: string; width: string; height: string }>`
   height: calc(${p => p.height} * 1.2);
   margin: 0 0.35rem;
   background-color: ${p => p.color};
-  box-shadow: 0 0 0.1rem white;
-  border: 1px solid white;
+  box-shadow: 0 0 0.1rem ${p => p.theme.backgroundVariant};
+  border: 1px solid ${p => p.theme.backgroundVariant};
   border-radius: 0.1rem;
   transform: rotate(15deg) translateY(-8%);
 `
