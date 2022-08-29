@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import styled from 'styled-components/macro'
-import { sizes } from 'styles/media'
+import { sizeMedium } from 'styles/media'
 
 type InputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -84,7 +84,7 @@ const Wrapper = styled.div`
         background-color: ${p => p.theme.background};
       }
 
-      @media only screen and (max-width: ${sizes.medium}) {
+      @media only screen and (max-width: ${sizeMedium}) {
         &:hover {
           &::before {
             border-color: ${p => p.theme.primary};

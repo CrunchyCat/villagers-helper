@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { sizes } from 'styles/media'
+import { sizeSmall } from 'styles/media'
 import { IconClose } from 'app/Icons/IconClose'
 import { IconCoin } from 'app/components/IconCoin'
 import { Villager, cards, Group, groups, Gold, Suit } from 'data/card/cards'
@@ -210,7 +210,7 @@ const Modal = styled.div<{ show: boolean }>`
   transform: ${p => (p.show ? 'translateY(1)' : 'translateY(120%)')};
   transition: visibility 0.2s, transform 0.2s ease-out;
 
-  @media only screen and (max-width: ${sizes.small}) {
+  @media only screen and (max-width: ${sizeSmall}) {
     top: 0;
     width: 80%;
     max-width: 50rem;
