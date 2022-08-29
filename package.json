@@ -59,13 +59,13 @@
     "rimraf": "~3.0.2",
     "sanitize.css": "~13.0.0",
     "shelljs": "~0.8.5",
-    "styled-components": "5.3.5",
+    "styled-components": "5.3.3",
     "stylelint": "14.11.0",
     "stylelint-config-recommended": "9.0.0",
     "stylelint-config-styled-components": "0.1.1",
     "stylelint-processor-styled-components": "1.10.0",
     "ts-node": "~10.9.1",
-    "typescript": "~4.7.4"
+    "typescript": "~4.8.2"
   },
   "scripts": {
     "preinstall": "npm i yarn -g && npm i typescript -g && npm i ts-node -g && npm i @types/node@^18 -g && npm i serve -g",
