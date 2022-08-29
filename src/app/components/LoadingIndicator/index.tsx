@@ -13,26 +13,28 @@ export const LoadingIndicator = (props: Props) => (
 
 const SPEED = 1.5
 
-const rotate = keyframes`
-  100% {
-    transform: rotate(360deg);
-  }
-`
+const rotate = keyframes`100%{transform:rotate(360deg)}`
+// const rotate = keyframes`
+//   100% {
+//     transform: rotate(360deg);
+//   }
+// `
 
-const dash = keyframes`
-  0% {
-    stroke-dasharray: 0, 150;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    stroke-dasharray: 100, 150;
-    stroke-dashoffset: -24;
-  }
-  100% {
-    stroke-dasharray: 0, 150;
-    stroke-dashoffset: -124;
-  }
-`
+const dash = keyframes`0%,100%{stroke-dasharray:0,150}0%{stroke-dashoffset:0}50%{stroke-dasharray:100,150;stroke-dashoffset:-24}100%{stroke-dashoffset:-124}`
+// const dash = keyframes`
+//   0% {
+//     stroke-dasharray: 0, 150;
+//     stroke-dashoffset: 0;
+//   }
+//   50% {
+//     stroke-dasharray: 100, 150;
+//     stroke-dashoffset: -24;
+//   }
+//   100% {
+//     stroke-dasharray: 0, 150;
+//     stroke-dashoffset: -124;
+//   }
+// `
 
 const Svg = styled.svg<Props>`
   animation: ${rotate} ${SPEED * 1.75}s linear infinite;

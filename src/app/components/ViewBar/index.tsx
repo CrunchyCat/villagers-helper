@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { StyleConstants } from 'styles/StyleConstants'
+import { sizes } from 'styles/media'
 import { IconToggleGroup } from 'app/components/IconToggleGroup'
 import { IconToggleView } from 'app/components/IconToggleView'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,7 +9,6 @@ import { useCardsFiltersSlice } from 'app/pages/CardsPage/slice'
 import { selectCardsFilters } from 'app/pages/CardsPage/slice/selectors'
 import { IconFilter } from 'app/Icons/IconFilter'
 import { GROUPS_LENGTH, groups, VIEWS_LENGTH, views } from 'data/card/cards'
-import { mediaMin } from 'styles/media'
 
 export const ViewBar = () => {
   const filters = useSelector(selectCardsFilters)
@@ -67,12 +67,12 @@ const Wrapper = styled.div<{ isHidden: boolean }>`
   transition: height 0.4s, padding-top 0.1s, opacity 0.8s,
     transform 0.5s ease-out;
 
-  ${mediaMin.medium`
+  @media only screen and (max-width: ${sizes.medium}) {
     height: 3.5rem;
     padding-top: 1rem;
     opacity: 1;
     transform: translateX(0);
-  `}
+  }
 `
 
 //TODO: Implement search icon using a component (making it clean to add hover/focus styling)
