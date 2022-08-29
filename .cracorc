@@ -1,4 +1,14 @@
 {
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "loose": true
+        }
+      ]
+    ]
+  },
   "webpack": {
     "alias": {
       "react": "preact/compat",

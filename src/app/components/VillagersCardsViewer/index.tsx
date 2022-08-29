@@ -33,5 +33,5 @@ const Wrapper = styled.main`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  padding 0 0.2rem 0.5rem 0.2rem;
+  padding: 0 0.2rem 0.5rem 0.2rem;
 `
