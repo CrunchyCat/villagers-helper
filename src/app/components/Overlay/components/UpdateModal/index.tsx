@@ -7,7 +7,7 @@ import { IconPerson } from 'app/Icons/IconPerson'
 import { IconGithub } from 'app/Icons/IconGithub'
 
 export const UpdateModal = () => {
-  const [hasUpdate, setHasUpdate] = React.useState(true)
+  const [hasUpdate, setHasUpdate] = React.useState(false)
   const [updateInfo, setUpdateInfo] = React.useState([
     { title: 'loading...' } as UpdateInfoType
   ])
