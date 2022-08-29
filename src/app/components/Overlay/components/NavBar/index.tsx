@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
 import { StyleConstants } from 'styles/StyleConstants'
-import { media } from 'styles/media'
+import { mediaMinMedium } from 'styles/media'
 import { DrawerToggleButton } from './DrawerToggleButton'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectOverlay } from '../../slice/selectors'
@@ -82,7 +82,7 @@ const TopBar = styled.header`
     display: none !important;
   }
 
-  ${media.medium`
+  ${mediaMinMedium} {
     align-items: center;
     .desktop {
       display: inherit !important;
@@ -90,7 +90,7 @@ const TopBar = styled.header`
     .mobile {
       display: none !important;
     }
-  `}
+  }
 `
 
 const ColorBG = styled.div`

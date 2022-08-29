@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 import { StyleConstants } from 'styles/StyleConstants'
-import { media } from 'styles/media'
+import { mediaMinMedium } from 'styles/media'
 import { IconToggleGroup } from 'app/components/IconToggleGroup'
 import { IconToggleView } from 'app/components/IconToggleView'
 import { useDispatch, useSelector } from 'react-redux'
@@ -67,12 +67,12 @@ const Wrapper = styled.div<{ isHidden: boolean }>`
   transition: height 0.4s, padding-top 0.1s, opacity 0.8s,
     transform 0.5s ease-out;
 
-  ${media.medium`
+  ${mediaMinMedium} {
     height: 3.5rem;
     padding-top: 1rem;
     opacity: 1;
     transform: translateX(0);
-  `}
+  }
 `
 
 //TODO: Implement search icon using a component (making it clean to add hover/focus styling)
