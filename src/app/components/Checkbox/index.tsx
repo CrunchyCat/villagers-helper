@@ -84,13 +84,14 @@ const Wrapper = styled.div`
         background-color: ${p => p.theme.background};
       }
 
-      ${media.medium`{
+      ${media.medium`
         &:hover {
           &::before {
             border-color: ${p => p.theme.primary};
           }
         }
-      }`}
+      `}
+    }
 
     &:disabled {
       + label {
