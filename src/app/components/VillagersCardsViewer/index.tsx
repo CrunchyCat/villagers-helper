@@ -6,7 +6,7 @@ import { groups } from 'data/card/cards'
 import { useSelector } from 'react-redux'
 import { selectCardsFilters } from 'app/pages/CardsPage/slice/selectors'
 
-export const VillagersCardsViewer = React.memo(() => {
+export const VillagersCardsViewer = () => {
   const filters = useSelector(selectCardsFilters)
 
   return (
@@ -26,7 +26,7 @@ export const VillagersCardsViewer = React.memo(() => {
         ))}
     </Wrapper>
   )
-})
+}
 
 const Wrapper = styled.main`
   max-width: 78rem;
