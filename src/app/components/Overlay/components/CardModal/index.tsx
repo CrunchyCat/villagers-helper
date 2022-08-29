@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
-import { sizeSmall } from 'styles/media'
+import { media } from 'styles/media'
 import { IconClose } from 'app/Icons/IconClose'
 import { IconCoin } from 'app/components/IconCoin'
 import { Villager, cards, Group, groups, Gold, Suit } from 'data/card/cards'
@@ -210,19 +210,18 @@ const Modal = styled.div<{ show: boolean }>`
   transform: ${p => (p.show ? 'translateY(1)' : 'translateY(120%)')};
   transition: visibility 0.2s, transform 0.2s ease-out;
 
-  @media only screen and (max-width: ${sizeSmall}) {
+  ${media.small`
     top: 0;
     width: 80%;
     max-width: 50rem;
     height: 100%;
     max-height: 40rem;
-    margin: clamp(0px, calc(50vh - 20rem), 100vh)
-      clamp(calc(50vw - 25rem), 10vw, 100vw);
+    margin: clamp(0px, calc(50vh - 20rem), 100vh) clamp(calc(50vw - 25rem), 10vw, 100vw);
     border-radius: 1.5rem;
     opacity: ${p => (p.show ? '1' : '0')};
     transform: ${p => (p.show ? 'translateY(0)' : 'translateY(30%)')};
     transition: visibility 0.15s, opacity 0.15s, transform 0.25s ease-out;
-  }
+  `}
 `
 
 const ColorStrip = styled.div<{ color: string }>`
