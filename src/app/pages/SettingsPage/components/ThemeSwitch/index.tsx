@@ -1,4 +1,3 @@
-import * as React from 'react'
 import styled from 'styled-components/macro'
 import { FormLabel } from 'app/components/FormLabel'
 import { Radio } from 'app/components/Radio'

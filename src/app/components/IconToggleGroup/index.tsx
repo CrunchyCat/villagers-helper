@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Group } from 'data/card/cards'
 
 interface Props {

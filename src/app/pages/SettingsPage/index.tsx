@@ -1,4 +1,3 @@
-import * as React from 'react'
 import styled from 'styled-components/macro'
 import { ExpSelector } from 'app/pages/SettingsPage/components/ExpSelector'
 import { ThemeSwitch } from 'app/pages/SettingsPage/components/ThemeSwitch'

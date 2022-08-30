@@ -3,13 +3,13 @@
  */
 
 import { Actions, PlopGeneratorConfig } from 'node-plop'
-import path from 'path'
-import inquirer from 'inquirer'
+import * as path from 'path'
+import { registerPrompt } from 'inquirer'
 
 import { pathExists } from '../utils'
 import { baseGeneratorPath } from '../paths'
 
-inquirer.registerPrompt('directory', require('inquirer-directory'))
+registerPrompt('directory', require('inquirer-directory'))
 
 export enum SliceProptNames {
   'sliceName' = 'sliceName',

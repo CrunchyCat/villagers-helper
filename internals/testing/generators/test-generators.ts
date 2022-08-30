@@ -1,8 +1,8 @@
-import chalk from 'chalk'
-import fs from 'fs'
-import rimraf from 'rimraf'
-import shell from 'shelljs'
-import path from 'path'
+import * as chalk from 'chalk'
+import * as fs from 'fs'
+import * as rimraf from 'rimraf'
+import { exec } from 'shelljs'
+import * as path from 'path'
 import nodePlop from 'node-plop'
 
 import { ComponentProptNames } from '../../generators/component'
@@ -121,7 +121,7 @@ async function generateSlices() {
 
 function runLinting() {
   return new Promise<void>((resolve, reject) => {
-    shell.exec(
+    exec(
       `yarn run lint`,
       {
         silent: false // so that we can see the errors in the console
@@ -133,7 +133,7 @@ function runLinting() {
 
 function checkTypescript() {
   return new Promise<void>((resolve, reject) => {
-    shell.exec(
+    exec(
       `yarn run checkTs`,
       {
         silent: false // so that we can see the errors in the console

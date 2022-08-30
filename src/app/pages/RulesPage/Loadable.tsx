@@ -2,7 +2,6 @@
  * Asynchronously loads the component for RulesPage
  */
 
-import * as React from 'react'
 import { lazyLoad } from 'utils/loadable'
 import { LoadingPage } from 'app/pages/LoadingPage'
 

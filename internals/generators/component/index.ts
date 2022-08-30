@@ -3,12 +3,12 @@
  */
 
 import { Actions, PlopGeneratorConfig } from 'node-plop'
-import inquirer from 'inquirer'
+import { registerPrompt } from 'inquirer'
 
 import { pathExists } from '../utils'
 import { baseGeneratorPath } from '../paths'
 
-inquirer.registerPrompt('directory', require('inquirer-directory'))
+registerPrompt('directory', require('inquirer-directory'))
 
 export enum ComponentProptNames {
   componentName = 'componentName',

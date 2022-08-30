@@ -1,4 +1,3 @@
-import * as React from 'react'
 import styled from 'styled-components/macro'
 import { StyleConstants } from 'styles/StyleConstants'
 import { mediaMinMedium } from 'styles/media'

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import styled from 'styled-components/macro'
 import { ViewBar } from 'app/components/ViewBar'
 import { VillagersSet } from './VillagersSet'

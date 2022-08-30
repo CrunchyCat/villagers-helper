@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { View } from 'data/card/cards'
 
 interface SvgProps {

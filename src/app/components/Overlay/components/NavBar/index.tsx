@@ -1,4 +1,3 @@
-import * as React from 'react'
 import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
 import { StyleConstants } from 'styles/StyleConstants'

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import styled from 'styled-components/macro'
 import { mediaMinSmall } from 'styles/media'
 import { IconClose } from 'app/Icons/IconClose'

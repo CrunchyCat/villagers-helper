@@ -6,7 +6,7 @@
 
 import 'core-js/stable'
 
-import * as React from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 // import FontFaceObserver from 'fontfaceobserver' //TODO: Observe font loading (1/2)
@@ -38,9 +38,9 @@ createRoot(MOUNT_NODE!).render(
   <Provider store={store}>
     <ThemeProvider>
       <HelmetProvider>
-        <React.StrictMode>
+        <StrictMode>
           <App />
-        </React.StrictMode>
+        </StrictMode>
       </HelmetProvider>
     </ThemeProvider>
   </Provider>

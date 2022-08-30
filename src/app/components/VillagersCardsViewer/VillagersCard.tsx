@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import styled from 'styled-components/macro'
 import { IconInfo } from 'app/Icons/IconInfo'
 import { Villager, cards, Group, groups, View } from 'data/card/cards'
@@ -19,8 +19,8 @@ export const VillagersCard = ({
   const card = cards[cardID]
   const color = groups[Group.Suit].sets[card.suit].color
 
-  const [shouldFlip, setShouldFlip] = React.useState(false)
-  const [didFlip, setDidFlip] = React.useState(false)
+  const [shouldFlip, setShouldFlip] = useState(false)
+  const [didFlip, setDidFlip] = useState(false)
 
   return (
     <>

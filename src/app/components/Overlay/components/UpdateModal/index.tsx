@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import styled from 'styled-components/macro'
 import { register } from 'utils/serviceWorkerRegistration'
 import { UpdateInfoType } from './slice/types'
@@ -7,8 +7,8 @@ import { IconPerson } from 'app/Icons/IconPerson'
 import { IconGithub } from 'app/Icons/IconGithub'
 
 export const UpdateModal = () => {
-  const [hasUpdate, setHasUpdate] = React.useState(false)
-  const [updateInfo, setUpdateInfo] = React.useState([
+  const [hasUpdate, setHasUpdate] = useState(false)
+  const [updateInfo, setUpdateInfo] = useState([
     { title: 'loading...' } as UpdateInfoType
   ])
 

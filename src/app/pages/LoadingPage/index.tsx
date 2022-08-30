@@ -1,4 +1,3 @@
-import * as React from 'react'
 import styled from 'styled-components/macro'
 import { LoadingIndicator } from 'app/components/LoadingIndicator'
 
