@@ -7,7 +7,7 @@
 import 'core-js/stable'
 
 import * as React from 'react'
-import * as ReactDOMClient from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 // import FontFaceObserver from 'fontfaceobserver' //TODO: Observe font loading (1/2)
 import 'sanitize.css/sanitize.css' // Use consistent styling
@@ -32,7 +32,7 @@ openSansObserver.load().then(() => {
 const store = configureAppStore()
 const MOUNT_NODE = document.getElementById('root') as HTMLElement
 
-ReactDOMClient.createRoot(MOUNT_NODE!).render(
+createRoot(MOUNT_NODE!).render(
   <Provider store={store}>
     <ThemeProvider>
       <HelmetProvider>
