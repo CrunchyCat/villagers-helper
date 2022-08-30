@@ -10,7 +10,9 @@ import * as React from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 // import FontFaceObserver from 'fontfaceobserver' //TODO: Observe font loading (1/2)
-import 'sanitize.css/sanitize.css' // Use consistent styling
+
+// import 'sanitize.css/sanitize.css'
+import 'styles/custom-sanitize.css' // Cut down version of sanitize.css
 
 import { App } from 'app' // Import root app
 
