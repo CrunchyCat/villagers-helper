@@ -4,7 +4,7 @@
  * This is the entry file for the application, only setup and boilerplate code.
  */
 
-import 'react-app-polyfill/stable'
+import 'core-js/stable'
 
 import * as React from 'react'
 import * as ReactDOMClient from 'react-dom/client'
