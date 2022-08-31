@@ -90,20 +90,18 @@
   },
   "browserslist": {
     "production": [
-      ">.96%",
-      "firefox >= 102",
-      "chrome >=83",
-      "opera >= 69",
-      "edge >=83",
+      ">.55%",
+      "not op_mini all",
+      "firefox >=102",
+      "chrome >=73",
       "safari >=14",
-      "and_chr >=83",
-      "samsung >=13",
       "ios_saf >=14"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "ios_saf >=15"
     ]
   },
   "engines": {
