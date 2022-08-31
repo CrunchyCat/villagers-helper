@@ -28,6 +28,14 @@ vilrs is a companion web app for Villagers, the game by Haakon Gaarder.
 
 ---
 
+## Test & Analyze
+
+1. 🧪 `yarn test`: Run tests
+
+1. 👁️ `yarn analyze`: Show webpack bundle analyzer
+
+---
+
 ## Code Boilerplate
 
 Built on [react-boilerplater-cra-template](https://github.com/react-boilerplate/react-boilerplate-cra-template) (which is built on the official [Create React App](https://github.com/facebook/create-react-app) template of the `discontinued` [React Boilerplate](https://github.com/react-boilerplate/react-boilerplate))
