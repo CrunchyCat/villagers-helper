@@ -97,11 +97,7 @@ const Card = styled.img<{
   border-radius: 6.5%/4%;
   user-select: none;
   cursor: pointer;
-  ${p => p.editMode ? `
-    transform: translateZ(-1000px) ${p.flip ? 'rotate3d(0,0,0,0,0);': `rotate3d(${p.flipRight ? -0.05 : 0.05},1,0.08,-180deg) scale(-1, 1);`};
-  `:`
-    transform: ${p.flip ? 'translateY(0);' : `scale(1.17) translateY(-5vh);`};
-  `}
+  ${p => p.editMode ? `transform:translateZ(-1000px) ${p.flip ? 'rotate3d(0,0,0,0,0);': `rotate3d(${p.flipRight ? -0.05 : 0.05},1,0.08,-180deg) scale(-1, 1);`};`:`transform:${p.flip ? 'translateY(0);' : `scale(1.17) translateY(-5vh);`};`}
   transition: max-width 0.35s, transform 0.5s;
 `
 
