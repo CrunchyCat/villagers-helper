@@ -80,7 +80,6 @@ const SearchBar = styled.input`
   max-width: 22rem;
   height: 100%;
   padding: 0.5rem 1rem 0.5rem 2.5rem;
-  font-size: 1rem;
   color: ${p => p.theme.text};
   background-color: ${p => p.theme.backgroundVariant};
   border: 0.1rem solid ${p => p.theme.textSecondary};
