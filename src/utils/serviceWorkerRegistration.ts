@@ -1,6 +1,6 @@
 // This code registers a service worker meant to cache resources & trigger callbacks when those resources are updated.
 
-type Config = {
+interface Config {
   onCached?: (registration: ServiceWorkerRegistration) => void
   onUpdate?: (registration: ServiceWorkerRegistration) => void
 }

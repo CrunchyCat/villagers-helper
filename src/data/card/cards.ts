@@ -140,7 +140,7 @@ export enum Villager {
   Barbarian, Courier, Flaker, Noble, Schemer, Thief, Sheriff
 }
 
-export type VillagerDetails = {
+export interface VillagerDetails {
   name: string
   suit: Suit
   exp: Exp
@@ -165,7 +165,7 @@ export type VillagerDetails = {
   discard?: true
 }
 
-export type CardSet = {
+export interface CardSet {
   name: string
   img: string
   color: string
