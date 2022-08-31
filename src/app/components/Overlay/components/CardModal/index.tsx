@@ -151,8 +151,7 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
             <ItemsSplit>
               <IconCoin gold={card.gold} width="1.825rem" height="1.825rem" />
               <span style={{ marginLeft: '0.5rem' }}>
-                {`${card.gold.amt} ${Gold[card.gold.type]}
-                  ${card.gold.condition}`}
+                {card.gold.amt} {Gold[card.gold.type]} {card.gold.condition}
               </span>
             </ItemsSplit>
           )}

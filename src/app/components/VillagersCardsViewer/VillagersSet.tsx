@@ -206,7 +206,7 @@ const SetTop = styled.div<{ wide: boolean }>`
     font-weight: bold;
     white-space: nowrap;
     color: ${p => p.theme.text};
-    margin: ${p => (p.wide ? '0.25rem  0 0.25rem 0' : '1rem  0 0.5rem 0')};
+    margin: ${p => (p.wide ? '0.25rem 0 0.25rem 0' : '1rem 0 0.5rem 0')};
     transition: all 0.25s ease-in-out;
   }
 
