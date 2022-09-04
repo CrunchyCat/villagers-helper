@@ -11,7 +11,7 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 // import FontFaceObserver from 'fontfaceobserver' //TODO: Observe font loading (1/2)
 
-import 'index.css' // Cut down version of sanitize.css
+import 'styles/index.css' // Cut down version of sanitize.css
 
 import { App } from 'app' // Import root app
 
@@ -46,8 +46,4 @@ createRoot(MOUNT_NODE!).render(
 )
 
 // Hot reloadable translation json files
-if (module.hot) {
-  module.hot.accept(['./locales/i18n'], () => {
-    // No need to render the App again because i18next works with the hooks
-  })
-}
+if (module.hot) module.hot.accept(['./locales/i18n'])

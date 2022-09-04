@@ -2618,9 +2618,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:13.3.0":
-  version: 13.3.0
-  resolution: "@testing-library/react@npm:13.3.0"
+"@testing-library/react@npm:13.4.0":
+  version: 13.4.0
+  resolution: "@testing-library/react@npm:13.4.0"
   dependencies:
     "@babel/runtime": ^7.12.5
     "@testing-library/dom": ^8.5.0
@@ -2628,7 +2628,7 @@ __metadata:
   peerDependencies:
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 98fd8616a7cae0ecfcbe97b5b3c5b91fbafccf449c04875395ccc0e3f0b139e53b3261b9536ec2169a5e2883a1be2098907209064061fe0c2ff21dfbc785dd40
+  checksum: 51ec548c1fdb1271089a5c63e0908f0166f2c7fcd9cacd3108ebbe0ce64cb4351812d885892020dc37608418cfb15698514856502b3cab0e5cc58d6cc1bd4a3e
   languageName: node
   linkType: hard
 
@@ -2838,7 +2838,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/fontfaceobserver@npm:2.1.0":
+"@types/fontfaceobserver@npm:^2.1.0":
   version: 2.1.0
   resolution: "@types/fontfaceobserver@npm:2.1.0"
   checksum: 19bf653d82f91e86f32cd3f2df2988495b96d8ad5be5a625b7dad06a1a01a9add76607f8b8f821c50aad1f45f4d40433bec48463d60c7e9fa05a02e9e8469b66
@@ -2951,13 +2951,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:27.4.1":
-  version: 27.4.1
-  resolution: "@types/jest@npm:27.4.1"
+"@types/jest@npm:^27.5.2":
+  version: 27.5.2
+  resolution: "@types/jest@npm:27.5.2"
   dependencies:
     jest-matcher-utils: ^27.0.0
     pretty-format: ^27.0.0
-  checksum: 5184f3eef4832d01ee8f59bed15eec45ccc8e29c724a5e6ce37bf74396b37bdf04f557000f45ba4fc38ae6075cf9cfcce3d7a75abc981023c61ceb27230a93e4
+  checksum: 7e11c6826aa429ad990dc262e4e4b54aa36573287fddf15773e4137f07d11d3105f0dd9f1baff73252160a057df23f5529bb83b1bf83cd3f45f9460a5ca5c22e
   languageName: node
   linkType: hard
 
@@ -3063,7 +3063,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.0.6, @types/react-dom@npm:^18.0.0":
+"@types/react-dom@npm:^18.0.0, @types/react-dom@npm:^18.0.6":
   version: 18.0.6
   resolution: "@types/react-dom@npm:18.0.6"
   dependencies:
@@ -3072,7 +3072,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-redux@npm:7.1.24, @types/react-redux@npm:^7.1.20":
+"@types/react-redux@npm:^7.1.20, @types/react-redux@npm:^7.1.24":
   version: 7.1.24
   resolution: "@types/react-redux@npm:7.1.24"
   dependencies:
@@ -3084,7 +3084,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-router-dom@npm:5.3.3":
+"@types/react-router-dom@npm:^5.3.3":
   version: 5.3.3
   resolution: "@types/react-router-dom@npm:5.3.3"
   dependencies:
@@ -3105,7 +3105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-test-renderer@npm:18.0.0":
+"@types/react-test-renderer@npm:^18.0.0":
   version: 18.0.0
   resolution: "@types/react-test-renderer@npm:18.0.0"
   dependencies:
@@ -3114,7 +3114,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.0.18":
+"@types/react@npm:*, @types/react@npm:^18.0.18":
   version: 18.0.18
   resolution: "@types/react@npm:18.0.18"
   dependencies:
@@ -3141,7 +3141,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/rimraf@npm:3.0.2":
+"@types/rimraf@npm:^3.0.2":
   version: 3.0.2
   resolution: "@types/rimraf@npm:3.0.2"
   dependencies:
@@ -3177,7 +3177,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/shelljs@npm:0.8.11":
+"@types/shelljs@npm:^0.8.11":
   version: 0.8.11
   resolution: "@types/shelljs@npm:0.8.11"
   dependencies:
@@ -3203,7 +3203,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/styled-components@npm:5.1.26":
+"@types/styled-components@npm:^5.1.26":
   version: 5.1.26
   resolution: "@types/styled-components@npm:5.1.26"
   dependencies:
@@ -3214,7 +3214,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/testing-library__jest-dom@npm:5.14.5, @types/testing-library__jest-dom@npm:^5.9.1":
+"@types/testing-library__jest-dom@npm:^5.14.5, @types/testing-library__jest-dom@npm:^5.9.1":
   version: 5.14.5
   resolution: "@types/testing-library__jest-dom@npm:5.14.5"
   dependencies:
@@ -3239,14 +3239,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack-env@npm:1.18.0":
+"@types/webpack-env@npm:^1.18.0":
   version: 1.18.0
   resolution: "@types/webpack-env@npm:1.18.0"
   checksum: ecf4daa31cb37d474ac0ce058d83a3cadeb9881ca8107ae93c2299eaa9954943aae09b43e143c62ccbe4288a14db00c918c9debd707afe17c3998f873eaabc59
   languageName: node
   linkType: hard
 
-"@types/webpack@npm:5.28.0":
+"@types/webpack@npm:^5.28.0":
   version: 5.28.0
   resolution: "@types/webpack@npm:5.28.0"
   dependencies:
@@ -6857,7 +6857,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.3.0":
+"eslint@npm:^8.23.0, eslint@npm:^8.3.0":
   version: 8.23.0
   resolution: "eslint@npm:8.23.0"
   dependencies:
@@ -13112,7 +13112,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-app-polyfill@npm:3.0.0, react-app-polyfill@npm:^3.0.0":
+"react-app-polyfill@npm:^3.0.0":
   version: 3.0.0
   resolution: "react-app-polyfill@npm:3.0.0"
   dependencies:
@@ -14037,7 +14037,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sanitize.css@npm:*, sanitize.css@npm:~13.0.0":
+"sanitize.css@npm:*":
   version: 13.0.0
   resolution: "sanitize.css@npm:13.0.0"
   checksum: a99ca77c4d135800a4a93c3555e5aa4a2eb040a833df716dbe9132e1f2086fbf9acdb8021a579f40dcf77166d2d50f3358b4b6121a247d26fed5a0e6f5af3bb7
@@ -15852,7 +15852,7 @@ __metadata:
 
 "typescript@patch:typescript@~4.7.4#~builtin<compat/typescript>":
   version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"
+  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -16208,25 +16208,25 @@ __metadata:
     "@craco/craco": 7.0.0-alpha.7
     "@reduxjs/toolkit": 1.8.5
     "@testing-library/jest-dom": 5.16.5
-    "@testing-library/react": 13.3.0
-    "@types/fontfaceobserver": 2.1.0
-    "@types/jest": 27.4.1
+    "@testing-library/react": 13.4.0
+    "@types/fontfaceobserver": ^2.1.0
+    "@types/jest": ^27.5.2
     "@types/node": ^18.7.14
-    "@types/react": 18.0.18
-    "@types/react-dom": 18.0.6
-    "@types/react-redux": 7.1.24
-    "@types/react-router-dom": 5.3.3
-    "@types/react-test-renderer": 18.0.0
-    "@types/rimraf": 3.0.2
-    "@types/shelljs": 0.8.11
-    "@types/styled-components": 5.1.26
-    "@types/testing-library__jest-dom": 5.14.5
-    "@types/webpack": 5.28.0
-    "@types/webpack-env": 1.18.0
+    "@types/react": ^18.0.18
+    "@types/react-dom": ^18.0.6
+    "@types/react-redux": ^7.1.24
+    "@types/react-router-dom": ^5.3.3
+    "@types/react-test-renderer": ^18.0.0
+    "@types/rimraf": ^3.0.2
+    "@types/shelljs": ^0.8.11
+    "@types/styled-components": ^5.1.26
+    "@types/testing-library__jest-dom": ^5.14.5
+    "@types/webpack": ^5.28.0
+    "@types/webpack-env": ^1.18.0
     babel-plugin-styled-components: 2.0.7
     chalk: 4.1.2
     cross-env: ~7.0.3
-    eslint: "npm:^8.3.0"
+    eslint: ^8.23.0
     eslint-config-prettier: 8.5.0
     eslint-plugin-prettier: 4.2.1
     eslint-plugin-react-hooks: 4.6.0
@@ -16246,7 +16246,6 @@ __metadata:
     preact: ^10.10.6
     prettier: ~2.7.1
     react: 18.2.0
-    react-app-polyfill: 3.0.0
     react-dom: 18.2.0
     react-helmet-async: 1.3.0
     react-i18next: 11.18.5
@@ -16257,7 +16256,6 @@ __metadata:
     redux-injectors: 1.3.0
     redux-saga: 1.2.1
     rimraf: ~3.0.2
-    sanitize.css: ~13.0.0
     shelljs: ~0.8.5
     styled-components: 6.0.0-beta.2
     stylelint: 14.11.0
@@ -16266,7 +16264,7 @@ __metadata:
     stylelint-processor-styled-components: 1.10.0
     ts-node: ~10.9.1
     typescript: ~4.7.4
-    webpack-bundle-analyzer: ^4.6.1
+    webpack-bundle-analyzer: ~4.6.1
   languageName: unknown
   linkType: soft
 
@@ -16407,7 +16405,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-bundle-analyzer@npm:^4.6.1":
+"webpack-bundle-analyzer@npm:~4.6.1":
   version: 4.6.1
   resolution: "webpack-bundle-analyzer@npm:4.6.1"
   dependencies:
