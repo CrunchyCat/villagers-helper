@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> should render and match the snapshot 1`] = `
+<Provider
+  store={
+    Object {
+      "@@observable": [Function],
+      "createReducer": [Function],
+      "dispatch": [Function],
+      "getState": [Function],
+      "injectedReducers": Object {},
+      "injectedSagas": Object {},
+      "replaceReducer": [Function],
+      "runSaga": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <App />
+</Provider>
+`;
