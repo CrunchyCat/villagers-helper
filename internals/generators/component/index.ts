@@ -10,7 +10,7 @@ import { baseGeneratorPath } from '../paths'
 
 registerPrompt('directory', require('inquirer-directory'))
 
-export enum ComponentProptNames {
+export const enum ComponentProptNames {
   componentName = 'componentName',
   path = 'path',
   wantMemo = 'wantMemo',
