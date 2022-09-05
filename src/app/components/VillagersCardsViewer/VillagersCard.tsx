@@ -27,7 +27,7 @@ export const VillagersCard = ({
       {editMode ? (
         <CardHolder>
           <Card
-            editMode={true}
+            editMode
             view={view}
             color={color}
             flip={!shouldFlip}
@@ -82,13 +82,7 @@ const CardHolder = styled.div`
 `
 
 //prettier-ignore
-const Card = styled.img<{
-  editMode: boolean
-  view: View
-  color: string
-  flip: boolean
-  flipRight?: boolean
-}>`
+const Card = styled.img<{editMode: boolean; view: View; color: string; flip: boolean; flipRight?: boolean }>`
   max-width: ${p => p.view === View.Normal ? '11rem' : '7.447rem'};
   max-height: 42vh;
   border: groove ${p => p.color};
@@ -97,7 +91,7 @@ const Card = styled.img<{
   border-radius: 6.5%/4%;
   user-select: none;
   cursor: pointer;
-  ${p => p.editMode ? `transform:translateZ(-1000px) ${p.flip ? 'rotate3d(0,0,0,0,0);': `rotate3d(${p.flipRight ? -0.05 : 0.05},1,0.08,-180deg) scale(-1, 1);`};`:`transform:${p.flip ? 'translateY(0);' : `scale(1.17) translateY(-5vh);`};`}
+  transform: ${p => p.editMode ? `translateZ(-1000px) rotate3d(${p.flip?'0,0,0,0,0':`${p.flipRight?'-':''}0.05,1,0.08,-180deg) scale(-1, 1`})` : `translateY(${p.flip ?'0':`-5vh) scale(1.17`})`};
   transition: max-width 0.35s, transform 0.5s;
 `
 
@@ -128,7 +122,7 @@ const InfoText = styled.div<{ wide: boolean }>`
 
   p {
     margin: 0;
-    font-size: ${p => (p.wide ? '0.97rem' : 'clamp(0.97rem, 3.5vh, 1.46rem)')};
+    font-size: ${p => (p.wide ? '0.97rem' : 'clamp(0.97rem,3.5vh,1.46rem)')};
     font-weight: bold;
     transition: all 0.35s;
   }
