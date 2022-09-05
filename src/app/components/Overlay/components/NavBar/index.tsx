@@ -66,16 +66,12 @@ const TopBar = styled.header`
   z-index: 5;
   display: flex;
   box-shadow: 0 1px 0 0 ${p => p.theme.borderLight};
-  background-color: ${p => p.theme.background};
-
-  @supports (backdrop-filter: blur(6px)) {
-    backdrop-filter: blur(6px);
-    background-color: ${p =>
-      p.theme.background.replace(
-        /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-        'rgba$1,0.75)'
-      )};
-  }
+  backdrop-filter: blur(6px);
+  background-color: ${p =>
+    p.theme.background.replace(
+      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
+      'rgba$1,0.75)'
+    )};
 
   .desktop {
     display: none !important;

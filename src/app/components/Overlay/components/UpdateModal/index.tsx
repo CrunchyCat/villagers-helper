@@ -129,19 +129,15 @@ const ModalWindow = styled.div`
   flex-direction: column;
   justify-content: space-between;
   color: ${p => p.theme.text};
-  background-color: ${p => p.theme.backgroundVariant};
+  backdrop-filter: blur(14px);
+  background-color: ${p =>
+    p.theme.backgroundVariant.replace(
+      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
+      'rgba$1,0.9)'
+    )};
   border: 2px solid ${p => p.theme.background};
   border-radius: 1.5rem;
   overflow: hidden;
-
-  @supports (backdrop-filter: blur(2px)) {
-    backdrop-filter: blur(14px);
-    background-color: ${p =>
-      p.theme.backgroundVariant.replace(
-        /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-        'rgba$1,0.9)'
-      )};
-  }
 `
 
 const TitleBar = styled.div`
