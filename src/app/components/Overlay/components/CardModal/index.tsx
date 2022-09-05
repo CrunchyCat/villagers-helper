@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 import { mediaMinSmall } from 'styles/media'
 import { IconClose } from 'app/Icons/IconClose'
 import { IconCoin } from 'app/components/IconCoin'
-import { Villager, cards, Group, groups, Gold, Suit } from 'data/card/cards'
+import { Villager, cards, Group, groups, Suit } from 'data/card/cards'
 import { IconUse } from 'app/components/IconUse'
 import icon_lock from 'data/assets/icons/icon_lock.webp'
 import icon_unlock from 'data/assets/icons/icon_unlock.webp'
@@ -151,7 +151,7 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
             <ItemsSplit>
               <IconCoin gold={card.gold} width="1.825rem" height="1.825rem" />
               <span style={{ marginLeft: '0.5rem' }}>
-                {card.gold.amt} {Gold[card.gold.type]} {card.gold.condition}
+                {card.gold.amt} {card.gold.type} {card.gold.condition}
               </span>
             </ItemsSplit>
           )}
@@ -188,17 +188,13 @@ const Modal = styled.div<{ show: boolean }>`
   justify-content: space-between;
   visibility: ${p => (p.show ? 'visible' : 'hidden')};
   color: ${p => p.theme.text};
-  background-color: ${p => p.theme.backgroundVariant};
   overflow: hidden;
-
-  @supports (backdrop-filter: blur(2px)) {
-    backdrop-filter: blur(14px);
-    background-color: ${p =>
-      p.theme.backgroundVariant.replace(
-        /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-        'rgba$1,0.92)'
-      )};
-  }
+  backdrop-filter: blur(14px);
+  background-color: ${p =>
+    p.theme.backgroundVariant.replace(
+      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
+      'rgba$1,0.92)'
+    )};
 
   top: 28%;
   width: 96%;

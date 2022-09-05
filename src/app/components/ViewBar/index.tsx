@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useCardsFiltersSlice } from 'app/pages/CardsPage/slice'
 import { selectCardsFilters } from 'app/pages/CardsPage/slice/selectors'
 import { IconFilter } from 'app/Icons/IconFilter'
-import { GROUPS_LENGTH, groups, VIEWS_LENGTH, views } from 'data/card/cards'
+import { GROUPS_LENGTH, groups, VIEWS_LENGTH, View } from 'data/card/cards'
 
 export const ViewBar = () => {
   const filters = useSelector(selectCardsFilters)
@@ -41,7 +41,7 @@ export const ViewBar = () => {
         onClick={() =>
           dispatch(actions.setView((filters.view + 1) % VIEWS_LENGTH))
         }
-        title={`${views[filters.view]} view`}
+        title={`${View[filters.view]} view`}
       >
         <IconToggleView view={filters.view} width="1.5rem" height="1.5rem" />
       </ViewSwitch>
@@ -81,7 +81,6 @@ const SearchBar = styled.input`
   height: 100%;
   padding: 0.5rem 1rem 0.5rem 2.5rem;
   color: ${p => p.theme.text};
-  background-color: ${p => p.theme.backgroundVariant};
   border: 0.1rem solid ${p => p.theme.textSecondary};
   border-radius: 1.5rem;
   background: transparent
@@ -92,6 +91,13 @@ const SearchBar = styled.input`
         c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z'/></svg>")
     no-repeat 0.75rem center;
 
+  backdrop-filter: blur(2px);
+  background-color: ${p =>
+    p.theme.backgroundVariant.replace(
+      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
+      'rgba$1,0.85)'
+    )};
+
   @media only screen and (pointer: fine) {
     &:hover {
       border-color: ${p => p.theme.text};
@@ -101,15 +107,6 @@ const SearchBar = styled.input`
   &:focus {
     outline: none;
     border-color: ${p => p.theme.primary};
-  }
-
-  @supports (backdrop-filter: blur(2px)) {
-    backdrop-filter: blur(2px);
-    background-color: ${p =>
-      p.theme.backgroundVariant.replace(
-        /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-        'rgba$1,0.85)'
-      )};
   }
 `
 
@@ -122,7 +119,12 @@ const ViewSwitch = styled.div`
   align-items: center;
   color: ${p => p.theme.text};
   stroke: ${p => p.theme.text};
-  background-color: ${p => p.theme.backgroundVariant};
+  backdrop-filter: blur(2px);
+  background-color: ${p =>
+    p.theme.backgroundVariant.replace(
+      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
+      'rgba$1,0.85)'
+    )};
   border: 0.1rem solid ${p => p.theme.textSecondary};
   border-radius: 1.5rem;
   user-select: none;
@@ -136,14 +138,5 @@ const ViewSwitch = styled.div`
     &:hover {
       border-color: ${p => p.theme.text};
     }
-  }
-
-  @supports (backdrop-filter: blur(2px)) {
-    backdrop-filter: blur(2px);
-    background-color: ${p =>
-      p.theme.backgroundVariant.replace(
-        /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-        'rgba$1,0.85)'
-      )};
   }
 `
