@@ -25,7 +25,7 @@ module.exports = {
         plugin: {
           overrideWebpackConfig: ({ webpackConfig }) => {
             // Flatten Build File Structure //TODO: hash:1 or 2 will save but is dangerous
-            webpackConfig!.output!.filename = '[contenthash:3].js'
+            webpackConfig!.output!.filename = '[contenthash:4].js'
             webpackConfig!.output!.chunkFilename = '[contenthash:3].js'
             webpackConfig!.output!.assetModuleFilename = '[hash:6][ext]'
             const rules = webpackConfig!.module!.rules as any
@@ -36,8 +36,8 @@ module.exports = {
             const miniCss: any = webpackConfig!.plugins!.find(
               (x: any) => x.options?.filename && x.options?.chunkFilename
             )
-            miniCss.options.filename = '[contenthash:3].css'
-            miniCss.options.chunkFilename = '[contenthash:3].css'
+            miniCss.options.filename = '[contenthash:4].css'
+            miniCss.options.chunkFilename = '[contenthash:4].css'
 
             // Improve Terser File Minimization
             const terser: any = webpackConfig?.optimization?.minimizer?.find(
