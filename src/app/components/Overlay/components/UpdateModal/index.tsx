@@ -25,7 +25,7 @@ export const UpdateModal = () => {
         100
       )
       fetch(
-        'https://raw.githubusercontent.com/qeleb/villagers-helper/master/changelog.json'
+        'https://raw.githubusercontent.com/qeleb/villagers-helper/gh-pages/changelog.json'
       )
         .then(resp => resp.text())
         .then(data => setUpdateInfo(JSON.parse(data)))
