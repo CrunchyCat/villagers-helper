@@ -26,7 +26,7 @@ module.exports = {
           overrideWebpackConfig: ({ webpackConfig }) => {
             // Flatten Build File Structure //TODO: hash:1 or 2 will save but is dangerous
             webpackConfig!.output!.filename = '[contenthash:4].js'
-            webpackConfig!.output!.chunkFilename = '[contenthash:3].js'
+            webpackConfig!.output!.chunkFilename = '[contenthash:4].js'
             webpackConfig!.output!.assetModuleFilename = '[hash:6][ext]'
             const rules = webpackConfig!.module!.rules as any
             rules
