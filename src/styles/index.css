@@ -152,3 +152,8 @@
   clip: rect(0, 0, 0, 0);
   position: absolute;
 }*/
+@media screen and (prefers-reduced-motion: reduce), (update: slow) {
+  * {
+    transition-property: opacity, visibility !important;
+  }
+}
