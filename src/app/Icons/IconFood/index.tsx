@@ -4,12 +4,7 @@ interface Props {
 }
 
 export const IconFood = ({ width, height }: Props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="-14 12 32 64"
-  >
+  <svg width={width} height={height} viewBox="-14 12 32 64">
     <g transform="rotate(45)">
       <ellipse cx="34" cy="29" rx="25" ry="23.5" strokeWidth="8" fill="none" />
       <ellipse cx="34" cy="28.5" rx="22" ry="22" strokeWidth="9" fill="none" />

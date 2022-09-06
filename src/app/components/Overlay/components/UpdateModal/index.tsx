@@ -51,11 +51,11 @@ export const UpdateModal = () => {
         <SepLine />
         <ItemSet>
           <LinkCenter href="https://www.calebhoff.com">
-            <IconPerson />
+            <IconPerson width="1.825rem" height="1.825rem" />
             calebhoff.com
           </LinkCenter>
-          <LinkCenter href="https://github.com/CrunchyCat/villagers-helper">
-            <IconGithub />
+          <LinkCenter href="https://github.com/qeleb/villagers-helper">
+            <IconGithub width="1.825rem" height="1.825rem" />
             Github
           </LinkCenter>
         </ItemSet>
@@ -223,14 +223,6 @@ const LinkCenter = styled.a`
   text-decoration: none;
   &:hover {
     text-decoration: underline;
-  }
-
-  svg {
-    stroke: ${p => p.theme.text};
-    max-width: 1.825rem;
-    max-height: 1.825rem;
-    width: auto;
-    height: auto;
   }
 `
 
