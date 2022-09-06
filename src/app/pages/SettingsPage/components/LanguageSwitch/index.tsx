@@ -11,7 +11,7 @@ export const LanguageSwitch = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper aria-label="Language Selector">
       <FormLabel>{t(...messages.selectLanguage())}</FormLabel>
       <Languages>
         <Radio

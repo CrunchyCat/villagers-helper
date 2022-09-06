@@ -84,6 +84,8 @@ const CardHolder = styled.div`
 //prettier-ignore
 const Card = styled.img<{editMode: boolean; view: View; color: string; flip: boolean; flipRight?: boolean }>`
   max-width: ${p => p.view === View.Normal ? '11rem' : '7.447rem'};
+  height: 100%;
+  aspect-ratio: 5/8;
   max-height: 42vh;
   border: groove ${p => p.color};
   box-shadow: 0.075rem 0.075rem 0.15rem ${p => p.color};

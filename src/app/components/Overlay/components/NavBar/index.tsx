@@ -114,7 +114,8 @@ const HomeLink = styled(NavLink)`
   justify-content: end;
   text-decoration: none;
   img {
-    max-height: calc(${StyleConstants.NAV_BAR_HEIGHT} - 1rem);
+    height: calc(${StyleConstants.NAV_BAR_HEIGHT} - 1rem);
+    aspect-ratio: 1;
   }
   span {
     font-size: 0.875rem;

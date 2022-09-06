@@ -24,7 +24,7 @@ export const ExpSelector = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper aria-label="Expansion Selector">
       <FormLabel>{t(...messages.selectLanguage())}</FormLabel>
       <Expansions>
         {groups[Group.Exp].sets

@@ -15,7 +15,10 @@ export const ViewBar = () => {
   const dispatch = useDispatch()
 
   return (
-    <Wrapper isHidden={filters.hideViewbar}>
+    <Wrapper
+      isHidden={filters.hideViewbar}
+      aria-label="Search, view, and filter"
+    >
       <ViewSwitch
         title="filter"
         onClick={() => {
@@ -28,6 +31,7 @@ export const ViewBar = () => {
       <SearchBar
         defaultValue={filters.query}
         onChange={e => dispatch(actions.setQuery(e.target.value.toLowerCase()))}
+        aria-label="search"
       />
       <ViewSwitch
         onClick={() =>

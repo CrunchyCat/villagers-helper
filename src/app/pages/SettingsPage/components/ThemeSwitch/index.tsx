@@ -21,7 +21,7 @@ export const ThemeSwitch = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper aria-label="Theme Selector">
       <FormLabel>{t(...messages.selectTheme())}</FormLabel>
       <Themes>
         <Radio

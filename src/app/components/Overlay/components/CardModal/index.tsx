@@ -167,11 +167,11 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
       )}
       <SetBottom>
         <ItemsCenter>
-          <ImgSmall src={suit.img} alt={suit.name} />
+          <ImgSquare src={suit.img} alt={suit.name} />
           {suit.name}
         </ItemsCenter>
         <ItemsCenter>
-          <ImgSmall src={exp.img} alt={exp.name} />
+          <ImgSquare src={exp.img} alt={exp.name} />
           {exp.name}
         </ItemsCenter>
       </SetBottom>
@@ -229,6 +229,7 @@ const ColorStrip = styled.div<{ color: string }>`
     position: absolute;
     align-self: center;
     width: clamp(1.75rem, 13vh, 3.75rem);
+    aspect-ratio: 1;
   }
   span {
     position: absolute;
@@ -356,6 +357,12 @@ const ImgSmall = styled.img`
   max-height: 1.825rem;
   width: auto;
   height: auto;
+`
+
+const ImgSquare = styled(ImgSmall)`
+  max-width: 2rem;
+  max-height: 2rem;
+  aspect-ratio: 1;
 `
 
 const IconFoods = styled.div`
