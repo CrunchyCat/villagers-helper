@@ -25,19 +25,9 @@ export const App = () => {
 
   return (
     <BrowserRouter>
-      <Helmet
-        titleTemplate="%s - vilrs"
-        defaultTitle="vilrs"
-        htmlAttributes={{ lang: i18n.language }}
-      ></Helmet>
-      <Backdrop
-        show={overlayState.showBackdrop}
-        clickClose={() => dispatch(actions.closeAll())}
-      />
-      <SideDrawer
-        show={overlayState.showDrawer}
-        clickClose={() => dispatch(actions.toggleSideDrawer(false))}
-      />
+      <Helmet titleTemplate="%s - vilrs" defaultTitle="vilrs" htmlAttributes={{ lang: i18n.language }}></Helmet>
+      <Backdrop show={overlayState.showBackdrop} clickClose={() => dispatch(actions.closeAll())} />
+      <SideDrawer show={overlayState.showDrawer} clickClose={() => dispatch(actions.toggleSideDrawer(false))} />
       <UpdateModal />
       <CardModal
         show={overlayState.showCardModal}

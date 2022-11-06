@@ -10,30 +10,18 @@ interface Props {
 export const IconCoin = ({ gold, width, height }: Props) => {
   if (gold.type === 'Gold')
     return (
-      <CoinGold
-        width={width}
-        height={height}
-        title={`${gold.amt} ${gold.type} ${gold.condition}`}
-      >
+      <CoinGold width={width} height={height} title={`${gold.amt} ${gold.type} ${gold.condition}`}>
         <div>{gold.amt === 0.5 ? '1/2' : gold.amt}</div>
       </CoinGold>
     )
   else if (gold.type === 'Silver')
     return (
-      <CoinSilver
-        width={width}
-        height={height}
-        title={`${gold.amt} ${gold.type} ${gold.condition}`}
-      >
+      <CoinSilver width={width} height={height} title={`${gold.amt} ${gold.type} ${gold.condition}`}>
         <div>{gold.amt === 0.5 ? '1/2' : gold.amt}</div>
       </CoinSilver>
     )
   return (
-    <CoinBronze
-      width={width}
-      height={height}
-      title={`${gold.amt} ${gold.type} ${gold.condition}`}
-    >
+    <CoinBronze width={width} height={height} title={`${gold.amt} ${gold.type} ${gold.condition}`}>
       <div>{gold.amt === 0.5 ? '1/2' : gold.amt}</div>
     </CoinBronze>
   )

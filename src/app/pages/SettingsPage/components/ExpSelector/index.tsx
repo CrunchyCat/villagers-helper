@@ -16,9 +16,7 @@ export const ExpSelector = () => {
   const dispatch = useDispatch()
 
   const handleSelectedExpChange = id => {
-    const newExps = selectedExps.includes(id)
-      ? selectedExps.filter(i => i !== id)
-      : selectedExps.concat(id)
+    const newExps = selectedExps.includes(id) ? selectedExps.filter(i => i !== id) : selectedExps.concat(id)
     saveSelectedExps(newExps)
     dispatch(actions.setSelectedExpansions(newExps))
   }

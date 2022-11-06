@@ -26,11 +26,7 @@ export const NavBar = ({ title, btnSearch }: Props) => {
       {theme === themes.light && <ColorBG />}
 
       <NavLeft className="mobile">
-        <DrawerToggleButton
-          click={() =>
-            dispatch(actions.toggleSideDrawer(!overlayState.showDrawer))
-          }
-        />
+        <DrawerToggleButton click={() => dispatch(actions.toggleSideDrawer(!overlayState.showDrawer))} />
       </NavLeft>
       <HomeLink to="/" className="desktop">
         <img src={logo} alt="vilrs" />
@@ -41,9 +37,7 @@ export const NavBar = ({ title, btnSearch }: Props) => {
 
       <Title>{title}</Title>
 
-      <NavRight className="mobile">
-        {btnSearch && <div onClick={btnSearch} />}
-      </NavRight>
+      <NavRight className="mobile">{btnSearch && <div onClick={btnSearch} />}</NavRight>
       {/* prettier-ignore */}
       <NavLinks className="desktop">
         <NavLink to="/rules"className={({ isActive }) => (isActive ? 'active' : 'inactive')}  title="game rules">rules</NavLink>
@@ -60,18 +54,14 @@ const TopBar = styled.header`
   top: 0;
   width: 100%;
   height: calc(${StyleConstants.COMBINED_BAR_HEIGHT});
-  padding: calc(${StyleConstants.STATUS_BAR_HEIGHT})
-    calc(1.5rem + env(safe-area-inset-right)) 0
+  padding: calc(${StyleConstants.STATUS_BAR_HEIGHT}) calc(1.5rem + env(safe-area-inset-right)) 0
     calc(1.5rem + env(safe-area-inset-left));
   z-index: 5;
   display: flex;
   box-shadow: 0 1px 0 0 ${p => p.theme.borderLight};
   backdrop-filter: blur(6px);
   background-color: ${p =>
-    p.theme.background.replace(
-      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-      'rgba$1,0.75)'
-    )};
+    p.theme.background.replace(/rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/, 'rgba$1,0.75)')};
 
   .desktop {
     display: none !important;

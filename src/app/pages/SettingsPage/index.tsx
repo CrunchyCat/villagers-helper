@@ -18,9 +18,7 @@ export const SettingsPage = () => (
       <SettingsWrapper>
         <div>
           <FormLabel>configurations</FormLabel>
-          <P style={{ margin: '.5rem 0 0 0' }}>
-            user configurations will be shown here.
-          </P>
+          <P style={{ margin: '.5rem 0 0 0' }}>user configurations will be shown here.</P>
         </div>
         <ExpSelector />
         <LanguageSwitch />
@@ -36,8 +34,7 @@ const Wrapper = styled.main`
   height: 100%;
   max-height: 49.25rem;
   margin: 0 auto;
-  padding: 1rem max(1rem, env(safe-area-inset-right))
-    calc(1rem + env(safe-area-inset-bottom))
+  padding: 1rem max(1rem, env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom))
     max(1rem, env(safe-area-inset-left));
   display: flex;
   flex-direction: column;

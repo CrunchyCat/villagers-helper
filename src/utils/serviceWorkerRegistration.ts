@@ -16,9 +16,7 @@ export function register(config?: Config) {
         })
           .then(res => {
             if (res.status === 404)
-              navigator.serviceWorker.ready.then(reg =>
-                reg.unregister().then(() => window.location.reload())
-              )
+              navigator.serviceWorker.ready.then(reg => reg.unregister().then(() => window.location.reload()))
             else registerValidSW(config) // Service worker found. Proceed as normal.
           })
           .catch(() => console.log('vilrs is running in offline mode'))

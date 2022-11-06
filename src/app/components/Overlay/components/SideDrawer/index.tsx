@@ -10,34 +10,22 @@ export const SideDrawer = ({ show, clickClose }: Props) => (
   <Drawer show={show}>
     <DrawerList>
       <DrawerListItem onClick={clickClose}>
-        <NavLink
-          className={({ isActive }) => (isActive ? 'active' : 'inactive')}
-          to="/rules"
-        >
+        <NavLink className={({ isActive }) => (isActive ? 'active' : 'inactive')} to="/rules">
           rules
         </NavLink>
       </DrawerListItem>
       <DrawerListItem onClick={clickClose}>
-        <NavLink
-          className={({ isActive }) => (isActive ? 'active' : 'inactive')}
-          to="/configs"
-        >
+        <NavLink className={({ isActive }) => (isActive ? 'active' : 'inactive')} to="/configs">
           configurations
         </NavLink>
       </DrawerListItem>
       <DrawerListItem onClick={clickClose}>
-        <NavLink
-          className={({ isActive }) => (isActive ? 'active' : 'inactive')}
-          to="/cards"
-        >
+        <NavLink className={({ isActive }) => (isActive ? 'active' : 'inactive')} to="/cards">
           cards
         </NavLink>
       </DrawerListItem>
       <DrawerListItem onClick={clickClose}>
-        <NavLink
-          className={({ isActive }) => (isActive ? 'active' : 'inactive')}
-          to="/settings"
-        >
+        <NavLink className={({ isActive }) => (isActive ? 'active' : 'inactive')} to="/settings">
           settings
         </NavLink>
       </DrawerListItem>

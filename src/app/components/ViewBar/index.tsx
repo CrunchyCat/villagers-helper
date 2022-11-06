@@ -15,10 +15,7 @@ export const ViewBar = () => {
   const dispatch = useDispatch()
 
   return (
-    <Wrapper
-      isHidden={filters.hideViewbar}
-      aria-label="Search, view, and filter"
-    >
+    <Wrapper isHidden={filters.hideViewbar} aria-label="Search, view, and filter">
       <ViewSwitch
         title="filter"
         onClick={() => {
@@ -34,17 +31,13 @@ export const ViewBar = () => {
         aria-label="search"
       />
       <ViewSwitch
-        onClick={() =>
-          dispatch(actions.setGroup((filters.group + 1) % GROUPS_LENGTH))
-        }
+        onClick={() => dispatch(actions.setGroup((filters.group + 1) % GROUPS_LENGTH))}
         title={`group by: ${groups[filters.group].name}`}
       >
         <IconToggleGroup group={filters.group} width="1.5rem" height="1.5rem" />
       </ViewSwitch>
       <ViewSwitch
-        onClick={() =>
-          dispatch(actions.setView((filters.view + 1) % VIEWS_LENGTH))
-        }
+        onClick={() => dispatch(actions.setView((filters.view + 1) % VIEWS_LENGTH))}
         title={`${View[filters.view]} view`}
       >
         <IconToggleView view={filters.view} width="1.5rem" height="1.5rem" />
@@ -67,8 +60,7 @@ const Wrapper = styled.div<{ isHidden: boolean }>`
   gap: 1.5%;
   opacity: ${p => (p.isHidden ? '0' : '1')};
   transform: ${p => (p.isHidden ? 'translateY(-7rem)' : 'translateX(0)')};
-  transition: height 0.4s, padding-top 0.1s, opacity 0.8s,
-    transform 0.5s ease-out;
+  transition: height 0.4s, padding-top 0.1s, opacity 0.8s, transform 0.5s ease-out;
 
   ${mediaMinMedium} {
     height: 3.5rem;
@@ -97,10 +89,7 @@ const SearchBar = styled.input`
 
   backdrop-filter: blur(2px);
   background-color: ${p =>
-    p.theme.backgroundVariant.replace(
-      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-      'rgba$1,0.85)'
-    )};
+    p.theme.backgroundVariant.replace(/rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/, 'rgba$1,0.85)')};
 
   @media only screen and (pointer: fine) {
     &:hover {
@@ -125,10 +114,7 @@ const ViewSwitch = styled.div`
   stroke: ${p => p.theme.text};
   backdrop-filter: blur(2px);
   background-color: ${p =>
-    p.theme.backgroundVariant.replace(
-      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-      'rgba$1,0.85)'
-    )};
+    p.theme.backgroundVariant.replace(/rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/, 'rgba$1,0.85)')};
   border: 0.1rem solid ${p => p.theme.textSecondary};
   border-radius: 1.5rem;
   user-select: none;

@@ -10,12 +10,7 @@ interface Props {
   selectCard: (cardID: Villager, show: boolean) => void
 }
 
-export const VillagersCard = ({
-  cardID,
-  view,
-  editMode,
-  selectCard
-}: Props) => {
+export const VillagersCard = ({ cardID, view, editMode, selectCard }: Props) => {
   const card = cards[cardID]
   const color = groups[Group.Suit].sets[card.suit].color
 

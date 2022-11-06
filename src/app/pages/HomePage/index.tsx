@@ -14,11 +14,7 @@ export const HomePage = () => (
       <Title>vilrs</Title>
       <Lead>
         this was <strong>created</strong> by{' '}
-        <A
-          href="http://www.calebhoff.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <A href="http://www.calebhoff.com" target="_blank" rel="noopener noreferrer">
           Caleb
         </A>
       </Lead>

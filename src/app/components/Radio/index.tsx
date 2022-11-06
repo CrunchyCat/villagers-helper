@@ -1,10 +1,7 @@
 import { memo } from 'react'
 import styled from 'styled-components/macro'
 
-type InputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->
+type InputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 interface Props extends InputProps {
   id: string
@@ -13,14 +10,12 @@ interface Props extends InputProps {
   isSelected?: boolean
 }
 
-export const Radio = memo(
-  ({ id, label, className, isSelected, ...restOf }: Props) => (
-    <Wrapper className={className}>
-      <input type="radio" id={id} checked={isSelected} {...restOf} />
-      <label htmlFor={id}>{label}</label>
-    </Wrapper>
-  )
-)
+export const Radio = memo(({ id, label, className, isSelected, ...restOf }: Props) => (
+  <Wrapper className={className}>
+    <input type="radio" id={id} checked={isSelected} {...restOf} />
+    <label htmlFor={id}>{label}</label>
+  </Wrapper>
+))
 
 const Wrapper = styled.div`
   input[type='radio'] {
@@ -97,11 +92,7 @@ const Wrapper = styled.div`
       + label {
         &::before {
           box-shadow: 0 0 0 3px
-            ${p =>
-              p.theme.primary.replace(
-                /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-                'rgba$1,0.2)'
-              )};
+            ${p => p.theme.primary.replace(/rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/, 'rgba$1,0.2)')};
         }
       }
     }

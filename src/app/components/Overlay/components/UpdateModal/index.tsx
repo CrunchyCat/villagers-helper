@@ -8,9 +8,7 @@ import { IconGithub } from 'app/Icons/IconGithub'
 
 export const UpdateModal = () => {
   const [hasUpdate, setHasUpdate] = useState(false)
-  const [updateInfo, setUpdateInfo] = useState([
-    { title: 'loading...' } as UpdateInfoType
-  ])
+  const [updateInfo, setUpdateInfo] = useState([{ title: 'loading...' } as UpdateInfoType])
 
   // Register Service Worker for Offline Support & Show Update Modal
   register({
@@ -24,14 +22,10 @@ export const UpdateModal = () => {
           }),
         100
       )
-      fetch(
-        'https://raw.githubusercontent.com/qeleb/villagers-helper/gh-pages/changelog.json'
-      )
+      fetch('https://raw.githubusercontent.com/qeleb/villagers-helper/gh-pages/changelog.json')
         .then(resp => resp.text())
         .then(data => setUpdateInfo(JSON.parse(data)))
-        .catch(() =>
-          setUpdateInfo([{ title: "can't load changelog" } as UpdateInfoType])
-        )
+        .catch(() => setUpdateInfo([{ title: "can't load changelog" } as UpdateInfoType]))
     }
   })
 
@@ -122,8 +116,7 @@ const ModalWindow = styled.div`
   max-width: 50rem;
   height: 100%;
   max-height: 30rem;
-  margin: clamp(0px, calc(50vh - 15rem), 100vh)
-    clamp(calc(50vw - 25rem), 3vw, 100vw);
+  margin: clamp(0px, calc(50vh - 15rem), 100vh) clamp(calc(50vw - 25rem), 3vw, 100vw);
   z-index: 9;
   display: flex;
   flex-direction: column;
@@ -131,10 +124,7 @@ const ModalWindow = styled.div`
   color: ${p => p.theme.text};
   backdrop-filter: blur(14px);
   background-color: ${p =>
-    p.theme.backgroundVariant.replace(
-      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-      'rgba$1,0.9)'
-    )};
+    p.theme.backgroundVariant.replace(/rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/, 'rgba$1,0.9)')};
   border: 2px solid ${p => p.theme.background};
   border-radius: 1.5rem;
   overflow: hidden;
@@ -181,10 +171,7 @@ const SetDesc = styled.div`
   font-size: clamp(0.85rem, 2vmin, 1.25rem);
   border-radius: 0.75rem;
   background-color: ${p =>
-    p.theme.background.replace(
-      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-      'rgba$1,0.4)'
-    )};
+    p.theme.background.replace(/rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/, 'rgba$1,0.4)')};
   overflow-y: auto;
 `
 
@@ -232,10 +219,7 @@ const BtnCenter = styled(TextCenter)`
   margin: 0 auto;
   color: ${p => p.theme.text};
   background-color: ${p =>
-    p.theme.backgroundVariant.replace(
-      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-      'rgba$1,0.85)'
-    )};
+    p.theme.backgroundVariant.replace(/rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/, 'rgba$1,0.85)')};
   border: 1px solid ${p => p.theme.textSecondary};
   cursor: pointer;
   user-select: none;

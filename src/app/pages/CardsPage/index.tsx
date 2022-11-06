@@ -16,12 +16,7 @@ export const CardsPage = () => {
         <title>cards</title>
         <meta name="description" content="cards" />
       </Helmet>
-      <NavBar
-        title="cards"
-        btnSearch={() =>
-          dispatch(actions.setViewbarHidden(!filters.hideViewbar))
-        }
-      />
+      <NavBar title="cards" btnSearch={() => dispatch(actions.setViewbarHidden(!filters.hideViewbar))} />
       <VillagersCardsViewer />
     </>
   )

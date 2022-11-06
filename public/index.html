@@ -3,29 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover"
-    />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="color-scheme" content="dark light" />
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: dark)"
-      content="black"
-    />
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: light)"
-      content="white"
-    />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="white" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--NOTE: %PUBLIC_URL% is replaced with `public` folder URL during build. HTML only uses
-      `public` folder files. Learn to configure a non-root public URL by running `npm run build`.-->
     <meta property="og:title" content="vilrs" />
     <meta property="og:description" content="A helpful tool for villagers" />
     <!--TODO: Add a Banner Image Here -->
@@ -51,11 +35,7 @@
               return s.replace(/~and~/g, '&')
             })
             .join('?')
-          window.history.replaceState(
-            null,
-            null,
-            l.pathname.slice(0, -1) + decoded + l.hash
-          )
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash)
         }
       })(window.location)
     </script>

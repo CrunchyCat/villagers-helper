@@ -5,9 +5,7 @@ interface Props {
   clickClose: () => void
 }
 
-export const Backdrop = ({ show, clickClose }: Props) => (
-  <Tint onClick={clickClose} show={show} />
-)
+export const Backdrop = ({ show, clickClose }: Props) => <Tint onClick={clickClose} show={show} />
 
 const Tint = styled.div<{ show: boolean }>`
   position: fixed;

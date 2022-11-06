@@ -20,9 +20,7 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
   const card = cards[cardID]
   const suit = groups[Group.Suit].sets[card.suit]
   const exp = groups[Group.Exp].sets[card.exp]
-  const unlocks = cards
-    .map((v, i) => ({ v, i }))
-    .filter(v => v.v.lock === cardID)
+  const unlocks = cards.map((v, i) => ({ v, i })).filter(v => v.v.lock === cardID)
 
   return (
     <Modal show={show}>
@@ -38,32 +36,14 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
               }} //TODO: Allow for more than 2 symbols
             />
           ))}
-          {card.discard && (
-            <IconUse
-              playType="discard"
-              color={suit.color}
-              width="1.5rem"
-              height="2.25rem"
-            />
+          {card.discard && <IconUse playType="discard" color={suit.color} width="1.5rem" height="2.25rem" />}
+          {!card.above && card.suit !== Suit.Solitary && card.suit !== Suit.Special && (
+            <IconUse playType="2" color={suit.color} width="1.5rem" height="2.25rem" />
           )}
-          {!card.above &&
-            card.suit !== Suit.Solitary &&
-            card.suit !== Suit.Special && (
-              <IconUse
-                playType="2"
-                color={suit.color}
-                width="1.5rem"
-                height="2.25rem"
-              />
-            )}
           {card.below && (
             <IconUse
               playType={card.suit === Suit.Special ? '3' : '1'}
-              color={
-                card.suit === Suit.Special
-                  ? groups[Group.Suit].sets[Suit.Unknown].color
-                  : suit.color
-              }
+              color={card.suit === Suit.Special ? groups[Group.Suit].sets[Suit.Unknown].color : suit.color}
               width="1.5rem"
               height="2.25rem"
             />
@@ -82,10 +62,7 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
             onClick={() => card.lock && clickChange(card.lock)}
             title={`${card.name} is unlocked by ${cards[card.lock].name}`}
           >
-            <ImgSmall
-              src={icon_lock}
-              alt={`unlocked by: ${cards[card.lock].name}`}
-            />
+            <ImgSmall src={icon_lock} alt={`unlocked by: ${cards[card.lock].name}`} />
             <CardLink>{cards[card.lock].name}</CardLink>
           </ItemsCenter>
         )}
@@ -94,13 +71,9 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
             <ItemsCenter>
               {cardID === Villager.Founders
                 ? 'Starting card'
-                : `Play ${
-                    cardID === Villager.Courier
-                      ? "at start of a player's"
-                      : 'during'
-                  } ${card?.draftPlay ? 'Draft' : 'Build'} Phase ${
-                    card?.discard ? '& Discard' : ''
-                  }`}
+                : `Play ${cardID === Villager.Courier ? "at start of a player's" : 'during'} ${
+                    card?.draftPlay ? 'Draft' : 'Build'
+                  } Phase ${card?.discard ? '& Discard' : ''}`}
             </ItemsCenter>
             <ItemsCenter>{card.use}</ItemsCenter>
           </>
@@ -109,11 +82,7 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
           <SepLine />
           {!!unlocks.length && (
             <ItemsSplit>
-              <ImgSmall
-                src={icon_unlock}
-                style={{ margin: '0 0.5rem 0 0.2rem' }}
-                alt={`unlocks other villagers`}
-              />
+              <ImgSmall src={icon_unlock} style={{ margin: '0 0.5rem 0 0.2rem' }} alt={`unlocks other villagers`} />
               <ItemSet>
                 {unlocks.map(v => (
                   <CardLink onClick={() => clickChange(v.i)} key={v.i}>
@@ -137,11 +106,7 @@ export const CardModal = ({ show, cardID, clickClose, clickChange }: Props) => {
             <ItemsSplit>
               <ItemSet style={{ marginLeft: '0.35rem' }}>
                 {[...Array(card.builders).keys()].map(i => (
-                  <ImgSmall
-                    src={icon_builder}
-                    alt={`${card.builders} Builder(s)`}
-                    key={i}
-                  />
+                  <ImgSmall src={icon_builder} alt={`${card.builders} Builder(s)`} key={i} />
                 ))}
               </ItemSet>
               <span>{card.builders} Builder(s)</span>
@@ -191,10 +156,7 @@ const Modal = styled.div<{ show: boolean }>`
   overflow: hidden;
   backdrop-filter: blur(14px);
   background-color: ${p =>
-    p.theme.backgroundVariant.replace(
-      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-      'rgba$1,0.92)'
-    )};
+    p.theme.backgroundVariant.replace(/rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/, 'rgba$1,0.92)')};
 
   top: 28%;
   width: 96%;
@@ -210,8 +172,7 @@ const Modal = styled.div<{ show: boolean }>`
     max-width: 50rem;
     height: 100%;
     max-height: 40rem;
-    margin: clamp(0px, calc(50vh - 20rem), 100vh)
-      clamp(calc(50vw - 25rem), 10vw, 100vw);
+    margin: clamp(0px, calc(50vh - 20rem), 100vh) clamp(calc(50vw - 25rem), 10vw, 100vw);
     border-radius: 1.5rem;
     opacity: ${p => (p.show ? '1' : '0')};
     transform: ${p => (p.show ? 'translateY(0)' : 'translateY(30%)')};
@@ -282,10 +243,7 @@ const SetDesc = styled.div`
   font-size: clamp(0.7rem, min(4vw, 3.5vh), 1.5rem);
   border-radius: 0.75rem;
   background-color: ${p =>
-    p.theme.background.replace(
-      /rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/,
-      'rgba$1,0.4)'
-    )};
+    p.theme.background.replace(/rgba?(\(\s*\d+\s*,\s*\d+\s*,\s*\d+)(?:\s*,.+?)?\)/, 'rgba$1,0.4)')};
   overflow-y: auto;
 
   div:first-child {

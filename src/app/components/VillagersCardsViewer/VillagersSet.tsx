@@ -34,9 +34,7 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
     // dispatch(userActions.setConfiguration(newConfiguration))
   }
 
-  const cardsAvailable = set.cards.filter(id =>
-    selectedExps.includes(cards[id].exp)
-  ) // Filter to only show selected expansions
+  const cardsAvailable = set.cards.filter(id => selectedExps.includes(cards[id].exp)) // Filter to only show selected expansions
 
   const cardsFiltered = cardsAvailable
     .filter(id => cards[id].name.toLowerCase().indexOf(query) > -1) // Filter by search filter string
@@ -57,22 +55,12 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
               const card = cards[cardID]
               return (
                 //TODO: add compact edit mode
-                <tr
-                  onClick={() => dispatch(overlayActions.setCardModal(cardID))}
-                  key={i}
-                >
+                <tr onClick={() => dispatch(overlayActions.setCardModal(cardID))} key={i}>
                   <td>{card.name}</td>
                   <td>
                     {card.lock && (
-                      <IconText
-                        title={`${card.name} is unlocked by ${
-                          cards[card.lock].name
-                        }`}
-                      >
-                        <img
-                          src={icon_lock}
-                          alt={`unlocked by: ${cards[card.lock].name}`}
-                        />
+                      <IconText title={`${card.name} is unlocked by ${cards[card.lock].name}`}>
+                        <img src={icon_lock} alt={`unlocked by: ${cards[card.lock].name}`} />
                         {cards[card.lock].name}
                       </IconText>
                     )}
@@ -81,11 +69,7 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
                     {!!card.food && (
                       <IconFoods>
                         {[...Array(card.food).keys()].map(i => (
-                          <IconFood
-                            width="1.825rem"
-                            height="1.825rem"
-                            key={i}
-                          />
+                          <IconFood width="1.825rem" height="1.825rem" key={i} />
                         ))}
                       </IconFoods>
                     )}
@@ -94,23 +78,13 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
                     {!!card.builders && (
                       <IconText>
                         {[...Array(card.builders).keys()].map(i => (
-                          <img
-                            src={icon_builder}
-                            alt={`${card.builders} Builder(s)`}
-                            key={i}
-                          />
+                          <img src={icon_builder} alt={`${card.builders} Builder(s)`} key={i} />
                         ))}
                       </IconText>
                     )}
                   </td>
                   <td>
-                    {card.gold && (
-                      <IconCoin
-                        gold={card.gold}
-                        width="1.825rem"
-                        height="1.825rem"
-                      />
-                    )}
+                    {card.gold && <IconCoin gold={card.gold} width="1.825rem" height="1.825rem" />}
                     {card.discard && (
                       <IconUse
                         playType="discard"
@@ -141,9 +115,7 @@ export const VillagersSet = ({ setID, set, query, view, editMode }: Props) => {
                 view={view}
                 editMode={editMode}
                 selectCard={(cardID, show) =>
-                  show
-                    ? dispatch(overlayActions.setCardModal(cardID))
-                    : handledDisabledCardsChange(cardID)
+                  show ? dispatch(overlayActions.setCardModal(cardID)) : handledDisabledCardsChange(cardID)
                 }
                 key={i}
               />
@@ -167,10 +139,7 @@ const SetWrapper = styled.div<{ color: string; compact: boolean }>`
   transition: all 0.35s ease-in-out;
 
   @media only screen and (display-mode: standalone) {
-    width: calc(
-      100% - 0.65 * env(safe-area-inset-left) - 0.65 *
-        env(safe-area-inset-right)
-    );
+    width: calc(100% - 0.65 * env(safe-area-inset-left) - 0.65 * env(safe-area-inset-right));
   }
 `
 
